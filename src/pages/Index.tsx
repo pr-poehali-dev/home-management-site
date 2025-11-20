@@ -9,11 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Textarea } from "@/components/ui/textarea";
 
 const Index = () => {
   const [meterValue, setMeterValue] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const [activeSection, setActiveSection] = useState("home");
+  const [feedbackForm, setFeedbackForm] = useState({ name: "", phone: "", message: "" });
 
   const news = [
     {
@@ -80,6 +82,17 @@ const Index = () => {
     { id: 5, address: "ул. Гагарина, 7", x: 75, y: 55 }
   ];
 
+  const managedHouses = [
+    { address: "ул. Ленина, 12", floors: 9, entrances: 4, apartments: 144, year: 1985 },
+    { address: "ул. Ленина, 14", floors: 9, entrances: 4, apartments: 144, year: 1985 },
+    { address: "ул. Пушкина, 8", floors: 12, entrances: 3, apartments: 216, year: 1990 },
+    { address: "ул. Пушкина, 10", floors: 12, entrances: 3, apartments: 216, year: 1990 },
+    { address: "ул. Гагарина, 5", floors: 16, entrances: 2, apartments: 192, year: 2005 },
+    { address: "ул. Гагарина, 7", floors: 16, entrances: 2, apartments: 192, year: 2005 },
+    { address: "ул. Тверская, 23", floors: 10, entrances: 5, apartments: 200, year: 1978 },
+    { address: "ул. Садовая, 15", floors: 14, entrances: 3, apartments: 252, year: 2000 }
+  ];
+
   const scrollToSection = (section: string) => {
     setActiveSection(section);
     const element = document.getElementById(section);
@@ -104,7 +117,7 @@ const Index = () => {
             </div>
 
             <div className="hidden lg:flex items-center gap-1">
-              {["home", "about", "news", "services", "documents", "contacts"].map((section) => (
+              {["home", "about", "houses", "news", "services", "documents", "contacts"].map((section) => (
                 <Button
                   key={section}
                   variant={activeSection === section ? "default" : "ghost"}
@@ -113,6 +126,7 @@ const Index = () => {
                 >
                   {section === "home" && "Главная"}
                   {section === "about" && "О компании"}
+                  {section === "houses" && "Наши дома"}
                   {section === "news" && "Новости"}
                   {section === "services" && "Услуги"}
                   {section === "documents" && "Документы"}
@@ -129,7 +143,7 @@ const Index = () => {
               </SheetTrigger>
               <SheetContent>
                 <div className="flex flex-col gap-4 mt-8">
-                  {["home", "about", "news", "services", "documents", "contacts"].map((section) => (
+                  {["home", "about", "houses", "news", "services", "documents", "contacts"].map((section) => (
                     <Button
                       key={section}
                       variant="ghost"
@@ -138,6 +152,7 @@ const Index = () => {
                     >
                       {section === "home" && "Главная"}
                       {section === "about" && "О компании"}
+                      {section === "houses" && "Наши дома"}
                       {section === "news" && "Новости"}
                       {section === "services" && "Услуги"}
                       {section === "documents" && "Документы"}
@@ -341,6 +356,49 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="houses" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Дома под нашим управлением</h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Мы обслуживаем {managedHouses.length} многоквартирных домов в разных районах города
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {managedHouses.map((house, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{animationDelay: `${index * 0.05}s`, animationFillMode: 'both'}}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Icon name="Building" className="text-primary" size={20} />
+                      {house.address}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-muted-foreground">Этажей</p>
+                        <p className="font-semibold text-lg">{house.floors}</p>
+                      </div>
+                      <div>
+                        <p className="text-muted-foreground">Подъездов</p>
+                        <p className="font-semibold text-lg">{house.entrances}</p>
+                      </div>
+                      <div>
+                        <p className="text-muted-foreground">Квартир</p>
+                        <p className="font-semibold text-lg">{house.apartments}</p>
+                      </div>
+                      <div>
+                        <p className="text-muted-foreground">Год постройки</p>
+                        <p className="font-semibold text-lg">{house.year}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="news" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -506,6 +564,68 @@ const Index = () => {
                   <span className="font-medium">Правила содержания домашних животных</span>
                   <Icon name="ChevronRight" className="text-muted-foreground" />
                 </a>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="feedback" className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Форма обратной связи</h2>
+            <Card className="animate-fade-in-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="MessageSquare" className="text-primary" />
+                  Отправьте заявку или задайте вопрос
+                </CardTitle>
+                <CardDescription>
+                  Мы ответим в течение 24 часов в рабочие дни
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Ваше имя *</Label>
+                    <Input
+                      id="name"
+                      placeholder="Иван Иванов"
+                      value={feedbackForm.name}
+                      onChange={(e) => setFeedbackForm({...feedbackForm, name: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Телефон *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+7 (999) 123-45-67"
+                      value={feedbackForm.phone}
+                      onChange={(e) => setFeedbackForm({...feedbackForm, phone: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Ваше сообщение *</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Опишите вашу проблему или вопрос..."
+                      value={feedbackForm.message}
+                      onChange={(e) => setFeedbackForm({...feedbackForm, message: e.target.value})}
+                      rows={5}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" size="lg" className="w-full gap-2">
+                    <Icon name="Send" size={20} />
+                    Отправить заявку
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+                  </p>
+                </form>
               </CardContent>
             </Card>
           </div>
