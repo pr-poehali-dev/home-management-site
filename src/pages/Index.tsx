@@ -45,28 +45,53 @@ const Index = () => {
 
   const services = [
     {
-      name: "Содержание дома",
-      price: "25.50",
-      unit: "₽/м²",
-      description: "Уборка подъездов, озеленение территории, вывоз мусора"
+      category: "Управление",
+      items: [
+        "Администрирование: организация и контроль всех рабочих процессов",
+        "Финансовое обслуживание: планирование, бухучет, учет расчетов",
+        "Юридическое сопровождение договорной деятельности"
+      ]
     },
     {
-      name: "Текущий ремонт",
-      price: "8.20",
-      unit: "₽/м²",
-      description: "Ремонт общего имущества, покраска, мелкие работы"
+      category: "Техническое обслуживание",
+      items: [
+        "Техническое обслуживание инженерных систем здания",
+        "Технический надзор за состоянием общего имущества",
+        "Текущий ремонт общего имущества дома",
+        "Незамедлительное устранение аварий и неисправностей",
+        "Выполнение работ по заявкам жителей"
+      ]
     },
     {
-      name: "Отопление",
-      price: "42.30",
-      unit: "₽/м²",
-      description: "Централизованное отопление квартир и подъездов"
+      category: "Санитарное содержание",
+      items: [
+        "Поддержание в надлежащем санитарном состоянии",
+        "Сбор и вывоз мусора"
+      ]
     },
     {
-      name: "Вода (холодная)",
-      price: "18.50",
-      unit: "₽/м³",
-      description: "Поставка холодной воды"
+      category: "Благоустройство",
+      items: [
+        "Уход за зелеными насаждениями",
+        "Обслуживание предметов интерьера на территории",
+        "Разработка проектов по благоустройству"
+      ]
+    },
+    {
+      category: "Обеспечение безопасности",
+      items: [
+        "Круглосуточная охрана жилого комплекса и паркинга",
+        "Организация службы видеонаблюдения и контроля",
+        "Взаимодействие с органами полиции и пожарной инспекции"
+      ]
+    },
+    {
+      category: "Аварийная диспетчерская служба",
+      items: [
+        "Круглосуточное дежурство диспетчера",
+        "Постоянный контроль за состоянием инженерных систем",
+        "Вызов аварийных служб при аварийных ситуациях"
+      ]
     }
   ];
 
@@ -77,22 +102,34 @@ const Index = () => {
   ];
 
   const houses = [
-    { id: 1, address: "ул. Ленина, 12", x: 20, y: 30 },
-    { id: 2, address: "ул. Ленина, 14", x: 35, y: 25 },
-    { id: 3, address: "ул. Пушкина, 8", x: 60, y: 40 },
-    { id: 4, address: "ул. Гагарина, 5", x: 45, y: 60 },
-    { id: 5, address: "ул. Гагарина, 7", x: 75, y: 55 }
+    { id: 1, address: "ЖК Золотое сечение", x: 25, y: 35 },
+    { id: 2, address: "ЖК Остров", x: 40, y: 25 },
+    { id: 3, address: "ЖК Пляж", x: 65, y: 45 },
+    { id: 4, address: "ЖК Наука", x: 50, y: 65 },
+    { id: 5, address: "ЖК NewПитер", x: 75, y: 50 },
+    { id: 6, address: "Кудрово", x: 85, y: 30 },
+    { id: 7, address: "ЖК Панорама", x: 15, y: 55 },
+    { id: 8, address: "ЖК Адмирал", x: 35, y: 70 }
   ];
 
   const managedHouses = [
-    { address: "ул. Ленина, 12", floors: 9, entrances: 4, apartments: 144, year: 1985 },
-    { address: "ул. Ленина, 14", floors: 9, entrances: 4, apartments: 144, year: 1985 },
-    { address: "ул. Пушкина, 8", floors: 12, entrances: 3, apartments: 216, year: 1990 },
-    { address: "ул. Пушкина, 10", floors: 12, entrances: 3, apartments: 216, year: 1990 },
-    { address: "ул. Гагарина, 5", floors: 16, entrances: 2, apartments: 192, year: 2005 },
-    { address: "ул. Гагарина, 7", floors: 16, entrances: 2, apartments: 192, year: 2005 },
-    { address: "ул. Тверская, 23", floors: 10, entrances: 5, apartments: 200, year: 1978 },
-    { address: "ул. Садовая, 15", floors: 14, entrances: 3, apartments: 252, year: 2000 }
+    { name: "Поселок 'Сад Времени'", address: "ул. Беловой д. 1г стр. 1", manager: "Александр Васильевич Павлюк", phone: "+7 931 251 1040" },
+    { name: "ЖК 'Золотое сечение'", address: "ул. Васенко, д 12 литера А", manager: "Екатерина Васильевна Павлова", phone: "+7 921 334-43-74" },
+    { name: "ЖК 'Золотое сечение'", address: "просп. Металлистов, д. 116, корп. 1 литера А", manager: "Екатерина Васильевна Павлова", phone: "+7 921 334-43-74" },
+    { name: "ЖК 'Остров'", address: "Петровский проспект, д. 5, стр. 1", manager: "Евдокимов Сергей Борисович", phone: "+7 921 632-48-39" },
+    { name: "БЦ 'Грани'", address: "ул. Большая Зеленина, д. 24 стр. 1", manager: "Галина Алексеевна Рожкова", phone: "+7 993 641-35-95" },
+    { name: "ЖК 'Пляж'", address: "Приморское шоссе, д. 352, стр. 1", manager: "Павлюк Александр Васильевич", phone: "+7 931 251-10-40" },
+    { name: "ЖК 'Панорама'", address: "Кондратьевский просп, д. 62, корп. 7", manager: "Наталья Валерьевна Машкарина", phone: "+7 931 240-22-37" },
+    { name: "ЖК 'Наука'", address: "ул. Академика Константинова, д. 1, корп. 1, стр. 1", manager: "Елена Викторовна Суконкина", phone: "+7 921 366-50-88" },
+    { name: "ЖК 'Новое Купчино'", address: "ул. Малая Бухарестская, д. 12, стр. 1", manager: "Наталья Геннадьевна Мурашова", phone: "+7 931 388-65-80" },
+    { name: "ЖК 'Адмирал'", address: "ул. Одоевского, 21, корп.1 стр. 1", manager: "Галина Алексеевна Рожкова", phone: "+7 993 641-35-95" },
+    { name: "Апарт-отель 'Аватар'", address: "ул. Ремесленная, 21, стр. 1", manager: "Галина Алексеевна Рожкова", phone: "+7 993 641-35-95" },
+    { name: "ЖК NewПитер", address: "Питерский проспект, д. 1, 5, 7", manager: "Ольга Вадимовна Васильева", phone: "+7 921 943-72-93" },
+    { name: "ЖК NewПитер", address: "Невская улица, д. 1, 3, 4, 5/7, 6, 10/5", manager: "Вера Ивановна Бакшеева", phone: "+7 921 337-43-41" },
+    { name: "ЖК NewПитер", address: "Адмиралтейская улица, д. 1, 3, 9", manager: "Ольга Вадимовна Васильева", phone: "+7 921 943-73-93" },
+    { name: "Кудрово", address: "ул. Областная, д. 3, 5, 7, 9", manager: "Анна Николаевна Кочевова", phone: "+7 921 385-79-31" },
+    { name: "Кудрово", address: "Каштановая аллея, д. 2, 3", manager: "Марина Николаевна Мельникова", phone: "+7 921 357-34-09" },
+    { name: "Кудрово", address: "просп. Строителей, д. 2, 4, 6", manager: "Анастасия Олеговна Сажнева", phone: "+7 999 024-61-74" }
   ];
 
   const scrollToSection = (section: string) => {
@@ -208,8 +245,8 @@ const Index = () => {
               </div>
               <div>
                 <p className="text-xs font-medium opacity-90">Аварийная диспетчерская</p>
-                <a href="tel:0800501234" className="text-lg font-bold hover:underline">
-                  0800-50-12-34
+                <a href="tel:+78126408826" className="text-lg font-bold hover:underline">
+                  +7 (812) 640-88-26
                 </a>
               </div>
             </div>
@@ -221,10 +258,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Профессиональное управление вашим домом
+              Группа Управляющих Компаний «НАШ ДОМ»
             </h2>
             <p className="text-xl text-muted-foreground mb-10">
-              Надежность, открытость и забота о комфорте каждого жильца
+              Предоставляем высокий уровень клиентского сервиса, чтобы быть полезными для наших жителей в любое время и по любому вопросу
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button size="lg" className="gap-2" onClick={() => scrollToSection("services")}>
@@ -244,8 +281,8 @@ const Index = () => {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="Shield" className="text-primary" size={32} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Надежность</h3>
-                <p className="text-muted-foreground">Более 15 лет опыта в управлении недвижимостью</p>
+                <h3 className="text-xl font-semibold mb-2">Опыт</h3>
+                <p className="text-muted-foreground">С 2007 года в сфере управления жилой недвижимостью</p>
               </CardContent>
             </Card>
 
@@ -341,11 +378,13 @@ const Index = () => {
                 </CardHeader>
                 <CardContent className="space-y-4 text-muted-foreground">
                   <p>
-                    Группа управляющих компаний «НАШ ДОМ» работает на рынке жилищно-коммунальных услуг с 2010 года.
+                    Группа управляющих компаний «Наш дом», создана профессионалами в сфере эксплуатации жилой недвижимости в 2007 году.
                   </p>
                   <p>
-                    За это время мы завоевали доверие тысяч жильцов благодаря профессионализму, ответственности и
-                    индивидуальному подходу к каждому дому.
+                    Мы занимаемся обслуживанием и управлением домами, регулярно модернизируем сервис ЖКХ. Находим и внедряем лучшие из возможных решений в сфере управления жилой недвижимостью.
+                  </p>
+                  <p>
+                    Это, прежде всего, команда единомышленников, объединившая молодых специалистов и опытных квалифицированных сотрудников, работающих в сфере управления жилищно-коммунальным хозяйством не один год.
                   </p>
                 </CardContent>
               </Card>
@@ -358,31 +397,35 @@ const Index = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 text-muted-foreground">
-                  <p>
-                    Создавать комфортные условия для проживания, обеспечивая высокое качество услуг и прозрачность в
-                    работе.
-                  </p>
-                  <p>Мы стремимся быть не просто управляющей компанией, а надежным партнером для каждого жильца.</p>
+                  <p className="font-semibold mb-3">Основные принципы работы:</p>
+                  <ul className="space-y-2 text-sm">
+                    <li>• Прогрессивные методы управления</li>
+                    <li>• Комплексный подход к управлению для получения максимального результата</li>
+                    <li>• Забота о комфорте клиента</li>
+                    <li>• Системный и последовательный подход к решению текущих проблем жителей</li>
+                    <li>• Демократичная ценовая политика</li>
+                    <li>• Использование труда исключительно высококвалифицированных специалистов</li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">15+</div>
-                <div className="text-sm text-muted-foreground">Лет опыта</div>
+                <div className="text-4xl font-bold text-primary mb-2">18</div>
+                <div className="text-sm text-muted-foreground">Лет оказываем услуги</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">47</div>
-                <div className="text-sm text-muted-foreground">Домов под управлением</div>
+                <div className="text-4xl font-bold text-primary mb-2">50+</div>
+                <div className="text-sm text-muted-foreground">Многоквартирных домов</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">8500+</div>
-                <div className="text-sm text-muted-foreground">Довольных клиентов</div>
+                <div className="text-4xl font-bold text-primary mb-2">13</div>
+                <div className="text-sm text-muted-foreground">Паркингов</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-                <div className="text-sm text-muted-foreground">Поддержка</div>
+                <div className="text-4xl font-bold text-primary mb-2">1 млн м²</div>
+                <div className="text-sm text-muted-foreground">Обслуживаемой площади</div>
               </div>
             </div>
           </div>
@@ -394,34 +437,30 @@ const Index = () => {
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Дома под нашим управлением</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Мы обслуживаем {managedHouses.length} многоквартирных домов в разных районах города
+              Мы обслуживаем {managedHouses.length} многоквартирных домов и 13 паркингов в Санкт-Петербурге и Ленобласти
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {managedHouses.map((house, index) => (
                 <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{animationDelay: `${index * 0.05}s`, animationFillMode: 'both'}}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <Icon name="Building" className="text-primary" size={20} />
-                      {house.address}
+                      {house.name}
                     </CardTitle>
+                    <CardDescription className="flex items-center gap-2">
+                      <Icon name="MapPin" size={14} />
+                      {house.address}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-muted-foreground">Этажей</p>
-                        <p className="font-semibold text-lg">{house.floors}</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Управляющий:</span>
+                        <span className="font-semibold">{house.manager}</span>
                       </div>
-                      <div>
-                        <p className="text-muted-foreground">Подъездов</p>
-                        <p className="font-semibold text-lg">{house.entrances}</p>
-                      </div>
-                      <div>
-                        <p className="text-muted-foreground">Квартир</p>
-                        <p className="font-semibold text-lg">{house.apartments}</p>
-                      </div>
-                      <div>
-                        <p className="text-muted-foreground">Год постройки</p>
-                        <p className="font-semibold text-lg">{house.year}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Телефон:</span>
+                        <a href={`tel:${house.phone}`} className="font-semibold text-primary hover:underline">{house.phone}</a>
                       </div>
                     </div>
                   </CardContent>
@@ -484,18 +523,24 @@ const Index = () => {
               </TabsList>
 
               <TabsContent value="services">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
                   {services.map((service, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-scale-in" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
+                    <Card key={index} className="hover:shadow-lg transition-all duration-300 animate-scale-in" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
                       <CardHeader>
-                        <CardTitle className="text-xl">{service.name}</CardTitle>
-                        <CardDescription>{service.description}</CardDescription>
+                        <CardTitle className="text-xl flex items-center gap-2">
+                          <Icon name="CheckCircle2" className="text-primary" size={24} />
+                          {service.category}
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-3xl font-bold text-primary">{service.price}</span>
-                          <span className="text-muted-foreground">{service.unit}</span>
-                        </div>
+                        <ul className="space-y-2">
+                          {service.items.map((item, itemIndex) => (
+                            <li key={itemIndex} className="flex items-start gap-2 text-muted-foreground">
+                              <Icon name="Dot" className="text-primary shrink-0 mt-1" size={20} />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </CardContent>
                     </Card>
                   ))}
@@ -503,36 +548,24 @@ const Index = () => {
               </TabsContent>
 
               <TabsContent value="calculator">
-                <Card className="animate-fade-in">
+                <Card className="animate-fade-in bg-gradient-to-br from-primary/5 to-secondary/5">
                   <CardHeader>
-                    <CardTitle>Расчет стоимости услуг</CardTitle>
-                    <CardDescription>Введите площадь вашей квартиры для расчета</CardDescription>
+                    <CardTitle className="flex items-center gap-2">
+                      <Icon name="Info" className="text-primary" />
+                      Индивидуальный расчет тарифов
+                    </CardTitle>
+                    <CardDescription>
+                      Стоимость услуг рассчитывается индивидуально для каждого дома
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="area">Площадь квартиры (м²)</Label>
-                      <Input id="area" type="number" placeholder="Например, 65" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Выберите услугу</Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {services.map((service, index) => (
-                          <Button
-                            key={index}
-                            variant={selectedService === service.name ? "default" : "outline"}
-                            onClick={() => setSelectedService(service.name)}
-                            className="justify-start"
-                          >
-                            {service.name}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                    <Separator />
-                    <div className="flex items-center justify-between text-lg font-semibold">
-                      <span>Ориентировочная стоимость:</span>
-                      <span className="text-2xl text-primary">— ₽/мес</span>
-                    </div>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">
+                      Для получения подробного расчета свяжитесь с управляющим вашего дома или отправьте заявку через форму обратной связи.
+                    </p>
+                    <Button onClick={() => scrollToSection("feedback")} className="w-full gap-2" size="lg">
+                      <Icon name="MessageSquare" size={20} />
+                      Отправить заявку
+                    </Button>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -696,21 +729,8 @@ const Index = () => {
                 <CardContent className="space-y-4">
                   <div>
                     <div className="font-semibold mb-1">Аварийная диспетчерская (круглосуточно)</div>
-                    <a href="tel:0800501234" className="text-primary text-xl font-bold hover:underline">
-                      0800-50-12-34
-                    </a>
-                  </div>
-                  <Separator />
-                  <div>
-                    <div className="font-semibold mb-1">Бухгалтерия</div>
-                    <a href="tel:0445551122" className="text-primary hover:underline">
-                      (044) 555-11-22
-                    </a>
-                  </div>
-                  <div>
-                    <div className="font-semibold mb-1">Приемная</div>
-                    <a href="tel:0445551133" className="text-primary hover:underline">
-                      (044) 555-11-33
+                    <a href="tel:+78126408826" className="text-primary text-xl font-bold hover:underline">
+                      +7 (812) 640-88-26
                     </a>
                   </div>
                 </CardContent>
@@ -725,18 +745,23 @@ const Index = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <p className="font-semibold mb-2">г. Москва, ул. Тверская, 25, офис 301</p>
                     <p className="text-muted-foreground text-sm mb-2">График работы:</p>
-                    <p className="text-sm">Пн-Пт: 9:00 - 18:00</p>
-                    <p className="text-sm">Сб: 10:00 - 15:00</p>
-                    <p className="text-sm">Вс: выходной</p>
+                    <p className="text-sm">Пн-Чт: 09:00 - 18:00</p>
+                    <p className="text-sm">Пт: 09:00 - 17:00</p>
+                    <p className="text-sm">Обед: 13:00-14:00</p>
+                    <p className="text-sm">Сб-Вс: выходной</p>
                   </div>
                   <Separator />
                   <div>
                     <div className="font-semibold mb-1">Email</div>
-                    <a href="mailto:info@nashdom.ua" className="text-primary hover:underline">
-                      info@nashdom.ua
-                    </a>
+                    <div className="space-y-1">
+                      <a href="mailto:uk.nashdom@inbox.ru" className="text-primary hover:underline block">
+                        uk.nashdom@inbox.ru
+                      </a>
+                      <a href="mailto:uk.nash-dom@mail.ru" className="text-primary hover:underline block">
+                        uk.nash-dom@mail.ru
+                      </a>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -753,19 +778,16 @@ const Index = () => {
                 <div className="grid md:grid-cols-2 gap-6 text-sm">
                   <div>
                     <p className="font-semibold mb-1">Полное название:</p>
-                    <p className="text-muted-foreground">Общество с ограниченной ответственностью «НАШ ДОМ»</p>
+                    <p className="text-muted-foreground">Группа Управляющих Компаний «НАШ ДОМ»</p>
                   </div>
                   <div>
-                    <p className="font-semibold mb-1">ИНН:</p>
-                    <p className="text-muted-foreground">7701234567</p>
+                    <p className="font-semibold mb-1">Телефон:</p>
+                    <p className="text-muted-foreground">+7 (812) 640-88-26</p>
                   </div>
                   <div>
-                    <p className="font-semibold mb-1">Расчетный счет:</p>
-                    <p className="text-muted-foreground">40702810400000012345</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-1">Банк:</p>
-                    <p className="text-muted-foreground">ПАО «Сбербанк»</p>
+                    <p className="font-semibold mb-1">Email:</p>
+                    <p className="text-muted-foreground">uk.nashdom@inbox.ru</p>
+                    <p className="text-muted-foreground">uk.nash-dom@mail.ru</p>
                   </div>
                 </div>
               </CardContent>
@@ -789,11 +811,13 @@ const Index = () => {
               </div>
             </div>
             <p className="text-gray-400 mb-4">
-              Надежное управление недвижимостью с 2010 года
+              Надежное управление недвижимостью с 2007 года
             </p>
-            <p className="text-sm text-gray-500">
-              © 2025 ООО «НАШ ДОМ». Все права защищены.
-            </p>
+            <div className="text-sm text-gray-500 space-y-1">
+              <p>Телефон: +7 (812) 640-88-26</p>
+              <p>Email: uk.nashdom@inbox.ru</p>
+              <p className="mt-3">© 2025 Группа УК «НАШ ДОМ». Все права защищены.</p>
+            </div>
           </div>
         </div>
       </footer>
