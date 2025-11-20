@@ -16,6 +16,8 @@ const Index = () => {
   const [selectedService, setSelectedService] = useState("");
   const [activeSection, setActiveSection] = useState("home");
   const [feedbackForm, setFeedbackForm] = useState({ name: "", phone: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error', message: string} | null>(null);
 
   const news = [
     {
@@ -98,6 +100,35 @@ const Index = () => {
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleFeedbackSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/3084c1e9-97b6-4782-a9a2-953cc8b81ee1', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(feedbackForm)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.' });
+        setFeedbackForm({ name: '', phone: '', message: '' });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'Произошла ошибка при отправке заявки' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Не удалось отправить заявку. Проверьте подключение к интернету.' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -585,7 +616,19 @@ const Index = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form onSubmit={handleFeedbackSubmit} className="space-y-6">
+                  {submitStatus && (
+                    <div className={`p-4 rounded-lg ${
+                      submitStatus.type === 'success' 
+                        ? 'bg-green-50 border border-green-200 text-green-800' 
+                        : 'bg-red-50 border border-red-200 text-red-800'
+                    }`}>
+                      <div className="flex items-center gap-2">
+                        <Icon name={submitStatus.type === 'success' ? 'CheckCircle' : 'AlertCircle'} size={20} />
+                        <p className="text-sm font-medium">{submitStatus.message}</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="space-y-2">
                     <Label htmlFor="name">Ваше имя *</Label>
                     <Input
@@ -594,6 +637,7 @@ const Index = () => {
                       value={feedbackForm.name}
                       onChange={(e) => setFeedbackForm({...feedbackForm, name: e.target.value})}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div className="space-y-2">
@@ -605,6 +649,7 @@ const Index = () => {
                       value={feedbackForm.phone}
                       onChange={(e) => setFeedbackForm({...feedbackForm, phone: e.target.value})}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div className="space-y-2">
@@ -616,11 +661,12 @@ const Index = () => {
                       onChange={(e) => setFeedbackForm({...feedbackForm, message: e.target.value})}
                       rows={5}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full gap-2">
-                    <Icon name="Send" size={20} />
-                    Отправить заявку
+                  <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
+                    <Icon name={isSubmitting ? "Loader2" : "Send"} size={20} className={isSubmitting ? "animate-spin" : ""} />
+                    {isSubmitting ? 'Отправляем...' : 'Отправить заявку'}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">
                     Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности

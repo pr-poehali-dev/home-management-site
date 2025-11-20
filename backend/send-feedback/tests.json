@@ -1,0 +1,38 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS request for CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": "",
+      "bodyMatcher": "exact"
+    },
+    {
+      "name": "POST valid feedback",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Иванов",
+        "phone": "+7 (999) 123-45-67",
+        "message": "Не работает лифт в подъезде 3"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "POST with missing name",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "phone": "+7 (999) 123-45-67",
+        "message": "Тестовое сообщение"
+      },
+      "expectedStatus": 422,
+      "bodyMatcher": "partial"
+    }
+  ]
+}
