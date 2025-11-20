@@ -1,8 +1,12 @@
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import Icon from "@/components/ui/icon";
 
 const Contacts = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const departments = [
     {
       title: "Диспетчерская служба",
@@ -60,44 +64,152 @@ const Contacts = () => {
     { label: "Дополнительная почта", email: "uk.nash-dom@mail.ru" },
   ];
 
-  const managedHouses = [
+  const managers = [
     {
-      name: "ЖК Золотое сечение",
-      address: "ул. Васенко, д 12 литера А",
-      manager: "Екатерина Васильевна Павлова",
-      phone: "+7 (921) 334-43-74",
-    },
-    {
-      name: "ЖК Остров",
-      address: "Петровский проспект, д. 5, стр. 1",
-      manager: "Евдокимов Сергей Борисович",
-      phone: "+7 (921) 632-48-39",
-    },
-    {
-      name: "ЖК Пляж",
-      address: "Приморское шоссе, д. 352, стр. 1",
-      manager: "Павлюк Александр Васильевич",
+      name: "Александр Васильевич Павлюк",
       phone: "+7 (931) 251-10-40",
+      objects: [
+        'Посёлок "Сад Времени", ул. Беловой, д. 1г, стр. 1',
+        'ЖК "Пляж", Приморское шоссе, д. 352, стр. 1',
+      ],
     },
     {
-      name: "ЖК Панорама",
-      address: "Кондратьевский просп, д. 62, корп. 7",
-      manager: "Наталья Валерьевна Машкарина",
+      name: "Алексей Сергеевич Стекольников",
+      phone: "+7 (953) 365-65-05",
+      objects: [
+        "Паркинг на Васенко, д. 12, литера Б",
+        "Паркинг на Фермском, д. 20, корп. 3",
+        "Паркинг на Фермском, д. 22, корп 2",
+        "Паркинг на Зеленогорской, д. 12, литера В",
+        "Паркинг на Красносельском ш., д. 20",
+        "Паркинг на Красносельском ш., д. 8",
+        "Паркинг на Красносельском ш., д. 4",
+      ],
+    },
+    {
+      name: "Наталья Валерьевна Машкарина",
       phone: "+7 (931) 240-22-37",
+      objects: [
+        "Кондратьевский просп., д. 66, корп. 1",
+        "Кондратьевский просп., д. 62, корп. 2",
+        "Кондратьевский просп., д. 62, корп. 1",
+        'ЖК "Панорама", Кондратьевский просп., д. 62, корп. 7',
+      ],
     },
     {
-      name: "ЖК Наука",
-      address: "ул. Академика Константинова, д. 1, корп. 1",
-      manager: "Елена Викторовна Суконкина",
-      phone: "+7 (921) 366-50-88",
+      name: "Екатерина Васильевна Павлова",
+      phone: "+7 (921) 334-43-74",
+      objects: [
+        'ЖК "Золотое Сечение", ул. Васенко, д. 12, литера А',
+        'ЖК "Золотое Сечение", просп. Металлистов, д. 116, корп. 1 литера А',
+      ],
     },
     {
-      name: "ЖК Адмирал",
-      address: "ул. Одоевского, 21, корп.1 стр. 1",
-      manager: "Галина Алексеевна Рожкова",
+      name: "Павел Львович Моисеев",
+      phone: "+7 (921) 954-31-94",
+      objects: ["Фермское шоссе, д. 22, корп. 3"],
+    },
+    {
+      name: "Сергей Борисович Евдокимов",
+      phone: "+7 (921) 632-48-39",
+      objects: ['ЖК "Остров", Петровский проспект, д. 5, стр. 1'],
+    },
+    {
+      name: "Галина Алексеевна Рожкова",
       phone: "+7 (993) 641-35-95",
+      objects: [
+        'БЦ "Грани", ул. Большая Зеленина, д. 24, стр. 1',
+        'ЖК "Адмирал", ул. Одоевского, д. 21, корп. 1, стр. 1',
+        'Апарт-отель "Аватар", ул. Ремесленная, д. 21, стр. 1',
+      ],
+    },
+    {
+      name: "Елена Викторовна Суконкина",
+      phone: "+7 (921) 366-50-88",
+      objects: ['ЖК "Наука", ул. Академика Константинова, д. 1, корп. 1, стр. 1'],
+    },
+    {
+      name: "Наталья Геннадьевна Мурашова",
+      phone: "+7 (931) 388-65-80",
+      objects: ['ЖК "Новое Купчино", ул. Малая Бухарестская, д. 12, стр. 1'],
+    },
+    {
+      name: "Вера Ивановна Бакшеева",
+      phone: "+7 (921) 337-43-41",
+      objects: [
+        "Бульвар Белых Ночей, д. 3",
+        "Ул. Адмиралтейская, д. 11",
+        "ЖК NewПитер, Невская улица, д. 5/7",
+        "ЖК NewПитер, Невская улица, д. 3",
+        "ЖК NewПитер, Невская улица, д. 1",
+        "ЖК NewПитер, Адмиралтейская улица, д. 9",
+        "ЖК NewПитер, Красносельское шоссе, д. 16",
+      ],
+    },
+    {
+      name: "Ольга Вадимовна Васильева",
+      phone: "+7 (921) 943-72-93 / +7 (921) 943-73-93",
+      objects: [
+        "ЖК NewПитер, Питерский проспект, д. 7",
+        "ЖК NewПитер, Питерский проспект, д. 5",
+        "ЖК NewПитер, Невская улица, д. 4",
+        "ЖК NewПитер, Адмиралтейская улица, д. 3",
+        "ЖК NewПитер, Невская улица, д. 10/5",
+        "ЖК NewПитер, Невская улица, д. 6",
+        "ЖК NewПитер, Адмиралтейская улица, д. 1",
+        "ЖК NewПитер, Питерский проспект, д. 1",
+        "ЖК NewПитер, Красносельское шоссе, д. 6",
+      ],
+    },
+    {
+      name: "Галина Викторовна Топал",
+      phone: "Уточняйте в офисе",
+      objects: ["г. Бугры, Петровский бульвар, д. 28"],
+    },
+    {
+      name: "Виктория Валерьевна Саврандейкина",
+      phone: "+7 (921) 954-33-94",
+      objects: ["Мурино, Воронцовский бульвар, д. 23/11"],
+    },
+    {
+      name: "Анна Николаевна Кочевова",
+      phone: "+7 (921) 385-79-31",
+      objects: [
+        "Кудрово, ул. Областная, д. 5, корп. 1, 2, 3, 5, 6",
+        "Кудрово, ул. Областная, д. 3",
+      ],
+    },
+    {
+      name: "Станислав Александрович Мельников",
+      phone: "+7 (931) 586-19-77",
+      objects: [
+        "Кудрово, ул. Областная, д. 9, корп. 2",
+        "Кудрово, ул. Областная, д. 9 К1",
+        "Кудрово, ул. Областная, д. 7",
+      ],
+    },
+    {
+      name: "Марина Николаевна Мельникова",
+      phone: "+7 (921) 357-34-09",
+      objects: ["Кудрово, Каштановая аллея, д. 2", "Кудрово, Каштановая аллея, д. 3"],
+    },
+    {
+      name: "Анастасия Олеговна Сажнева",
+      phone: "+7 (999) 024-61-74",
+      objects: [
+        "Кудрово, просп. Строителей, д. 2",
+        "Кудрово, просп. Строителей, д. 6",
+        "Кудрово, просп. Строителей, д. 4",
+        "Кудрово, ул. Ленинградская, д. 9/8",
+      ],
     },
   ];
+
+  const filteredManagers = managers.filter(
+    (manager) =>
+      manager.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      manager.objects.some((obj) => obj.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
     <Layout>
@@ -183,36 +295,74 @@ const Contacts = () => {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8">Управляющие домами</h2>
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold">Управляющие домами</h2>
+              <div className="relative w-full max-w-sm">
+                <Icon
+                  name="Search"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  size={20}
+                />
+                <Input
+                  placeholder="Поиск по адресу или управляющему..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6">
-              {managedHouses.map((house, index) => (
+              {filteredManagers.map((manager, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="Building" className="text-secondary" size={20} />
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Icon name="UserCircle" className="text-secondary" size={24} />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold mb-1">{house.name}</h3>
-                        <p className="text-sm text-muted-foreground mb-3">{house.address}</p>
-                        <div className="space-y-1">
-                          <p className="text-sm">
-                            <span className="text-muted-foreground">Управляющий:</span>{" "}
-                            <span className="font-medium">{house.manager}</span>
-                          </p>
-                          <a
-                            href={`tel:${house.phone.replace(/\s/g, "")}`}
-                            className="text-sm text-primary hover:underline"
-                          >
-                            {house.phone}
-                          </a>
-                        </div>
+                        <h3 className="font-semibold text-lg mb-1">{manager.name}</h3>
+                        <a
+                          href={`tel:${manager.phone.replace(/\s|\(|\)|\//g, "")}`}
+                          className="text-primary hover:underline font-medium"
+                        >
+                          {manager.phone}
+                        </a>
                       </div>
+                    </div>
+                    <div className="border-t pt-4">
+                      <p className="text-sm font-medium text-muted-foreground mb-2">
+                        Обслуживаемые объекты:
+                      </p>
+                      <ul className="space-y-1">
+                        {manager.objects.map((obj, objIndex) => (
+                          <li key={objIndex} className="text-sm flex items-start gap-2">
+                            <Icon
+                              name="MapPin"
+                              size={14}
+                              className="text-muted-foreground mt-1 flex-shrink-0"
+                            />
+                            <span>{obj}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
+
+            {filteredManagers.length === 0 && (
+              <div className="text-center py-12">
+                <Icon name="SearchX" size={48} className="text-muted-foreground mx-auto mb-4" />
+                <p className="text-xl text-muted-foreground">
+                  По вашему запросу ничего не найдено
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Попробуйте изменить поисковый запрос
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="max-w-6xl mx-auto mt-16">
