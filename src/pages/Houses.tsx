@@ -26,6 +26,7 @@ const Houses = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [cityFilter, setCityFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
 
   const houses: HouseData[] = [
     {
@@ -471,6 +472,17 @@ const Houses = () => {
   ];
 
   const cities = ["all", "Санкт-Петербург", "Кудрово", "Мурино", "Бугры"];
+  
+  const objectTypes = [
+    "all",
+    "Жилой дом",
+    "ЖК NewПитер",
+    "Паркинг",
+    "ЖК",
+    "Посёлок",
+    "БЦ",
+    "Апарт-отель",
+  ];
 
   const filteredHouses = houses.filter((house) => {
     const matchesSearch =
@@ -478,7 +490,11 @@ const Houses = () => {
       house.manager.toLowerCase().includes(searchQuery.toLowerCase()) ||
       house.type.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCity = cityFilter === "all" || house.city === cityFilter;
-    return matchesSearch && matchesCity;
+    const matchesType =
+      typeFilter === "all" ||
+      house.type === typeFilter ||
+      (typeFilter === "ЖК" && house.type.startsWith("ЖК"));
+    return matchesSearch && matchesCity && matchesType;
   });
 
   const groupedHouses = filteredHouses.reduce((acc, house) => {
@@ -503,8 +519,8 @@ const Houses = () => {
           <div className="max-w-6xl mx-auto mb-8">
             <Card>
               <CardContent className="p-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="relative">
+                <div className="grid md:grid-cols-3 gap-4 mb-4">
+                  <div className="relative md:col-span-3">
                     <Icon
                       name="Search"
                       className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -530,10 +546,55 @@ const Houses = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                  <Select value={typeFilter} onValueChange={setTypeFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Тип объекта" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все типы</SelectItem>
+                      {objectTypes.slice(1).map((type) => (
+                        <SelectItem key={type} value={type}>
+                          {type}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {(searchQuery || cityFilter !== "all" || typeFilter !== "all") && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setCityFilter("all");
+                        setTypeFilter("all");
+                      }}
+                      className="w-full md:w-auto"
+                    >
+                      <Icon name="X" size={16} className="mr-2" />
+                      Сбросить
+                    </Button>
+                  )}
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Icon name="Info" size={16} />
-                  <span>Найдено объектов: {filteredHouses.length}</span>
+                <div className="flex items-center justify-between flex-wrap gap-3">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Icon name="Info" size={16} />
+                    <span>Найдено объектов: {filteredHouses.length}</span>
+                  </div>
+                  {(cityFilter !== "all" || typeFilter !== "all") && (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {cityFilter !== "all" && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          <Icon name="MapPin" size={14} />
+                          {cityFilter}
+                        </div>
+                      )}
+                      {typeFilter !== "all" && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">
+                          <Icon name="Building2" size={14} />
+                          {typeFilter}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -600,12 +661,13 @@ const Houses = () => {
               <Icon name="SearchX" size={64} className="text-muted-foreground mx-auto mb-6" />
               <h3 className="text-2xl font-semibold mb-4">Ничего не найдено</h3>
               <p className="text-muted-foreground mb-6">
-                Попробуйте изменить параметры поиска или фильтр города
+                Попробуйте изменить параметры поиска или фильтры
               </p>
               <Button
                 onClick={() => {
                   setSearchQuery("");
                   setCityFilter("all");
+                  setTypeFilter("all");
                 }}
               >
                 Сбросить фильтры
