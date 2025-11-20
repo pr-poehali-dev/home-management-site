@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 const About = () => {
@@ -237,6 +239,14 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">9 паркингов в Санкт-Петербурге</p>
                 </CardContent>
               </Card>
+            </div>
+            <div className="text-center mt-8">
+              <Link to="/companies">
+                <Button size="lg">
+                  <Icon name="ArrowRight" size={20} className="mr-2" />
+                  Подробнее о каждой компании
+                </Button>
+              </Link>
             </div>
           </div>
 
