@@ -1,6 +1,7 @@
 import json
 import smtplib
 import os
+import psycopg2
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from typing import Dict, Any
@@ -13,7 +14,7 @@ class FeedbackRequest(BaseModel):
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Send feedback form submissions via email
+    Business: Save feedback to database and send email notification
     Args: event with httpMethod, body containing name, phone, message
     Returns: HTTP response with success/error status
     '''
@@ -47,13 +48,45 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     feedback = FeedbackRequest(**body_data)
     
+    database_url = os.environ.get('DATABASE_URL')
     smtp_host = os.environ.get('SMTP_HOST')
     smtp_port = int(os.environ.get('SMTP_PORT', '587'))
     smtp_user = os.environ.get('SMTP_USER')
     smtp_password = os.environ.get('SMTP_PASSWORD')
     email_to = os.environ.get('EMAIL_TO')
     
+    feedback_id = None
+    
+    if database_url:
+        try:
+            conn = psycopg2.connect(database_url)
+            cur = conn.cursor()
+            cur.execute(
+                "INSERT INTO t_p71212982_home_management_site.feedback (name, phone, message, status) VALUES (%s, %s, %s, %s) RETURNING id",
+                (feedback.name, feedback.phone, feedback.message, 'new')
+            )
+            feedback_id = cur.fetchone()[0]
+            conn.commit()
+            cur.close()
+            conn.close()
+        except Exception as db_error:
+            pass
+    
     if not all([smtp_host, smtp_user, smtp_password, email_to]):
+        if feedback_id:
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({
+                    'success': True,
+                    'message': 'Заявка сохранена',
+                    'id': feedback_id
+                }),
+                'isBase64Encoded': False
+            }
         return {
             'statusCode': 500,
             'headers': {
@@ -100,13 +133,20 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     html_part = MIMEText(html_content, 'html', 'utf-8')
     msg.attach(html_part)
     
+    email_sent = False
+    email_error = None
+    
     try:
         server = smtplib.SMTP(smtp_host, smtp_port)
         server.starttls()
         server.login(smtp_user, smtp_password)
         server.send_message(msg)
         server.quit()
-        
+        email_sent = True
+    except Exception as e:
+        email_error = str(e)
+    
+    if email_sent:
         return {
             'statusCode': 200,
             'headers': {
@@ -115,11 +155,27 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             },
             'body': json.dumps({
                 'success': True,
-                'message': 'Заявка успешно отправлена'
+                'message': 'Заявка успешно отправлена',
+                'id': feedback_id
             }),
             'isBase64Encoded': False
         }
-    except Exception as e:
+    elif feedback_id:
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'success': True,
+                'message': 'Заявка сохранена, но письмо не отправлено',
+                'id': feedback_id,
+                'email_error': email_error
+            }),
+            'isBase64Encoded': False
+        }
+    else:
         return {
             'statusCode': 500,
             'headers': {
@@ -127,7 +183,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'Access-Control-Allow-Origin': '*'
             },
             'body': json.dumps({
-                'error': f'Failed to send email: {str(e)}'
+                'error': f'Failed to send email: {email_error}'
             }),
             'isBase64Encoded': False
         }
