@@ -3,21 +3,13 @@ import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
-
-interface HouseData {
-  id: string;
-  address: string;
-  city: string;
-  manager: string;
-  managerPhone: string;
-  type: string;
-}
+import { houses } from "@/data/housesData";
 
 const HouseDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const houses: HouseData[] = [
+  const deleteMeLater = [
     {
       id: "bugry-petrovskiy-28",
       address: "Петровский бульвар, д. 28",
@@ -554,24 +546,34 @@ const HouseDetail = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
+                <div className="grid md:grid-cols-3 gap-6 pt-6 border-t">
+                  <Card className="bg-secondary/5">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-4 flex items-center gap-2">
+                        <Icon name="Building" size={20} className="text-primary" />
+                        Управляющая компания
+                      </h3>
+                      <p className="text-sm font-medium">{house.company}</p>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Обслуживающая организация
+                      </p>
+                    </CardContent>
+                  </Card>
+
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      <p className="text-lg font-medium mb-3">{house.manager}</p>
+                      <p className="text-sm font-medium mb-3">{house.manager}</p>
                       <a
                         href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}
-                        className="flex items-center gap-2 text-primary hover:underline font-medium"
+                        className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
                       >
-                        <Icon name="Phone" size={18} />
+                        <Icon name="Phone" size={16} />
                         {house.managerPhone}
                       </a>
-                      <p className="text-sm text-muted-foreground mt-3">
-                        По всем вопросам обслуживания вашего дома
-                      </p>
                     </CardContent>
                   </Card>
 
@@ -583,12 +585,12 @@ const HouseDetail = () => {
                       </h3>
                       <a
                         href="tel:+78126408826"
-                        className="flex items-center gap-2 text-primary hover:underline font-medium text-lg mb-3"
+                        className="flex items-center gap-2 text-primary hover:underline font-medium text-sm mb-3"
                       >
-                        <Icon name="Phone" size={18} />
+                        <Icon name="Phone" size={16} />
                         +7 (812) 640-88-26
                       </a>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs text-muted-foreground">
                         Круглосуточно для аварийных заявок
                       </p>
                     </CardContent>

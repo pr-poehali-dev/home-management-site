@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,15 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
-
-interface HouseData {
-  id: string;
-  address: string;
-  city: string;
-  manager: string;
-  managerPhone: string;
-  type: string;
-}
+import { houses, type HouseData } from "@/data/housesData";
 
 const Houses = () => {
   const navigate = useNavigate();
@@ -28,7 +20,9 @@ const Houses = () => {
   const [cityFilter, setCityFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
 
-  const houses: HouseData[] = [
+  // Данные домов импортированы из @/data/housesData
+  
+  const deleteMeLater = [
     {
       id: "bugry-petrovskiy-28",
       address: "Петровский бульвар, д. 28",
@@ -488,7 +482,8 @@ const Houses = () => {
     const matchesSearch =
       house.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
       house.manager.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      house.type.toLowerCase().includes(searchQuery.toLowerCase());
+      house.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      house.company.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCity = cityFilter === "all" || house.city === cityFilter;
     const matchesType =
       typeFilter === "all" ||
@@ -637,17 +632,23 @@ const Houses = () => {
                           size={20}
                         />
                       </div>
-                      <div className="border-t pt-4">
-                        <p className="text-xs text-muted-foreground mb-1">Управляющий:</p>
-                        <p className="font-medium text-sm mb-2">{house.manager}</p>
-                        <a
-                          href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-sm text-primary hover:underline flex items-center gap-2"
-                        >
-                          <Icon name="Phone" size={14} />
-                          {house.managerPhone}
-                        </a>
+                      <div className="border-t pt-4 space-y-3">
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">Управляющая компания:</p>
+                          <p className="font-medium text-sm">{house.company}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">Управляющий:</p>
+                          <p className="font-medium text-sm mb-2">{house.manager}</p>
+                          <a
+                            href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-sm text-primary hover:underline flex items-center gap-2"
+                          >
+                            <Icon name="Phone" size={14} />
+                            {house.managerPhone}
+                          </a>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

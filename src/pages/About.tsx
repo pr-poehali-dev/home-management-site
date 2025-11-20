@@ -111,6 +111,135 @@ const About = () => {
             </div>
           </div>
 
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              13 управляющих компаний в составе группы
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО "УК "Наш дом-Сити"</h3>
+                  <p className="text-sm text-muted-foreground">7 объектов в Санкт-Петербурге</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО "УК "Наш дом-Полюстрово"</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Панорама"</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО УК "СИТИХОУМ"</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Адмирал"</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО "УК "Остров-Град"</h3>
+                  <p className="text-sm text-muted-foreground">5 объектов в Санкт-Петербурге</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО "УК "Новое Купчино"</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Новое Купчино"</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом – Регион»</h3>
+                  <p className="text-sm text-muted-foreground">
+                    7 объектов в Мурино и Кудрово
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово Град»</h3>
+                  <p className="text-sm text-muted-foreground">2 объекта в Кудрово</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Дом»</h3>
+                  <p className="text-sm text-muted-foreground">3 объекта в Кудрово</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Сервис»</h3>
+                  <p className="text-sm text-muted-foreground">2 объекта в Кудрово</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово»</h3>
+                  <p className="text-sm text-muted-foreground">3 объекта в Кудрово</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш Дом Новоселье»</h3>
+                  <p className="text-sm text-muted-foreground">
+                    16 объектов в ЖК NewПитер
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «УК «Усадьба»</h3>
+                  <p className="text-sm text-muted-foreground">КП «Сад времени»</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="Building2" className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-semibold mb-2">ООО «Сити Паркинг»</h3>
+                  <p className="text-sm text-muted-foreground">9 паркингов в Санкт-Петербурге</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
           <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
             <h2 className="text-3xl font-bold mb-8 text-center">Наши ключевые задачи</h2>
             <div className="grid md:grid-cols-2 gap-6">
