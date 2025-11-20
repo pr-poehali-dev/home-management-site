@@ -89,8 +89,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm animate-slide-in">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-3">
@@ -151,7 +151,7 @@ const Index = () => {
         </div>
       </nav>
 
-      <div className="fixed bottom-6 right-6 z-50 animate-fade-in">
+      <div className="fixed bottom-6 right-6 z-50 animate-scale-in">
         <Card className="bg-destructive text-white border-0 shadow-2xl">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
@@ -169,9 +169,9 @@ const Index = () => {
         </Card>
       </div>
 
-      <section id="home" className="py-20 bg-gradient-to-br from-primary/10 via-white to-secondary/10">
+      <section id="home" className="py-20 bg-gradient-to-br from-primary/5 via-white to-secondary/5">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
+          <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Профессиональное управление вашим домом
             </h2>
@@ -201,7 +201,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all hover:-translate-y-1 duration-300 animate-fade-in" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
               <CardContent className="pt-8 pb-6">
                 <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="Eye" className="text-secondary" size={32} />
@@ -211,7 +211,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-all hover:-translate-y-1 duration-300 animate-fade-in" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
               <CardContent className="pt-8 pb-6">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon name="Heart" className="text-primary" size={32} />
@@ -222,7 +222,7 @@ const Index = () => {
             </Card>
           </div>
 
-          <Card className="max-w-5xl mx-auto mt-12">
+          <Card className="max-w-5xl mx-auto mt-12 animate-fade-in" style={{animationDelay: '0.4s', animationFillMode: 'both'}}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Icon name="MapPin" className="text-primary" />
@@ -231,7 +231,7 @@ const Index = () => {
               <CardDescription>Нажмите на маркер, чтобы посмотреть адрес</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="relative w-full h-[400px] bg-gradient-to-br from-green-100 to-blue-100 rounded-lg overflow-hidden">
+              <div className="relative w-full h-[400px] bg-gradient-to-br from-slate-100 to-blue-50 rounded-lg overflow-hidden">
                 {houses.map((house) => (
                   <div
                     key={house.id}
@@ -248,7 +248,7 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="max-w-2xl mx-auto mt-12 bg-gradient-to-br from-primary/5 to-secondary/5">
+          <Card className="max-w-2xl mx-auto mt-12 bg-gradient-to-br from-primary/5 to-secondary/5 animate-fade-in" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Icon name="Gauge" className="text-primary" />
@@ -282,9 +282,9 @@ const Index = () => {
       <section id="about" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center">О компании</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">О компании</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <Card>
+              <Card className="hover:shadow-lg transition-all duration-300 animate-slide-in" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Icon name="History" className="text-primary" />
@@ -302,7 +302,7 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-lg transition-all duration-300 animate-slide-in-right" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Icon name="Target" className="text-secondary" />
@@ -344,10 +344,10 @@ const Index = () => {
       <section id="news" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center">Новости и объявления</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Новости и объявления</h2>
             <div className="space-y-4">
-              {news.map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow">
+              {news.map((item, index) => (
+                <Card key={item.id} className="hover:shadow-lg transition-all duration-300 hover:-translate-x-2 animate-slide-in" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
@@ -378,9 +378,9 @@ const Index = () => {
       <section id="services" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center">Услуги и тарифы</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Услуги и тарифы</h2>
 
-            <Tabs defaultValue="services" className="w-full">
+            <Tabs defaultValue="services" className="w-full animate-fade-in-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
               <TabsList className="grid w-full grid-cols-2 mb-8">
                 <TabsTrigger value="services" className="gap-2">
                   <Icon name="ListChecks" size={18} />
@@ -395,7 +395,7 @@ const Index = () => {
               <TabsContent value="services">
                 <div className="grid md:grid-cols-2 gap-6">
                   {services.map((service, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                    <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-scale-in" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
                       <CardHeader>
                         <CardTitle className="text-xl">{service.name}</CardTitle>
                         <CardDescription>{service.description}</CardDescription>
@@ -412,7 +412,7 @@ const Index = () => {
               </TabsContent>
 
               <TabsContent value="calculator">
-                <Card>
+                <Card className="animate-fade-in">
                   <CardHeader>
                     <CardTitle>Расчет стоимости услуг</CardTitle>
                     <CardDescription>Введите площадь вашей квартиры для расчета</CardDescription>
@@ -453,8 +453,8 @@ const Index = () => {
       <section id="documents" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center">Документы</h2>
-            <Card>
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Документы</h2>
+            <Card className="animate-fade-in-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
               <CardContent className="pt-6">
                 <Accordion type="single" collapsible className="w-full">
                   {documents.map((category, index) => (
@@ -486,7 +486,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="mt-8 bg-blue-50 border-blue-200">
+            <Card className="mt-8 bg-blue-50 border-blue-200 animate-fade-in-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Icon name="Info" className="text-primary" />
@@ -515,10 +515,10 @@ const Index = () => {
       <section id="contacts" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center">Контакты и реквизиты</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center animate-fade-in">Контакты и реквизиты</h2>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <Card>
+              <Card className="hover:shadow-lg transition-all duration-300 animate-slide-in" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Icon name="Phone" className="text-primary" />
@@ -548,7 +548,7 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-lg transition-all duration-300 animate-slide-in-right" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Icon name="MapPin" className="text-primary" />
@@ -574,7 +574,7 @@ const Index = () => {
               </Card>
             </div>
 
-            <Card className="mt-8">
+            <Card className="mt-8 animate-fade-in-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Icon name="Building" className="text-primary" />
