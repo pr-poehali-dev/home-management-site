@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,24 @@ import Icon from "@/components/ui/icon";
 import { houses } from "@/data/housesData";
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const companyData = [
+    { id: "uk-nash-dom-sity", name: 'ООО «УК «Наш дом-Сити»' },
+    { id: "uk-nash-dom-polyustrovo", name: 'ООО «УК «Наш дом-Полюстрово»' },
+    { id: "uk-sityhome", name: 'ООО УК «СИТИХОУМ»' },
+    { id: "uk-ostrov-grad", name: 'ООО «УК «Остров-Град»' },
+    { id: "uk-novoe-kupchino", name: 'ООО «УК «Новое Купчино»' },
+    { id: "uk-nash-dom-region", name: 'ООО «УК «Наш дом – Регион»' },
+    { id: "uk-nash-dom-kudrovo-grad", name: 'ООО «УК «Наш дом-Кудрово Град»' },
+    { id: "uk-kudrovo-dom", name: 'ООО «УК «Кудрово-Дом»' },
+    { id: "uk-kudrovo-service", name: 'ООО «УК «Кудрово-Сервис»' },
+    { id: "uk-nash-dom-kudrovo", name: 'ООО «УК «Наш дом-Кудрово»' },
+    { id: "uk-nash-dom-novoselye", name: 'ООО «УК «Наш Дом Новоселье»' },
+    { id: "uk-usadba", name: 'ООО «УК «Усадьба»' },
+    { id: "uk-city-parking", name: 'ООО «Сити Паркинг»' },
+  ];
+
   const companyHouseCounts = {
     'ООО «УК «Наш дом-Сити»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Сити»').length,
     'ООО «УК «Наш дом-Полюстрово»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Полюстрово»').length,
@@ -136,127 +154,37 @@ const About = () => {
               13 управляющих компаний в составе группы
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Сити»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Сити»']} {companyHouseCounts['ООО «УК «Наш дом-Сити»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Сити»'] < 5 ? 'объекта' : 'объектов'} в Санкт-Петербурге</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Полюстрово»</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Панорама" ({companyHouseCounts['ООО «УК «Наш дом-Полюстрово»']} {companyHouseCounts['ООО «УК «Наш дом-Полюстрово»'] === 1 ? 'объект' : 'объекта'})</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО УК «СИТИХОУМ»</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Адмирал" ({companyHouseCounts['ООО УК «СИТИХОУМ»']} {companyHouseCounts['ООО УК «СИТИХОУМ»'] === 1 ? 'объект' : 'объекта'})</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Остров-Град»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Остров-Град»']} {companyHouseCounts['ООО «УК «Остров-Град»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Остров-Град»'] < 5 ? 'объекта' : 'объектов'} в Санкт-Петербурге</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Новое Купчино»</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Новое Купчино" ({companyHouseCounts['ООО «УК «Новое Купчино»']} {companyHouseCounts['ООО «УК «Новое Купчино»'] === 1 ? 'объект' : 'объекта'})</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом – Регион»</h3>
-                  <p className="text-sm text-muted-foreground">
-                    7 объектов в Мурино и Кудрово
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово Град»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»']} {companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Дом»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Кудрово-Дом»']} {companyHouseCounts['ООО «УК «Кудрово-Дом»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Кудрово-Дом»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Сервис»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Кудрово-Сервис»']} {companyHouseCounts['ООО «УК «Кудрово-Сервис»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Кудрово-Сервис»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Кудрово»']} {companyHouseCounts['ООО «УК «Наш дом-Кудрово»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Кудрово»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Наш Дом Новоселье»</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {companyHouseCounts['ООО «УК «Наш Дом Новоселье»']} {companyHouseCounts['ООО «УК «Наш Дом Новоселье»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш Дом Новоселье»'] < 5 ? 'объекта' : 'объектов'} в ЖК NewПитер
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «УК «Усадьба»</h3>
-                  <p className="text-sm text-muted-foreground">КП «Сад времени» ({companyHouseCounts['ООО «УК «Усадьба»']} {companyHouseCounts['ООО «УК «Усадьба»'] === 1 ? 'объект' : 'объекта'})</p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name="Building2" className="text-primary" size={24} />
-                  </div>
-                  <h3 className="font-semibold mb-2">ООО «Сити Паркинг»</h3>
-                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «Сити Паркинг»']} {companyHouseCounts['ООО «Сити Паркинг»'] === 1 ? 'паркинг' : companyHouseCounts['ООО «Сити Паркинг»'] < 5 ? 'паркинга' : 'паркингов'} в Санкт-Петербурге</p>
-                </CardContent>
-              </Card>
+              {companyData.map((company) => {
+                const count = companyHouseCounts[company.name];
+                if (count === 0) return null;
+                
+                return (
+                  <Card 
+                    key={company.id}
+                    className="hover:shadow-lg transition-all cursor-pointer group"
+                    onClick={() => navigate(`/companies/${company.id}`)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Icon name="Building2" className="text-primary" size={24} />
+                        </div>
+                        <Icon 
+                          name="ChevronRight" 
+                          className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"
+                          size={20}
+                        />
+                      </div>
+                      <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {company.name.replace('ООО «УК «', '').replace('ООО УК «', '').replace('ООО «', '').replace(/»$/, '').replace(/»$/g, '')}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
             <div className="text-center mt-8">
               <Link to="/companies">
