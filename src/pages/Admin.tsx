@@ -124,9 +124,11 @@ const Admin = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                <Icon name="Building2" className="text-white" size={28} />
-              </div>
+              <img 
+                src="https://cdn.poehali.dev/files/04401540-8975-406d-b79e-16642a5bd00d.png" 
+                alt="НАШ ДОМ" 
+                className="w-16 h-16 object-contain"
+              />
               <div>
                 <h1 className="text-xl font-bold text-foreground">НАШ ДОМ</h1>
                 <p className="text-xs text-muted-foreground">Панель управления заявками</p>
