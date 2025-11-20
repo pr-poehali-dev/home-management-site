@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Feedback {
   id: number;
@@ -19,6 +23,9 @@ const Admin = () => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
+  const [editingFeedback, setEditingFeedback] = useState<Feedback | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     loadFeedbacks();
@@ -37,6 +44,43 @@ const Admin = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const updateFeedback = async () => {
+    if (!editingFeedback) return;
+    
+    setUpdating(true);
+    try {
+      const response = await fetch(`https://functions.poehali.dev/19ca673e-5734-4552-a942-c1d5157a9efb/${editingFeedback.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          status: editingFeedback.status,
+          notes: editingFeedback.notes || ''
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setFeedbacks(feedbacks.map(f => 
+          f.id === editingFeedback.id ? data.feedback : f
+        ));
+        setIsDialogOpen(false);
+        setEditingFeedback(null);
+      }
+    } catch (error) {
+      console.error('Failed to update feedback:', error);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const openEditDialog = (feedback: Feedback) => {
+    setEditingFeedback({...feedback});
+    setIsDialogOpen(true);
   };
 
   const getStatusBadge = (status: string) => {
@@ -179,6 +223,15 @@ const Admin = () => {
                                   </span>
                                 </CardDescription>
                               </div>
+                              <Button 
+                                size="sm" 
+                                variant="outline" 
+                                className="gap-2"
+                                onClick={() => openEditDialog(feedback)}
+                              >
+                                <Icon name="Edit" size={16} />
+                                Изменить
+                              </Button>
                             </div>
                           </CardHeader>
                           <CardContent>
@@ -202,6 +255,93 @@ const Admin = () => {
           </Card>
         </div>
       </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Редактировать заявку #{editingFeedback?.id}</DialogTitle>
+            <DialogDescription>
+              Изменение статуса и добавление примечаний к заявке
+            </DialogDescription>
+          </DialogHeader>
+          {editingFeedback && (
+            <div className="space-y-6 py-4">
+              <div className="space-y-3">
+                <div className="text-sm">
+                  <span className="font-semibold">От:</span> {editingFeedback.name}
+                </div>
+                <div className="text-sm">
+                  <span className="font-semibold">Телефон:</span> {editingFeedback.phone}
+                </div>
+                <div className="bg-slate-50 p-3 rounded-lg text-sm">
+                  {editingFeedback.message}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="status">Статус заявки</Label>
+                <Select 
+                  value={editingFeedback.status} 
+                  onValueChange={(value) => setEditingFeedback({...editingFeedback, status: value})}
+                >
+                  <SelectTrigger id="status">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="new">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                        Новая
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="in_progress">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        В работе
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="resolved">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                        Решена
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="notes">Примечание (необязательно)</Label>
+                <Textarea
+                  id="notes"
+                  placeholder="Добавьте заметку по заявке..."
+                  value={editingFeedback.notes || ''}
+                  onChange={(e) => setEditingFeedback({...editingFeedback, notes: e.target.value})}
+                  rows={4}
+                />
+              </div>
+
+              <div className="flex gap-3 justify-end">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setIsDialogOpen(false)}
+                  disabled={updating}
+                >
+                  Отмена
+                </Button>
+                <Button 
+                  onClick={updateFeedback}
+                  disabled={updating}
+                  className="gap-2"
+                >
+                  <Icon name={updating ? "Loader2" : "Save"} size={16} className={updating ? "animate-spin" : ""} />
+                  {updating ? 'Сохранение...' : 'Сохранить'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
