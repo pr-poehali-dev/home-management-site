@@ -3,8 +3,26 @@ import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import { houses } from "@/data/housesData";
 
 const About = () => {
+  const companyHouseCounts = {
+    'ООО «УК «Наш дом-Сити»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Сити»').length,
+    'ООО «УК «Наш дом-Полюстрово»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Полюстрово»').length,
+    'ООО УК «СИТИХОУМ»': houses.filter(h => h.company === 'ООО УК «СИТИХОУМ»').length,
+    'ООО «УК «Остров-Град»': houses.filter(h => h.company === 'ООО «УК «Остров-Град»').length,
+    'ООО «УК «Новое Купчино»': houses.filter(h => h.company === 'ООО «УК «Новое Купчино»').length,
+    'ООО «УК «Наш дом – Регион»': houses.filter(h => h.company === 'ООО «УК «Наш дом – Регион»').length,
+    'ООО «УК «Наш дом-Кудрово Град»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Кудрово Град»').length,
+    'ООО «УК «Кудрово-Дом»': houses.filter(h => h.company === 'ООО «УК «Кудрово-Дом»').length,
+    'ООО «УК «Кудрово-Сервис»': houses.filter(h => h.company === 'ООО «УК «Кудрово-Сервис»').length,
+    'ООО «УК «Наш дом-Кудрово»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Кудрово»').length,
+    'ООО «УК «Наш Дом Новоселье»': houses.filter(h => h.company === 'ООО «УК «Наш Дом Новоселье»').length,
+    'ООО «УК «Усадьба»': houses.filter(h => h.company === 'ООО «УК «Усадьба»').length,
+    'ООО «Сити Паркинг»': houses.filter(h => h.company === 'ООО «Сити Паркинг»').length,
+    'Группа УК «НАШ ДОМ»': houses.filter(h => h.company === 'Группа УК «НАШ ДОМ»').length,
+  };
+
   return (
     <Layout>
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
@@ -123,8 +141,8 @@ const About = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-semibold mb-2">ООО "УК "Наш дом-Сити"</h3>
-                  <p className="text-sm text-muted-foreground">7 объектов в Санкт-Петербурге</p>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Сити»</h3>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Сити»']} {companyHouseCounts['ООО «УК «Наш дом-Сити»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Сити»'] < 5 ? 'объекта' : 'объектов'} в Санкт-Петербурге</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -132,8 +150,8 @@ const About = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-semibold mb-2">ООО "УК "Наш дом-Полюстрово"</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Панорама"</p>
+                  <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Полюстрово»</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Панорама" ({companyHouseCounts['ООО «УК «Наш дом-Полюстрово»']} {companyHouseCounts['ООО «УК «Наш дом-Полюстрово»'] === 1 ? 'объект' : 'объекта'})</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -141,8 +159,8 @@ const About = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-semibold mb-2">ООО УК "СИТИХОУМ"</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Адмирал"</p>
+                  <h3 className="font-semibold mb-2">ООО УК «СИТИХОУМ»</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Адмирал" ({companyHouseCounts['ООО УК «СИТИХОУМ»']} {companyHouseCounts['ООО УК «СИТИХОУМ»'] === 1 ? 'объект' : 'объекта'})</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -150,8 +168,8 @@ const About = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-semibold mb-2">ООО "УК "Остров-Град"</h3>
-                  <p className="text-sm text-muted-foreground">5 объектов в Санкт-Петербурге</p>
+                  <h3 className="font-semibold mb-2">ООО «УК «Остров-Град»</h3>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Остров-Град»']} {companyHouseCounts['ООО «УК «Остров-Град»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Остров-Град»'] < 5 ? 'объекта' : 'объектов'} в Санкт-Петербурге</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -159,8 +177,8 @@ const About = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-semibold mb-2">ООО "УК "Новое Купчино"</h3>
-                  <p className="text-sm text-muted-foreground">ЖК "Новое Купчино"</p>
+                  <h3 className="font-semibold mb-2">ООО «УК «Новое Купчино»</h3>
+                  <p className="text-sm text-muted-foreground">ЖК "Новое Купчино" ({companyHouseCounts['ООО «УК «Новое Купчино»']} {companyHouseCounts['ООО «УК «Новое Купчино»'] === 1 ? 'объект' : 'объекта'})</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -180,7 +198,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово Град»</h3>
-                  <p className="text-sm text-muted-foreground">2 объекта в Кудрово</p>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»']} {companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Кудрово Град»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -189,7 +207,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Дом»</h3>
-                  <p className="text-sm text-muted-foreground">3 объекта в Кудрово</p>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Кудрово-Дом»']} {companyHouseCounts['ООО «УК «Кудрово-Дом»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Кудрово-Дом»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -198,7 +216,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Кудрово-Сервис»</h3>
-                  <p className="text-sm text-muted-foreground">2 объекта в Кудрово</p>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Кудрово-Сервис»']} {companyHouseCounts['ООО «УК «Кудрово-Сервис»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Кудрово-Сервис»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -207,7 +225,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Наш дом-Кудрово»</h3>
-                  <p className="text-sm text-muted-foreground">3 объекта в Кудрово</p>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «УК «Наш дом-Кудрово»']} {companyHouseCounts['ООО «УК «Наш дом-Кудрово»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш дом-Кудрово»'] < 5 ? 'объекта' : 'объектов'} в Кудрово</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -217,7 +235,7 @@ const About = () => {
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Наш Дом Новоселье»</h3>
                   <p className="text-sm text-muted-foreground">
-                    16 объектов в ЖК NewПитер
+                    {companyHouseCounts['ООО «УК «Наш Дом Новоселье»']} {companyHouseCounts['ООО «УК «Наш Дом Новоселье»'] === 1 ? 'объект' : companyHouseCounts['ООО «УК «Наш Дом Новоселье»'] < 5 ? 'объекта' : 'объектов'} в ЖК NewПитер
                   </p>
                 </CardContent>
               </Card>
@@ -227,7 +245,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «УК «Усадьба»</h3>
-                  <p className="text-sm text-muted-foreground">КП «Сад времени»</p>
+                  <p className="text-sm text-muted-foreground">КП «Сад времени» ({companyHouseCounts['ООО «УК «Усадьба»']} {companyHouseCounts['ООО «УК «Усадьба»'] === 1 ? 'объект' : 'объекта'})</p>
                 </CardContent>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
@@ -236,7 +254,7 @@ const About = () => {
                     <Icon name="Building2" className="text-primary" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2">ООО «Сити Паркинг»</h3>
-                  <p className="text-sm text-muted-foreground">9 паркингов в Санкт-Петербурге</p>
+                  <p className="text-sm text-muted-foreground">{companyHouseCounts['ООО «Сити Паркинг»']} {companyHouseCounts['ООО «Сити Паркинг»'] === 1 ? 'паркинг' : companyHouseCounts['ООО «Сити Паркинг»'] < 5 ? 'паркинга' : 'паркингов'} в Санкт-Петербурге</p>
                 </CardContent>
               </Card>
             </div>

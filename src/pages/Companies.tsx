@@ -18,100 +18,98 @@ const Companies = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const companies: CompanyInfo[] = [
+  const companyList = [
     {
       id: "uk-nash-dom-sity",
-      name: 'ООО "УК "Наш дом-Сити"',
+      name: 'ООО «УК «Наш дом-Сити»',
       shortName: "Наш дом-Сити",
       description: "Управление многоквартирными домами в центральных районах Санкт-Петербурга",
-      objectsCount: 7,
     },
     {
       id: "uk-nash-dom-polyustrovo",
-      name: 'ООО "УК "Наш дом-Полюстрово"',
+      name: 'ООО «УК «Наш дом-Полюстрово»',
       shortName: "Наш дом-Полюстрово",
       description: 'Управление ЖК "Панорама" на Кондратьевском проспекте',
-      objectsCount: 1,
     },
     {
       id: "uk-sityhome",
-      name: 'ООО УК "СИТИХОУМ"',
+      name: 'ООО УК «СИТИХОУМ»',
       shortName: "СИТИХОУМ",
       description: 'Управление ЖК "Адмирал" на улице Одоевского',
-      objectsCount: 1,
     },
     {
       id: "uk-ostrov-grad",
-      name: 'ООО "УК "Остров-Град"',
+      name: 'ООО «УК «Остров-Град»',
       shortName: "Остров-Град",
       description:
         "Управление элитными жилыми комплексами и бизнес-центрами в Санкт-Петербурге",
-      objectsCount: 5,
     },
     {
       id: "uk-novoe-kupchino",
-      name: 'ООО "УК "Новое Купчино"',
+      name: 'ООО «УК «Новое Купчино»',
       shortName: "Новое Купчино",
       description: 'Управление ЖК "Новое Купчино" на Малой Бухарестской',
-      objectsCount: 1,
     },
     {
       id: "uk-nash-dom-region",
       name: 'ООО «УК «Наш дом – Регион»',
       shortName: "Наш дом – Регион",
       description: "Управление домами в Мурино и Кудрово, Ленинградская область",
-      objectsCount: 7,
     },
     {
       id: "uk-nash-dom-kudrovo-grad",
       name: 'ООО «УК «Наш дом-Кудрово Град»',
       shortName: "Наш дом-Кудрово Град",
       description: "Управление жилыми комплексами в городе Кудрово",
-      objectsCount: 2,
     },
     {
       id: "uk-kudrovo-dom",
       name: 'ООО «УК «Кудрово-Дом»',
       shortName: "Кудрово-Дом",
       description: "Комплексное управление многоквартирными домами в Кудрово",
-      objectsCount: 3,
     },
     {
       id: "uk-kudrovo-service",
       name: 'ООО «УК «Кудрово-Сервис»',
       shortName: "Кудрово-Сервис",
       description: "Качественное обслуживание жилых домов в Кудрово",
-      objectsCount: 2,
     },
     {
       id: "uk-nash-dom-kudrovo",
       name: 'ООО «УК «Наш дом-Кудрово»',
       shortName: "Наш дом-Кудрово",
       description: "Профессиональное управление недвижимостью в Кудрово",
-      objectsCount: 3,
     },
     {
       id: "uk-nash-dom-novoselye",
       name: 'ООО «УК «Наш Дом Новоселье»',
       shortName: "Наш Дом Новоселье",
       description: 'Управление крупнейшим ЖК "NewПитер" в поселке Новоселье',
-      objectsCount: 16,
     },
     {
       id: "uk-usadba",
       name: 'ООО «УК «Усадьба»',
       shortName: "Усадьба",
       description: 'Управление коттеджным поселком "Сад времени"',
-      objectsCount: 1,
     },
     {
       id: "uk-city-parking",
       name: 'ООО «Сити Паркинг»',
       shortName: "Сити Паркинг",
       description: "Специализированное управление паркингами в Санкт-Петербурге",
-      objectsCount: 9,
+    },
+    {
+      id: "uk-nash-dom-group",
+      name: 'Группа УК «НАШ ДОМ»',
+      shortName: "НАШ ДОМ",
+      description: "Прочие объекты группы компаний",
     },
   ];
+
+  const companies: CompanyInfo[] = companyList.map((company) => ({
+    ...company,
+    objectsCount: houses.filter((house) => house.company === company.name).length,
+  })).filter((company) => company.objectsCount > 0);
 
   const filteredCompanies = companies.filter((company) =>
     company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
