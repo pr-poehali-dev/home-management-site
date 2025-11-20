@@ -14,6 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
   const navLinks = [
     { path: "/", label: "Главная" },
     { path: "/about", label: "О компании" },
+    { path: "/houses", label: "Дома" },
     { path: "/news", label: "Новости" },
     { path: "/services", label: "Услуги" },
     { path: "/documents", label: "Документы" },
