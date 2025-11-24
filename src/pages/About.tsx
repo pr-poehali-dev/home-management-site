@@ -46,7 +46,7 @@ const About = () => {
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-sapphire">О компании</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">О компании</h1>
             <p className="text-xl text-muted-foreground">
               Группа управляющих компаний «НАШ ДОМ» — ваш надёжный партнёр в сфере управления жилой
               недвижимостью с 2007 года
@@ -62,7 +62,7 @@ const About = () => {
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-gradient-sapphire">Наша миссия</h2>
+              <h2 className="text-3xl font-bold">Наша миссия</h2>
               <p className="text-lg text-muted-foreground">
                 Создание комфортных условий проживания для жителей многоквартирных домов через
                 профессиональное управление, качественное обслуживание и заботу о каждом клиенте.
@@ -75,7 +75,7 @@ const About = () => {
           </div>
 
           <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gradient-sapphire">Наши принципы</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Наши принципы</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
@@ -150,7 +150,7 @@ const About = () => {
           </div>
 
           <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gradient-sapphire">
+            <h2 className="text-3xl font-bold text-center mb-12">
               13 управляющих компаний в составе группы
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -197,7 +197,7 @@ const About = () => {
           </div>
 
           <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold mb-8 text-center text-gradient-sapphire">Наши ключевые задачи</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">Наши ключевые задачи</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex gap-3">
                 <Icon name="CheckCircle2" className="text-primary flex-shrink-0 mt-1" size={20} />
