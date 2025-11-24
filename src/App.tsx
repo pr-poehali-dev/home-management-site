@@ -21,24 +21,26 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/for-residents" element={<ForResidents />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/houses" element={<Houses />} />
-          <Route path="/houses/:id" element={<HouseDetail />} />
-          <Route path="/companies" element={<Companies />} />
-          <Route path="/companies/:id" element={<CompanyDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="bg-metallic-graphite min-h-screen">
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/for-residents" element={<ForResidents />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/houses" element={<Houses />} />
+            <Route path="/houses/:id" element={<HouseDetail />} />
+            <Route path="/companies" element={<Companies />} />
+            <Route path="/companies/:id" element={<CompanyDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );
