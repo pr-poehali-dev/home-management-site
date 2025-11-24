@@ -62,7 +62,7 @@ const Index = () => {
               <Badge className="bg-secondary text-secondary-foreground">
                 18 лет на рынке ЖКХ
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gradient-sapphire">
                 Ваш комфорт — наша забота
               </h1>
               <p className="text-xl text-muted-foreground">
@@ -151,7 +151,7 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши дома на карте</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-sapphire">Наши дома на карте</h2>
             <p className="text-lg text-muted-foreground">
               Мы обслуживаем дома в разных районах города
             </p>
@@ -232,7 +232,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-2">Последние новости</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gradient-sapphire">Последние новости</h2>
               <p className="text-muted-foreground">Важная информация для жильцов</p>
             </div>
             <Link to="/news">
