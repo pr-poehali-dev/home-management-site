@@ -25,16 +25,16 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+      <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                <Icon name="Building2" className="text-primary-foreground" size={28} />
+              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                <Icon name="Building2" className="text-white" size={28} />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">НАШ ДОМ</h1>
-                <p className="text-xs text-muted-foreground">Группа управляющих компаний</p>
+                <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
+                <p className="text-xs text-white/80">Группа управляющих компаний</p>
               </div>
             </Link>
 
@@ -45,8 +45,8 @@ const Layout = ({ children }: LayoutProps) => {
                   to={link.path}
                   className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                     location.pathname === link.path
-                      ? "bg-primary text-primary-foreground"
-                      : "hover:bg-muted"
+                      ? "bg-white/20 text-white backdrop-blur-sm"
+                      : "text-white/90 hover:bg-white/10"
                   }`}
                 >
                   {link.label}
@@ -56,7 +56,7 @@ const Layout = ({ children }: LayoutProps) => {
 
             <div className="hidden lg:flex items-center gap-3">
               <a href="tel:+78126408826">
-                <Button>
+                <Button className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm border-white/30">
                   <Icon name="Phone" size={16} className="mr-2" />
                   +7 (812) 640-88-26
                 </Button>
@@ -65,7 +65,7 @@ const Layout = ({ children }: LayoutProps) => {
 
             <Sheet>
               <SheetTrigger asChild className="lg:hidden">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className="text-white border-white/30 hover:bg-white/10">
                   <Icon name="Menu" size={24} />
                 </Button>
               </SheetTrigger>
