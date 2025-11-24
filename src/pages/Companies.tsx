@@ -165,12 +165,12 @@ const Companies = () => {
               {filteredCompanies.map((company) => (
                 <Card
                   key={company.id}
-                  className="hover:shadow-lg transition-all cursor-pointer group"
+                  className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer group hover:-translate-y-1"
                   onClick={() => navigate(`/companies/${company.id}`)}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-primary/30 transition-shadow">
                         <Icon name="Building2" className="text-primary" size={24} />
                       </div>
                       <Icon
@@ -186,7 +186,7 @@ const Companies = () => {
                       {company.description}
                     </p>
                     <div className="flex items-center gap-2 text-sm">
-                      <div className="flex items-center gap-1 px-3 py-1 bg-secondary/10 rounded-full">
+                      <div className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-secondary/15 to-secondary/5 rounded-full shadow-sm">
                         <Icon name="Home" size={14} className="text-secondary" />
                         <span className="font-medium">{company.objectsCount}</span>
                         <span className="text-muted-foreground">

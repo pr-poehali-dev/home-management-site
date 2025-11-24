@@ -77,9 +77,9 @@ const About = () => {
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">Наши принципы</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Rocket" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Прогрессивные методы</h3>
@@ -89,9 +89,9 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Heart" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Забота о клиентах</h3>
@@ -101,9 +101,9 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Settings" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Системный подход</h3>
@@ -113,9 +113,9 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="DollarSign" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Честная ценовая политика</h3>
@@ -123,9 +123,9 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Award" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Профессионализм</h3>
@@ -135,9 +135,9 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="TrendingUp" className="text-primary" size={24} />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Постоянное развитие</h3>
@@ -161,12 +161,12 @@ const About = () => {
                 return (
                   <Card 
                     key={company.id}
-                    className="hover:shadow-lg transition-all cursor-pointer group"
+                    className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer group hover:-translate-y-1"
                     onClick={() => navigate(`/companies/${company.id}`)}
                   >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-primary/30 transition-shadow">
                           <Icon name="Building2" className="text-primary" size={24} />
                         </div>
                         <Icon 

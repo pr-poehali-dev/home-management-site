@@ -354,7 +354,7 @@ const CompanyDetail = () => {
               {companyHouses.map((house) => (
                 <Card
                   key={house.id}
-                  className="hover:shadow-lg transition-all cursor-pointer group"
+                  className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer group hover:-translate-y-1"
                   onClick={() => navigate(`/houses/${house.id}`)}
                 >
                   <CardContent className="p-6">

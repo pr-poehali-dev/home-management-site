@@ -195,18 +195,18 @@ const Index = () => {
               {houses.map((house) => (
                 <Card
                   key={house.id}
-                  className={`cursor-pointer transition-all ${
+                  className={`cursor-pointer transition-all duration-300 ${
                     selectedHouse === house.id
-                      ? "border-secondary shadow-md"
-                      : "hover:border-muted-foreground/20"
+                      ? "border-secondary shadow-2xl shadow-secondary/20"
+                      : "hover:border-muted-foreground/20 hover:shadow-lg hover:shadow-black/20"
                   }`}
                   onClick={() => setSelectedHouse(house.id)}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          selectedHouse === house.id ? "bg-secondary" : "bg-primary"
+                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md ${
+                          selectedHouse === house.id ? "bg-gradient-to-br from-secondary to-secondary/80" : "bg-gradient-to-br from-primary to-primary/80"
                         }`}
                       >
                         <Icon
@@ -245,7 +245,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {latestNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow">
+              <Card key={news.id} className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
                 <CardContent className="p-6">
                   <Badge
                     className={
@@ -279,9 +279,9 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                   <Icon name="FileText" className="text-primary" size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Документы</h3>
@@ -296,9 +296,9 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                   <Icon name="Wrench" className="text-secondary" size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Услуги и тарифы</h3>
@@ -311,9 +311,9 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                   <Icon name="HelpCircle" className="text-primary" size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Для жильцов</h3>
