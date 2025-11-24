@@ -110,8 +110,8 @@
     background: linear-gradient(
       135deg,
       hsl(240, 85%, 30%) 0%,
-      hsl(245, 80%, 28%) 50%,
-      hsl(250, 75%, 32%) 100%
+      hsl(220, 15%, 40%) 50%,
+      hsl(0, 0%, 35%) 100%
     );
   }
 
@@ -119,8 +119,8 @@
     background: linear-gradient(
       135deg,
       hsl(240, 85%, 40%) 0%,
-      hsl(245, 80%, 38%) 50%,
-      hsl(250, 75%, 42%) 100%
+      hsl(220, 15%, 50%) 50%,
+      hsl(0, 0%, 45%) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -132,12 +132,7 @@
   }
 
   .border-gradient-sapphire {
-    border-image: linear-gradient(
-        135deg,
-        hsl(240, 85%, 30%),
-        hsl(250, 75%, 32%)
-      )
-      1;
+    border-image: linear-gradient(135deg, hsl(240, 85%, 30%), hsl(0, 0%, 35%)) 1;
   }
 
   .bg-metallic-graphite {
