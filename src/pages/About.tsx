@@ -19,6 +19,10 @@ const About = () => {
     { id: "uk-nash-dom-novoselye", name: 'ООО «УК «Наш Дом Новоселье»' },
     { id: "uk-usadba", name: 'ООО «УК «Усадьба»' },
     { id: "uk-city-parking", name: 'ООО «Сити Паркинг»' },
+    { id: "uk-nash-dom-kudrovo-sity", name: 'ООО «УК «Наш дом-Кудрово-Сити»' },
+    { id: "uk-kapital-komfort", name: 'ООО «УК «Капитал-Комфорт»' },
+    { id: "uk-mks", name: 'ООО «УК «МКС»' },
+    { id: "uk-biznes-sity-dom", name: 'ООО «УК «Бизнес сити дом»' },
   ];
 
   const companyHouseCounts = {
@@ -35,6 +39,10 @@ const About = () => {
     'ООО «УК «Наш Дом Новоселье»': houses.filter(h => h.company === 'ООО «УК «Наш Дом Новоселье»').length,
     'ООО «УК «Усадьба»': houses.filter(h => h.company === 'ООО «УК «Усадьба»').length,
     'ООО «Сити Паркинг»': houses.filter(h => h.company === 'ООО «Сити Паркинг»').length,
+    'ООО «УК «Наш дом-Кудрово-Сити»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Кудрово-Сити»').length,
+    'ООО «УК «Капитал-Комфорт»': houses.filter(h => h.company === 'ООО «УК «Капитал-Комфорт»').length,
+    'ООО «УК «МКС»': houses.filter(h => h.company === 'ООО «УК «МКС»').length,
+    'ООО «УК «Бизнес сити дом»': houses.filter(h => h.company === 'ООО «УК «Бизнес сити дом»').length,
     'Группа УК «НАШ ДОМ»': houses.filter(h => h.company === 'Группа УК «НАШ ДОМ»').length,
   };
 
@@ -173,7 +181,7 @@ const About = () => {
 
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">
-              13 управляющих компаний в составе группы
+              17 управляющих компаний в составе группы
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {companyData.map((company) => {
