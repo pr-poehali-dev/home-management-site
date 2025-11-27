@@ -3,7 +3,6 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
-import { houses } from "@/data/housesData";
 
 interface CompanyInfo {
   id: string;
@@ -364,8 +363,6 @@ const CompanyDetail = () => {
     );
   }
 
-  const companyHouses = houses.filter(h => h.company === company.name);
-
   return (
     <Layout>
       <section className="py-12 bg-gradient-to-br from-primary/5 to-background">
@@ -482,31 +479,6 @@ const CompanyDetail = () => {
               </CardContent>
             </Card>
           </div>
-
-          {companyHouses.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="Building2" size={24} className="text-primary" />
-                  Дома в управлении ({companyHouses.length})
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {companyHouses.map((house) => (
-                    <Link
-                      key={house.id}
-                      to={`/houses/${house.id}`}
-                      className="p-4 rounded-lg border hover:border-primary hover:shadow-md transition-all"
-                    >
-                      <div className="font-semibold mb-1">{house.address}</div>
-                      <div className="text-sm text-muted-foreground">{house.district}</div>
-                    </Link>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
       </section>
     </Layout>
