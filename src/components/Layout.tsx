@@ -28,12 +28,13 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Icon name="Building2" className="text-white" size={28} />
-              </div>
+              <img 
+                src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
+                alt="НАШ ДОМ" 
+                className="w-12 h-12 rounded-full object-cover"
+              />
               <div>
                 <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
-                <p className="text-xs text-white/80">Группа управляющих компаний</p>
               </div>
             </Link>
 
@@ -142,12 +143,13 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-background/10 rounded-lg flex items-center justify-center">
-                  <Icon name="Building2" className="text-background" size={24} />
-                </div>
+                <img 
+                  src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
+                  alt="НАШ ДОМ" 
+                  className="w-10 h-10 rounded-full object-cover"
+                />
                 <div>
                   <h3 className="font-bold">НАШ ДОМ</h3>
-                  <p className="text-sm opacity-75">Группа УК</p>
                 </div>
               </div>
               <p className="text-sm opacity-75">
