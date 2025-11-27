@@ -2,14 +2,11 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Link } from "react-router-dom";
 
 const Index = () => {
-  const [meterValue, setMeterValue] = useState("");
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
 
   const latestNews = [
@@ -47,80 +44,34 @@ const Index = () => {
     { id: 8, name: "ЖК Адмирал", address: "ул. Одоевского, 21", x: 35, y: 70 },
   ];
 
-  const handleMeterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Показания ${meterValue} кВт·ч успешно отправлены!`);
-    setMeterValue("");
-  };
-
   return (
     <Layout>
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <Badge className="bg-secondary text-secondary-foreground">
-                18 лет на рынке ЖКХ
-              </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Ваш комфорт — наша забота
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Профессиональное управление жилой недвижимостью. Обслуживаем более 50
-                многоквартирных домов и 1 млн м² площади.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/services">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Наши услуги
-                    <Icon name="ArrowRight" size={18} className="ml-2" />
-                  </Button>
-                </Link>
-                <Link to="/for-residents">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                    <Icon name="Info" size={18} className="mr-2" />
-                    Для жильцов
-                  </Button>
-                </Link>
-              </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="bg-secondary text-secondary-foreground mb-6">
+              18 лет на рынке ЖКХ
+            </Badge>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Живите комфортно, остальное — наша забота.
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8">
+              Мы — команда профессионалов в управлении жилой недвижимостью. Обслуживаем более 50 многоквартирных домов, обеспечивая комфорт и безопасность на 1 млн м² площади. Позвольте нам позаботиться о Вашем доме!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Link to="/services">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Наши услуги
+                  <Icon name="ArrowRight" size={18} className="ml-2" />
+                </Button>
+              </Link>
+              <Link to="/contacts">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                  <Icon name="Phone" size={18} className="mr-2" />
+                  Связаться с нами
+                </Button>
+              </Link>
             </div>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Icon name="Zap" className="text-secondary" />
-                  Передать показания счётчика
-                </h3>
-                <form onSubmit={handleMeterSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="meter">Показания электроэнергии (кВт·ч)</Label>
-                    <Input
-                      id="meter"
-                      type="number"
-                      placeholder="Введите показания"
-                      value={meterValue}
-                      onChange={(e) => setMeterValue(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Отправить показания
-                  </Button>
-                </form>
-                <div className="mt-6 p-4 bg-muted rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <Icon name="Info" className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <div className="text-sm text-muted-foreground">
-                      <p className="font-medium text-foreground mb-1">Как передать показания?</p>
-                      <p>
-                        Снимите показания со счётчика и введите значение в поле выше. Показания
-                        принимаются с 20 по 25 число каждого месяца.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
