@@ -185,8 +185,7 @@ const About = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {companyData.map((company) => {
-                const count = companyHouseCounts[company.name];
-                if (count === 0) return null;
+                const count = companyHouseCounts[company.name] || 0;
                 
                 return (
                   <Card 
@@ -202,9 +201,11 @@ const About = () => {
                       <h3 className="font-semibold mb-2">
                         {company.name}
                       </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
-                      </p>
+                      {count > 0 && (
+                        <p className="text-sm text-muted-foreground">
+                          {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
+                        </p>
+                      )}
                     </CardContent>
                   </Card>
                 );
