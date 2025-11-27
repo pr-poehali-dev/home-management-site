@@ -188,26 +188,28 @@ const About = () => {
                 const count = companyHouseCounts[company.name] || 0;
                 
                 return (
-                  <Card 
-                    key={company.id}
-                    className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center shadow-md">
-                          <Icon name="Building2" className="text-primary/70" size={24} />
+                  <Link key={company.id} to={`/about/${company.id}`}>
+                    <Card 
+                      className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer"
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center shadow-md">
+                            <Icon name="Building2" className="text-primary/70" size={24} />
+                          </div>
+                          <Icon name="ChevronRight" className="text-muted-foreground" size={20} />
                         </div>
-                      </div>
-                      <h3 className="font-semibold mb-2">
-                        {company.name}
-                      </h3>
-                      {count > 0 && (
-                        <p className="text-sm text-muted-foreground">
-                          {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
-                        </p>
-                      )}
-                    </CardContent>
-                  </Card>
+                        <h3 className="font-semibold mb-2">
+                          {company.name}
+                        </h3>
+                        {count > 0 && (
+                          <p className="text-sm text-muted-foreground">
+                            {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Link>
                 );
               })}
             </div>
