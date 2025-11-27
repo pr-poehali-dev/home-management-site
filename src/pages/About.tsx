@@ -200,7 +200,7 @@ const About = () => {
                         </div>
                       </div>
                       <h3 className="font-semibold mb-2">
-                        {company.name.replace('ООО «УК «', '').replace('ООО УК «', '').replace('ООО «', '').replace(/»$/, '').replace(/»$/g, '')}
+                        {company.name}
                       </h3>
                       <p className="text-sm text-muted-foreground">
                         {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
