@@ -2,8 +2,42 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import { houses } from "@/data/housesData";
 
 const About = () => {
+  const companyData = [
+    { id: "uk-nash-dom-sity", name: 'ООО «УК «Наш дом-Сити»' },
+    { id: "uk-nash-dom-polyustrovo", name: 'ООО «УК «Наш дом-Полюстрово»' },
+    { id: "uk-sityhome", name: 'ООО УК «СИТИХОУМ»' },
+    { id: "uk-ostrov-grad", name: 'ООО «УК «Остров-Град»' },
+    { id: "uk-novoe-kupchino", name: 'ООО «УК «Новое Купчино»' },
+    { id: "uk-nash-dom-region", name: 'ООО «УК «Наш дом – Регион»' },
+    { id: "uk-nash-dom-kudrovo-grad", name: 'ООО «УК «Наш дом-Кудрово Град»' },
+    { id: "uk-kudrovo-dom", name: 'ООО «УК «Кудрово-Дом»' },
+    { id: "uk-kudrovo-service", name: 'ООО «УК «Кудрово-Сервис»' },
+    { id: "uk-nash-dom-kudrovo", name: 'ООО «УК «Наш дом-Кудрово»' },
+    { id: "uk-nash-dom-novoselye", name: 'ООО «УК «Наш Дом Новоселье»' },
+    { id: "uk-usadba", name: 'ООО «УК «Усадьба»' },
+    { id: "uk-city-parking", name: 'ООО «Сити Паркинг»' },
+  ];
+
+  const companyHouseCounts = {
+    'ООО «УК «Наш дом-Сити»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Сити»').length,
+    'ООО «УК «Наш дом-Полюстрово»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Полюстрово»').length,
+    'ООО УК «СИТИХОУМ»': houses.filter(h => h.company === 'ООО УК «СИТИХОУМ»').length,
+    'ООО «УК «Остров-Град»': houses.filter(h => h.company === 'ООО «УК «Остров-Град»').length,
+    'ООО «УК «Новое Купчино»': houses.filter(h => h.company === 'ООО «УК «Новое Купчино»').length,
+    'ООО «УК «Наш дом – Регион»': houses.filter(h => h.company === 'ООО «УК «Наш дом – Регион»').length,
+    'ООО «УК «Наш дом-Кудрово Град»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Кудрово Град»').length,
+    'ООО «УК «Кудрово-Дом»': houses.filter(h => h.company === 'ООО «УК «Кудрово-Дом»').length,
+    'ООО «УК «Кудрово-Сервис»': houses.filter(h => h.company === 'ООО «УК «Кудрово-Сервис»').length,
+    'ООО «УК «Наш дом-Кудрово»': houses.filter(h => h.company === 'ООО «УК «Наш дом-Кудрово»').length,
+    'ООО «УК «Наш Дом Новоселье»': houses.filter(h => h.company === 'ООО «УК «Наш Дом Новоселье»').length,
+    'ООО «УК «Усадьба»': houses.filter(h => h.company === 'ООО «УК «Усадьба»').length,
+    'ООО «Сити Паркинг»': houses.filter(h => h.company === 'ООО «Сити Паркинг»').length,
+    'Группа УК «НАШ ДОМ»': houses.filter(h => h.company === 'Группа УК «НАШ ДОМ»').length,
+  };
+
   return (
     <Layout>
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
@@ -109,6 +143,39 @@ const About = () => {
                   </p>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              13 управляющих компаний в составе группы
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {companyData.map((company) => {
+                const count = companyHouseCounts[company.name];
+                if (count === 0) return null;
+                
+                return (
+                  <Card 
+                    key={company.id}
+                    className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center shadow-md">
+                          <Icon name="Building2" className="text-primary" size={24} />
+                        </div>
+                      </div>
+                      <h3 className="font-semibold mb-2">
+                        {company.name.replace('ООО «УК «', '').replace('ООО УК «', '').replace('ООО «', '').replace(/»$/, '').replace(/»$/g, '')}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {count} {count === 1 ? 'объект' : count < 5 ? 'объекта' : 'объектов'}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
 

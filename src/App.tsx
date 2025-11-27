@@ -12,8 +12,6 @@ import ForResidents from "./pages/ForResidents";
 import Contacts from "./pages/Contacts";
 import Houses from "./pages/Houses";
 import HouseDetail from "./pages/HouseDetail";
-import Companies from "./pages/Companies";
-import CompanyDetail from "./pages/CompanyDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,8 +33,6 @@ const App = () => (
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/houses" element={<Houses />} />
             <Route path="/houses/:id" element={<HouseDetail />} />
-            <Route path="/companies" element={<Companies />} />
-            <Route path="/companies/:id" element={<CompanyDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
