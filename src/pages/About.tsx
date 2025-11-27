@@ -45,8 +45,7 @@ const About = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">О компании</h1>
             <p className="text-xl text-muted-foreground">
-              Группа управляющих компаний «НАШ ДОМ» — ваш надёжный партнёр в сфере управления жилой
-              недвижимостью с 2007 года
+              «НАШ ДОМ» – Ваш надёжный партнёр в сфере управления жилой недвижимостью с 2007 года. Мы обладаем многолетним опытом и глубоким пониманием потребностей наших клиентов, чтобы обеспечивать комфортное и безопасное проживание в Ваших домах.
             </p>
           </div>
 
@@ -61,27 +60,25 @@ const About = () => {
             <div className="space-y-6">
               <h2 className="text-3xl font-bold">Наша миссия</h2>
               <p className="text-lg text-muted-foreground">
-                Создание комфортных условий проживания для жителей многоквартирных домов через
-                профессиональное управление, качественное обслуживание и заботу о каждом клиенте.
+                Ваша жизнь – наш приоритет. Мы – команда профессионалов, использующая передовые технологии для эффективного управления многоквартирными домами.
               </p>
               <p className="text-lg text-muted-foreground">
-                Мы объединяем опытных специалистов и современные технологии для достижения
-                максимальной эффективности в управлении жилищным фондом.
+                Наша миссия – предоставлять высококачественные услуги, обеспечивающие комфорт, безопасность и процветание Вашего жилья. Мы стремимся к безупречности в каждой детали, чтобы сделать Вашу жизнь проще и приятнее.
               </p>
             </div>
           </div>
 
           <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center mb-12">Наши принципы</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Наши ценности</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
-                    <Icon name="Rocket" className="text-primary" size={24} />
+                    <Icon name="Target" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Прогрессивные методы</h3>
+                  <h3 className="text-lg font-semibold mb-2">Ориентированность на результат</h3>
                   <p className="text-muted-foreground">
-                    Комплексный подход к управлению и стремление к максимальному результату
+                    Мы применяем прогрессивные методы управления и стремимся к максимальной эффективности в каждом проекте. Это позволяет нам достигать поставленных целей и превосходить ожидания.
                   </p>
                 </CardContent>
               </Card>
@@ -91,9 +88,9 @@ const About = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Heart" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Забота о клиентах</h3>
+                  <h3 className="text-lg font-semibold mb-2">Клиентоориентированность</h3>
                   <p className="text-muted-foreground">
-                    Комфорт жителей — наш главный приоритет в работе
+                    Мы заботимся о комфорте наших жителей, как о своем собственном. Создание благоприятной среды для жизни – наша главная задача.
                   </p>
                 </CardContent>
               </Card>
@@ -103,9 +100,9 @@ const About = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Settings" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Системный подход</h3>
+                  <h3 className="text-lg font-semibold mb-2">Системность и оперативность</h3>
                   <p className="text-muted-foreground">
-                    Оперативное и эффективное решение текущих проблем
+                    Благодаря четкой организации и системному подходу, мы оперативно реагируем на любые возникающие вопросы и эффективно решаем текущие проблемы.
                   </p>
                 </CardContent>
               </Card>
@@ -113,10 +110,12 @@ const About = () => {
               <Card className="hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
-                    <Icon name="DollarSign" className="text-primary" size={24} />
+                    <Icon name="Eye" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Честная ценовая политика</h3>
-                  <p className="text-muted-foreground">Прозрачные и доступные тарифы для всех</p>
+                  <h3 className="text-lg font-semibold mb-2">Прозрачность и честность</h3>
+                  <p className="text-muted-foreground">
+                    Мы придерживаемся честной ценовой политики и предлагаем прозрачные тарифы, чтобы каждый житель понимал, за что он платит.
+                  </p>
                 </CardContent>
               </Card>
 
@@ -125,9 +124,9 @@ const About = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="Award" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Профессионализм</h3>
+                  <h3 className="text-lg font-semibold mb-2">Команда профессионалов</h3>
                   <p className="text-muted-foreground">
-                    Высококвалифицированные специалисты в своей области
+                    В нашей компании работают высококвалифицированные специалисты, которые обладают глубокими знаниями и опытом в своей области.
                   </p>
                 </CardContent>
               </Card>
@@ -137,9 +136,9 @@ const About = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                     <Icon name="TrendingUp" className="text-primary" size={24} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Постоянное развитие</h3>
+                  <h3 className="text-lg font-semibold mb-2">Непрерывное развитие</h3>
                   <p className="text-muted-foreground">
-                    Модернизация сервиса и внедрение лучших решений
+                    Мы постоянно развиваемся и стремимся к совершенству, внедряя лучшие решения и модернизируя наш сервис, чтобы соответствовать самым высоким стандартам качества.
                   </p>
                 </CardContent>
               </Card>
