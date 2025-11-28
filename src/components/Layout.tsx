@@ -138,7 +138,7 @@ const Layout = ({ children }: LayoutProps) => {
         </a>
       </div>
 
-      <footer className="bg-foreground text-background py-12 mt-20">
+      <footer className="bg-foreground text-background py-12 mt-20 relative z-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
