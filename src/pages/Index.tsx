@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -26,7 +27,17 @@ const Index = () => {
     const elements = document.querySelectorAll('.scroll-fade-in');
     elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      const offset = window.pageYOffset;
+      setParallaxOffset(offset * 0.5);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const latestNews = [
@@ -75,6 +86,8 @@ const Index = () => {
             backgroundPosition: 'center center',
             imageRendering: 'crisp-edges',
             filter: 'brightness(1.1) contrast(1.05)',
+            transform: `translateY(${parallaxOffset}px)`,
+            transition: 'transform 0.1s ease-out',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
