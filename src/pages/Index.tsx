@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +8,26 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
+
+  useEffect(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    const elements = document.querySelectorAll('.scroll-fade-in');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const latestNews = [
     {
@@ -54,9 +74,10 @@ const Index = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             imageRendering: 'crisp-edges',
+            filter: 'brightness(1.1) contrast(1.05)',
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -87,7 +108,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-primary text-primary-foreground">
+      <section className="py-16 bg-primary text-primary-foreground scroll-fade-in">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
@@ -110,7 +131,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 scroll-fade-in">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши дома на карте</h2>
@@ -190,7 +211,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 scroll-fade-in">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -238,7 +259,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 scroll-fade-in">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
