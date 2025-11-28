@@ -77,22 +77,21 @@ const Index = () => {
 
   return (
     <Layout>
-      <section className="relative py-16 md:py-24 overflow-hidden min-h-[600px] md:min-h-[700px]">
-        <div 
-          className="absolute inset-0 bg-center"
-          style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/files/00e99c93-741c-4c4e-85a4-24bcf90a731c.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            imageRendering: 'crisp-edges',
-            filter: 'brightness(1.1) contrast(1.05)',
-            transform: `translateY(${parallaxOffset}px)`,
-            transition: 'transform 0.1s ease-out',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: 'url(https://cdn.poehali.dev/files/00e99c93-741c-4c4e-85a4-24bcf90a731c.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundAttachment: 'fixed',
+          imageRendering: 'crisp-edges',
+          filter: 'brightness(1.1) contrast(1.05)',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
+      </div>
+      <section className="relative py-16 md:py-24 overflow-hidden min-h-[600px] md:min-h-[700px] z-10">
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="bg-secondary text-secondary-foreground mb-6 animate-fade-in">
               18 лет на рынке ЖКХ
@@ -121,7 +120,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-primary text-primary-foreground scroll-fade-in">
+      <section className="py-16 bg-primary text-primary-foreground scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
@@ -144,7 +143,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 scroll-fade-in">
+      <section className="py-20 scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши дома на карте</h2>
@@ -224,7 +223,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/30 scroll-fade-in">
+      <section className="py-20 bg-muted/30 scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -272,7 +271,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 scroll-fade-in">
+      <section className="py-20 scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
