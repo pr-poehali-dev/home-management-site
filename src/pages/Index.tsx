@@ -46,11 +46,14 @@ const Index = () => {
 
   return (
     <Layout>
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative py-16 md:py-24 overflow-hidden min-h-[600px] md:min-h-[700px]">
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-center"
           style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/files/3b57b3df-40e3-4e7d-93a2-f71faaf91eb3.png)',
+            backgroundImage: 'url(https://cdn.poehali.dev/files/e82cdb10-7c4a-409c-8933-b2d34b87cffc.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            imageRendering: 'crisp-edges',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70"></div>
