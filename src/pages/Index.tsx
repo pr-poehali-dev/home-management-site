@@ -46,16 +46,24 @@ const Index = () => {
 
   return (
     <Layout>
-      <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-16 md:py-24">
-        <div className="container mx-auto px-4">
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(https://cdn.poehali.dev/files/3b57b3df-40e3-4e7d-93a2-f71faaf91eb3.png)',
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="bg-secondary text-secondary-foreground mb-6">
               18 лет на рынке ЖКХ
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
               Живите комфортно, остальное — наша забота.
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl text-white/90 mb-8">
               Мы — команда профессионалов в управлении жилой недвижимостью. Обслуживаем более 50 многоквартирных домов, обеспечивая комфорт и безопасность на 1 млн м² площади. Позвольте нам позаботиться о Вашем доме!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -66,7 +74,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/contacts">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 text-white border-white/30 hover:bg-white/20">
                   <Icon name="Phone" size={18} className="mr-2" />
                   Связаться с нами
                 </Button>
