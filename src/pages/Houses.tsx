@@ -510,9 +510,10 @@ const Houses = () => {
           backgroundPosition: 'center center',
           backgroundAttachment: 'fixed',
           imageRendering: 'crisp-edges',
+          filter: 'brightness(1.15) contrast(1.1)',
         }}
       >
-        <div className="absolute inset-0 bg-background/90"></div>
+        <div className="absolute inset-0 bg-background/85"></div>
       </div>
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
