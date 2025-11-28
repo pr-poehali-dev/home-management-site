@@ -502,7 +502,19 @@ const Houses = () => {
 
   return (
     <Layout>
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: 'url(https://cdn.poehali.dev/files/07dd47dd-705f-4d38-a279-6f1f85904abb.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundAttachment: 'fixed',
+          imageRendering: 'crisp-edges',
+        }}
+      >
+        <div className="absolute inset-0 bg-background/90"></div>
+      </div>
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Дома в управлении</h1>
