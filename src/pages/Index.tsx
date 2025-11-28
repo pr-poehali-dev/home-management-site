@@ -60,16 +60,16 @@ const Index = () => {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="bg-secondary text-secondary-foreground mb-6">
+            <Badge className="bg-secondary text-secondary-foreground mb-6 animate-fade-in">
               18 лет на рынке ЖКХ
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               Живите комфортно, остальное — наша забота.
             </h1>
-            <p className="text-xl text-white/90 mb-8">
+            <p className="text-xl text-white/90 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               Мы — команда профессионалов в управлении жилой недвижимостью. Обслуживаем более 50 многоквартирных домов, обеспечивая комфорт и безопасность на 1 млн м² площади. Позвольте нам позаботиться о Вашем доме!
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <Link to="/services">
                 <Button size="lg" className="w-full sm:w-auto">
                   Наши услуги
