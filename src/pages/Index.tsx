@@ -144,7 +144,8 @@ const Index = () => {
       </section>
 
       <section className="py-20 scroll-fade-in relative z-10">
-        <div className="container mx-auto px-4">
+        <div className="absolute inset-0 backdrop-blur-sm bg-background/40"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши дома на карте</h2>
             <p className="text-lg text-muted-foreground">
@@ -224,7 +225,8 @@ const Index = () => {
       </section>
 
       <section className="py-20 bg-muted/30 scroll-fade-in relative z-10">
-        <div className="container mx-auto px-4">
+        <div className="absolute inset-0 backdrop-blur-sm bg-background/50"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-2">Последние новости</h2>
@@ -272,7 +274,8 @@ const Index = () => {
       </section>
 
       <section className="py-20 scroll-fade-in relative z-10">
-        <div className="container mx-auto px-4">
+        <div className="absolute inset-0 backdrop-blur-sm bg-background/40"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
