@@ -31,7 +31,7 @@ const Layout = ({ children }: LayoutProps) => {
               <img 
                 src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
                 alt="НАШ ДОМ" 
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-16 h-16 rounded-full object-cover"
               />
               <div>
                 <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
