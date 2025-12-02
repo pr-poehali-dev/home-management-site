@@ -8,13 +8,16 @@ interface CompanyInfo {
   id: string;
   name: string;
   director: string;
+  directorSchedule?: string;
   accountant: string;
+  accountantSchedule?: string;
   engineer: string;
+  engineerSchedule?: string;
   inn: string;
   kpp: string;
   ogrn: string;
-  address: string;
-  hours: string;
+  legalAddress: string;
+  postalAddress: string;
   phone: string;
   email: string;
   documents: { name: string; url: string }[];
@@ -24,16 +27,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-sity": {
     id: "uk-nash-dom-sity",
     name: 'ООО «УК «Наш дом-Сити»',
-    director: "Иванов Иван Иванович",
-    accountant: "Петрова Мария Сергеевна",
-    engineer: "Сидоров Алексей Викторович",
-    inn: "7810123456",
-    kpp: "781001001",
-    ogrn: "1027800123456",
-    address: "г. Санкт-Петербург, ул. Примерная, д. 1",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7806367021",
+    kpp: "780401001",
+    ogrn: "1077847537460",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, литер. А, помещение 47-Н, офис 16",
+    postalAddress: "195197, а/я 150",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -43,16 +49,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-polyustrovo": {
     id: "uk-nash-dom-polyustrovo",
     name: 'ООО «УК «Наш дом-Полюстрово»',
-    director: "Козлов Петр Александрович",
-    accountant: "Николаева Ольга Дмитриевна",
-    engineer: "Морозов Сергей Иванович",
-    inn: "7810234567",
-    kpp: "781001002",
-    ogrn: "1027800234567",
-    address: "г. Санкт-Петербург, ул. Полюстровская, д. 15",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804554121",
+    kpp: "780401001",
+    ogrn: "1157847435646",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 1-Н, офис 4",
+    postalAddress: "195197, а/я 168",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -62,16 +71,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-sityhome": {
     id: "uk-sityhome",
     name: 'ООО УК «СИТИХОУМ»',
-    director: "Васильев Андрей Николаевич",
-    accountant: "Смирнова Елена Владимировна",
-    engineer: "Федоров Дмитрий Сергеевич",
-    inn: "7810345678",
-    kpp: "781001003",
-    ogrn: "1027800345678",
-    address: "г. Санкт-Петербург, ул. Центральная, д. 20",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7802692542",
+    kpp: "780401001",
+    ogrn: "1197847146056",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 15",
+    postalAddress: "195197, а/я 162",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -80,17 +92,20 @@ const companiesData: Record<string, CompanyInfo> = {
   },
   "uk-ostrov-grad": {
     id: "uk-ostrov-grad",
-    name: 'ООО «УК «Остров-Град»',
-    director: "Соколов Владимир Петрович",
-    accountant: "Кузнецова Анна Ивановна",
-    engineer: "Григорьев Павел Александрович",
-    inn: "7810456789",
-    kpp: "781001004",
-    ogrn: "1027800456789",
-    address: "г. Санкт-Петербург, ул. Островная, д. 5",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    name: 'ООО «УК «Остров-град»',
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804604277",
+    kpp: "780401001",
+    ogrn: "1177847260964",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 9",
+    postalAddress: "195197, а/я 184",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -100,16 +115,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-novoe-kupchino": {
     id: "uk-novoe-kupchino",
     name: 'ООО «УК «Новое Купчино»',
-    director: "Михайлов Олег Викторович",
-    accountant: "Лебедева Татьяна Николаевна",
-    engineer: "Борисов Игорь Сергеевич",
-    inn: "7810567890",
-    kpp: "781001005",
-    ogrn: "1027800567890",
-    address: "г. Санкт-Петербург, ул. Купчинская, д. 30",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804669235",
+    kpp: "780401001",
+    ogrn: "1207800058784",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 4-Н, офис 5",
+    postalAddress: "195197, а/я 163",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -119,16 +137,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-region": {
     id: "uk-nash-dom-region",
     name: 'ООО «УК «Наш дом – Регион»',
-    director: "Новиков Константин Андреевич",
-    accountant: "Волкова Ирина Павловна",
-    engineer: "Захаров Юрий Владимирович",
-    inn: "7810678901",
-    kpp: "781001006",
-    ogrn: "1027800678901",
-    address: "г. Санкт-Петербург, ул. Региональная, д. 12",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7806512790",
+    kpp: "780401001",
+    ogrn: "1137847414792",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 20",
+    postalAddress: "195197, а/я 153",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -138,16 +159,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-kudrovo-grad": {
     id: "uk-nash-dom-kudrovo-grad",
     name: 'ООО «УК «Наш дом-Кудрово Град»',
-    director: "Степанов Максим Игоревич",
-    accountant: "Павлова Светлана Алексеевна",
-    engineer: "Крылов Роман Дмитриевич",
-    inn: "7810789012",
-    kpp: "781001007",
-    ogrn: "1027800789012",
-    address: "Ленинградская область, г. Кудрово, ул. Центральная, д. 8",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804547759",
+    kpp: "780401001",
+    ogrn: "1157847342938",
+    legalAddress: "195197 г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 19",
+    postalAddress: "195197, а/я 172",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -157,16 +181,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-kudrovo-dom": {
     id: "uk-kudrovo-dom",
     name: 'ООО «УК «Кудрово-Дом»',
-    director: "Макаров Денис Олегович",
-    accountant: "Соловьева Наталья Викторовна",
-    engineer: "Белов Антон Павлович",
-    inn: "7810890123",
-    kpp: "781001008",
-    ogrn: "1027800890123",
-    address: "Ленинградская область, г. Кудрово, ул. Строителей, д. 22",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804604284",
+    kpp: "780401001",
+    ogrn: "1177847261240",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 21",
+    postalAddress: "195197, а/я 176",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -175,17 +202,20 @@ const companiesData: Record<string, CompanyInfo> = {
   },
   "uk-kudrovo-service": {
     id: "uk-kudrovo-service",
-    name: 'ООО «УК «Кудрово-Сервис»',
-    director: "Комаров Евгений Александрович",
-    accountant: "Медведева Юлия Сергеевна",
-    engineer: "Тихонов Виктор Николаевич",
-    inn: "7810901234",
-    kpp: "781001009",
-    ogrn: "1027800901234",
-    address: "Ленинградская область, г. Кудрово, ул. Сервисная, д. 14",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    name: 'ООО «УК «Кудрово-сервис»',
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804604291",
+    kpp: "780401001",
+    ogrn: "1177847261360",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 18",
+    postalAddress: "195197, а/я 178",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -195,16 +225,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-kudrovo": {
     id: "uk-nash-dom-kudrovo",
     name: 'ООО «УК «Наш дом-Кудрово»',
-    director: "Орлов Николай Викторович",
-    accountant: "Зайцева Екатерина Петровна",
-    engineer: "Семенов Артем Игоревич",
-    inn: "7811012345",
-    kpp: "781001010",
-    ogrn: "1027801012345",
-    address: "Ленинградская область, г. Кудрово, ул. Ленинградская, д. 7",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804547798",
+    kpp: "780401001",
+    ogrn: "1157847343455",
+    legalAddress: "195197 г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 7",
+    postalAddress: "195197, а/я 169",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -214,16 +247,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-novoselye": {
     id: "uk-nash-dom-novoselye",
     name: 'ООО «УК «Наш Дом Новоселье»',
-    director: "Попов Сергей Алексеевич",
-    accountant: "Романова Людмила Ивановна",
-    engineer: "Баранов Вячеслав Петрович",
-    inn: "7811123456",
-    kpp: "781001011",
-    ogrn: "1027801123456",
-    address: "г. Санкт-Петербург, ул. Новоселов, д. 25",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Соломенцев Сергей Алексеевич",
+    directorSchedule: "по предварительной записи",
+    accountant: "Скоробогатова Алла Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Никоноров Сергей Юрьевич",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804604380",
+    kpp: "780401001",
+    ogrn: "1177847262515",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 14",
+    postalAddress: "195197, а/я 174",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -233,16 +269,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-usadba": {
     id: "uk-usadba",
     name: 'ООО «УК «Усадьба»',
-    director: "Егоров Артур Владимирович",
-    accountant: "Алексеева Марина Дмитриевна",
-    engineer: "Назаров Илья Сергеевич",
-    inn: "7811234567",
-    kpp: "781001012",
-    ogrn: "1027801234567",
-    address: "г. Санкт-Петербург, ул. Усадебная, д. 18",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Юпатов Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Скоробогатова Алла Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7802772117",
+    kpp: "780401001",
+    ogrn: "1117847534881",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 6",
+    postalAddress: "195197, а/я 181",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -252,16 +291,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-city-parking": {
     id: "uk-city-parking",
     name: 'ООО «Сити Паркинг»',
-    director: "Киселев Роман Андреевич",
-    accountant: "Тарасова Вера Николаевна",
-    engineer: "Гуляев Станислав Викторович",
-    inn: "7811345678",
-    kpp: "781001013",
-    ogrn: "1027801345678",
-    address: "г. Санкт-Петербург, ул. Парковая, д. 9",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шевчук Анна Николаевна",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804586483",
+    kpp: "780401001",
+    ogrn: "1167847496300",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 8",
+    postalAddress: "195197, а/я 154",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -271,16 +313,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-nash-dom-kudrovo-sity": {
     id: "uk-nash-dom-kudrovo-sity",
     name: 'ООО «УК «Наш дом-Кудрово-Сити»',
-    director: "Давыдов Кирилл Петрович",
-    accountant: "Антонова Валентина Олеговна",
-    engineer: "Фролов Геннадий Иванович",
-    inn: "7811456789",
-    kpp: "781001014",
-    ogrn: "1027801456789",
-    address: "Ленинградская область, г. Кудрово, ул. Городская, д. 33",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "4703143105",
+    kpp: "470301001",
+    ogrn: "1154704005830",
+    legalAddress: "188689, Ленинградская обл., Всеволожский р-он, гор. Кудрово, аллея Каштановая (Новый Оккервиль мкр), д. 3, пом.18-Н",
+    postalAddress: "195197, а/я 173",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -290,16 +335,19 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-kapital-komfort": {
     id: "uk-kapital-komfort",
     name: 'ООО «УК «Капитал-Комфорт»',
-    director: "Гусев Михаил Сергеевич",
-    accountant: "Калинина Лариса Александровна",
-    engineer: "Щербаков Валерий Дмитриевич",
-    inn: "7811567890",
-    kpp: "781001015",
-    ogrn: "1027801567890",
-    address: "г. Санкт-Петербург, ул. Капитальная, д. 11",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Рябинин Андрей Владимирович",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шлык Владимир Владимирович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804663191",
+    kpp: "470601001",
+    ogrn: "1197847249621",
+    legalAddress: "188691, Ленинградская обл., Всеволожский м.р-н, Кудрово г., Заневское г.п., Кудрово г., Каштановая аллея (мкр. Новый Оккервиль), д. 3, помещ. 18-Н, офис 1",
+    postalAddress: "",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -309,35 +357,40 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-mks": {
     id: "uk-mks",
     name: 'ООО «УК «МКС»',
-    director: "Лазарев Александр Владимирович",
-    accountant: "Савельева Оксана Ивановна",
-    engineer: "Яковлев Борис Петрович",
-    inn: "7811678901",
-    kpp: "781001016",
-    ogrn: "1027801678901",
-    address: "г. Санкт-Петербург, ул. Московская, д. 44",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Никитин Сергей Андреевич",
+    directorSchedule: "по предварительной записи",
+    accountant: "Дмитрова Елена Владимировна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "",
+    inn: "7804684096",
+    kpp: "780401001",
+    ogrn: "1217800098340",
+    legalAddress: "195197, г. Санкт-Петербург, вн.тер.г. муниципальный округ Финляндский округ, пр-кт Полюстровский, д. 59, литера Ф, помещ. 1-Н, офис 443",
+    postalAddress: "",
+    phone: "8 (812) 640-88-26",
+    email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
       { name: "Свидетельство о регистрации", url: "#" },
     ]
   },
-  "uk-biznes-sity-dom": {
-    id: "uk-biznes-sity-dom",
+  "uk-business-sity-dom": {
+    id: "uk-business-sity-dom",
     name: 'ООО «УК «Бизнес сити дом»',
-    director: "Богданов Игорь Николаевич",
-    accountant: "Королева Анастасия Викторовна",
-    engineer: "Никитин Владислав Олегович",
-    inn: "7811789012",
-    kpp: "781001017",
-    ogrn: "1027801789012",
-    address: "г. Санкт-Петербург, ул. Бизнес-центра, д. 2",
-    hours: "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
-    phone: "+7 (812) 640-88-26",
-    email: "uk.nashdom@inbox.ru",
+    director: "Скоробогатова Ксения Анатольевна",
+    directorSchedule: "по предварительной записи",
+    accountant: "Аколюшная Наталья Олеговна",
+    accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    engineer: "Шадян Сергей Валентинович",
+    engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
+    inn: "7804680253",
+    kpp: "780401001",
+    ogrn: "1217800026531",
+    legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, лит. А, пом. 47-Н, оф. 13",
+    postalAddress: "195197, г. Санкт-Петербург, ул. Васенко, д. 12, лит. А, офис 21-Н",
+    phone: "8 (812) 640-88-26 (1086)",
+    email: "uk.bsd@mail.ru",
     documents: [
       { name: "Устав", url: "#" },
       { name: "Лицензия", url: "#" },
@@ -353,11 +406,19 @@ const CompanyDetail = () => {
   if (!company) {
     return (
       <Layout>
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-3xl font-bold mb-4">Компания не найдена</h1>
-          <Link to="/about">
-            <Button>Вернуться к списку компаний</Button>
-          </Link>
+        <div className="container mx-auto px-4 py-20">
+          <Card>
+            <CardContent className="p-8 text-center">
+              <Icon name="AlertCircle" className="mx-auto mb-4 text-destructive" size={48} />
+              <h2 className="text-2xl font-bold mb-4">Компания не найдена</h2>
+              <p className="text-muted-foreground mb-6">
+                К сожалению, информация о данной управляющей компании не найдена.
+              </p>
+              <Link to="/about">
+                <Button>Вернуться к списку компаний</Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </Layout>
     );
@@ -365,93 +426,113 @@ const CompanyDetail = () => {
 
   return (
     <Layout>
-      <section className="py-12 bg-gradient-to-br from-primary/5 to-background">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
         <div className="container mx-auto px-4">
-          <Link to="/about" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6">
-            <Icon name="ArrowLeft" size={20} />
-            Вернуться к списку компаний
-          </Link>
+          <div className="mb-8">
+            <Link to="/about">
+              <Button variant="ghost" className="mb-4">
+                <Icon name="ArrowLeft" size={20} className="mr-2" />
+                Вернуться к списку компаний
+              </Button>
+            </Link>
+            <h1 className="text-4xl font-bold mb-4">{company.name}</h1>
+          </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold mb-8">{company.name}</h1>
-
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icon name="Users" size={24} className="text-primary" />
+                  <Icon name="Building2" className="text-primary" />
+                  Юридическая информация
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">ИНН</p>
+                  <p className="font-medium">{company.inn}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">КПП</p>
+                  <p className="font-medium">{company.kpp}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">ОГРН</p>
+                  <p className="font-medium">{company.ogrn}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Юридический адрес</p>
+                  <p className="font-medium">{company.legalAddress}</p>
+                </div>
+                {company.postalAddress && (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Почтовый адрес</p>
+                    <p className="font-medium">{company.postalAddress}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Users" className="text-primary" />
                   Руководство
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Генеральный директор</div>
-                  <div className="font-semibold">{company.director}</div>
+                  <p className="text-sm text-muted-foreground mb-1">Генеральный директор</p>
+                  <p className="font-medium">{company.director}</p>
+                  {company.directorSchedule && (
+                    <p className="text-sm text-muted-foreground italic">{company.directorSchedule}</p>
+                  )}
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Главный бухгалтер</div>
-                  <div className="font-semibold">{company.accountant}</div>
+                  <p className="text-sm text-muted-foreground mb-1">Главный бухгалтер</p>
+                  <p className="font-medium">{company.accountant}</p>
+                  {company.accountantSchedule && (
+                    <p className="text-sm text-muted-foreground italic">{company.accountantSchedule}</p>
+                  )}
                 </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">Главный инженер</div>
-                  <div className="font-semibold">{company.engineer}</div>
-                </div>
+                {company.engineer && (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Главный инженер</p>
+                    <p className="font-medium">{company.engineer}</p>
+                    {company.engineerSchedule && (
+                      <p className="text-sm text-muted-foreground italic">{company.engineerSchedule}</p>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icon name="FileText" size={24} className="text-primary" />
-                  Реквизиты
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-sm text-muted-foreground mb-1">ИНН</div>
-                    <div className="font-medium">{company.inn}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground mb-1">КПП</div>
-                    <div className="font-medium">{company.kpp}</div>
-                  </div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">ОГРН</div>
-                  <div className="font-medium">{company.ogrn}</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">Юридический адрес</div>
-                  <div className="font-medium">{company.address}</div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="Phone" size={24} className="text-primary" />
+                  <Icon name="Phone" className="text-primary" />
                   Контактная информация
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Телефон</div>
-                  <a href={`tel:${company.phone.replace(/\D/g, '')}`} className="font-semibold hover:text-primary">
+                  <p className="text-sm text-muted-foreground mb-1">Телефон / Факс</p>
+                  <a href={`tel:${company.phone}`} className="font-medium hover:text-primary transition-colors">
                     {company.phone}
                   </a>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Электронная почта</div>
-                  <a href={`mailto:${company.email}`} className="font-semibold hover:text-primary">
-                    {company.email}
-                  </a>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">Приемные часы</div>
-                  <div className="font-medium">{company.hours}</div>
+                  <p className="text-sm text-muted-foreground mb-1">Электронная почта</p>
+                  <div className="space-y-1">
+                    {company.email.split(',').map((email, idx) => (
+                      <a 
+                        key={idx}
+                        href={`mailto:${email.trim()}`} 
+                        className="block font-medium hover:text-primary transition-colors"
+                      >
+                        {email.trim()}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -459,23 +540,24 @@ const CompanyDetail = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icon name="FileCheck" size={24} className="text-primary" />
-                  Документы организации
+                  <Icon name="FileText" className="text-primary" />
+                  Документы
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  {company.documents.map((doc, index) => (
-                    <a
-                      key={index}
-                      href={doc.url}
-                      className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors"
-                    >
-                      <Icon name="Download" size={18} className="text-primary" />
-                      <span className="font-medium">{doc.name}</span>
-                    </a>
+                <ul className="space-y-2">
+                  {company.documents.map((doc, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={doc.url}
+                        className="flex items-center gap-2 text-primary hover:underline"
+                      >
+                        <Icon name="Download" size={16} />
+                        {doc.name}
+                      </a>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </CardContent>
             </Card>
           </div>
