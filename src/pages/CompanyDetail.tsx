@@ -18,6 +18,7 @@ interface CompanyInfo {
   ogrn: string;
   legalAddress: string;
   postalAddress: string;
+  receptionAddress?: string;
   phone: string;
   email: string;
   documents: { name: string; url: string }[];
@@ -258,6 +259,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1177847262515",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 14",
     postalAddress: "195197, а/я 174",
+    receptionAddress: "Ленинградская область, Ломоносовский район, гп. Новоселье, пр. Питерский, д. 1 (в помещении УК)",
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
@@ -467,6 +469,12 @@ const CompanyDetail = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Фактический адрес</p>
                     <p className="font-medium">{company.postalAddress}</p>
+                  </div>
+                )}
+                {company.receptionAddress && (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Адрес приема</p>
+                    <p className="font-medium">{company.receptionAddress}</p>
                   </div>
                 )}
               </CardContent>
