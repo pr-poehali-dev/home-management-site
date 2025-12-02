@@ -17,7 +17,8 @@ interface CompanyInfo {
   kpp: string;
   ogrn: string;
   legalAddress: string;
-  postalAddress: string;
+  postalAddress?: string;
+  actualAddress?: string;
   receptionAddress?: string;
   phone: string;
   email: string;
@@ -384,13 +385,13 @@ const companiesData: Record<string, CompanyInfo> = {
     directorSchedule: "по предварительной записи",
     accountant: "Аколюшная Наталья Олеговна",
     accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
-    engineer: "Шадян Сергей Валентинович",
+    engineer: "Шадян Сергей Валентinович",
     engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     inn: "7804680253",
     kpp: "780401001",
     ogrn: "1217800026531",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, лит. А, пом. 47-Н, оф. 13",
-    postalAddress: "195197, г. Санкт-Петербург, ул. Васенко, д. 12, лит. А, офис 21-Н",
+    actualAddress: "195197, г. Санкт-Петербург, ул. Васенко, д. 12, лит. А, офис 21-Н",
     phone: "8 (812) 640-88-26 (1086)",
     email: "uk.bsd@mail.ru",
     documents: [
@@ -467,8 +468,14 @@ const CompanyDetail = () => {
                 </div>
                 {company.postalAddress && (
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Фактический адрес</p>
+                    <p className="text-sm text-muted-foreground mb-1">Почтовый адрес</p>
                     <p className="font-medium">{company.postalAddress}</p>
+                  </div>
+                )}
+                {company.actualAddress && (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Фактический адрес</p>
+                    <p className="font-medium">{company.actualAddress}</p>
                   </div>
                 )}
                 {company.receptionAddress && (
