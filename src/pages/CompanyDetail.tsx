@@ -375,8 +375,8 @@ const companiesData: Record<string, CompanyInfo> = {
       { name: "Свидетельство о регистрации", url: "#" },
     ]
   },
-  "uk-business-sity-dom": {
-    id: "uk-business-sity-dom",
+  "uk-biznes-sity-dom": {
+    id: "uk-biznes-sity-dom",
     name: 'ООО «УК «Бизнес сити дом»',
     director: "Скоробогатова Ксения Анатольевна",
     directorSchedule: "по предварительной записи",
