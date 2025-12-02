@@ -338,6 +338,19 @@
     transform: translateY(0);
   }
 
+  @keyframes running-line {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-66.666%);
+    }
+  }
+
+  .animate-running-line {
+    animation: running-line 30s linear infinite;
+  }
+
   .marble-accent {
     position: relative;
   }

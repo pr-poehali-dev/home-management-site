@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
+import RunningLine from "@/components/RunningLine";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -77,6 +78,7 @@ const Index = () => {
 
   return (
     <Layout>
+      <RunningLine text="Дорогие друзья! 2025 год для нас стал особенным, мы стали совсем взрослыми, нам исполнилось 18 лет! В связи с чем пришло время перемен, так что давайте знакомиться заново." />
       <div 
         className="fixed inset-0 z-0"
         style={{
