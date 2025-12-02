@@ -465,7 +465,7 @@ const CompanyDetail = () => {
                 </div>
                 {company.postalAddress && (
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Почтовый адрес</p>
+                    <p className="text-sm text-muted-foreground mb-1">Фактический адрес</p>
                     <p className="font-medium">{company.postalAddress}</p>
                   </div>
                 )}
