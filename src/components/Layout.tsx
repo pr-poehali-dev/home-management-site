@@ -124,7 +124,7 @@ const Layout = ({ children }: LayoutProps) => {
       <main className="flex-1">{children}</main>
 
       <div className="fixed bottom-6 right-6 z-40">
-        <a href="tel:+78126408826">
+        <a href="tel:+78124677777">
           <Button
             size="lg"
             className="shadow-lg hover:shadow-xl transition-all bg-destructive hover:bg-destructive/90 text-destructive-foreground"
@@ -132,7 +132,7 @@ const Layout = ({ children }: LayoutProps) => {
             <Icon name="PhoneCall" size={20} className="mr-2 animate-pulse" />
             <div className="flex flex-col items-start">
               <span className="text-xs font-normal">Срочная связь</span>
-              <span className="text-sm font-bold">+7 (812) 640-88-26</span>
+              <span className="text-sm font-bold">467-77-77</span>
             </div>
           </Button>
         </a>
