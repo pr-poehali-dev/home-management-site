@@ -792,6 +792,34 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
+                ) : house.address.includes("ул. Малая Бухарестская, д. 12 стр. 1") && house.city === "Санкт-Петербург" ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба ООО «УК «Новое Купчино»</p>
+                        <p className="text-sm mb-3">г. Санкт-Петербург, ул. Малая Бухарестская, д. 12 стр. 1 (офис УК)</p>
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <Icon name="Phone" size={16} className="flex-shrink-0" />
+                            <a href="tel:+78125096893" className="text-primary hover:underline">
+                              509-68-93
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан осуществляется</p>
+                        <div className="text-sm space-y-1">
+                          <p>понедельник - с 16:00 до 19:00</p>
+                          <p>среда - с 08:00 до 11:00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
