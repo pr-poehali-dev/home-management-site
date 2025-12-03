@@ -114,12 +114,6 @@ const Index = () => {
                   <Icon name="ArrowRight" size={18} className="ml-2" />
                 </Button>
               </Link>
-              <Link to="/contacts">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 text-white border-white/30 hover:bg-white/20">
-                  <Icon name="Phone" size={18} className="mr-2" />
-                  Связаться с нами
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
