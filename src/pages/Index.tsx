@@ -162,30 +162,14 @@ const Index = () => {
               <Card className="overflow-hidden">
                 <CardContent className="p-0">
                   <div className="relative aspect-[16/10] bg-muted">
-                    <svg viewBox="0 0 100 100" className="w-full h-full">
-                      <rect width="100" height="100" fill="#f1f5f9" />
-                      <path
-                        d="M10,30 Q30,10 50,30 T90,30 L90,70 Q70,90 50,70 T10,70 Z"
-                        fill="#e2e8f0"
-                        opacity="0.5"
-                      />
-                      {houses.map((house) => (
-                        <g
-                          key={house.id}
-                          onClick={() => setSelectedHouse(house.id)}
-                          className="cursor-pointer transition-transform hover:scale-110"
-                        >
-                          <circle
-                            cx={house.x}
-                            cy={house.y}
-                            r={selectedHouse === house.id ? "3" : "2.5"}
-                            fill={selectedHouse === house.id ? "#f59e0b" : "#1e40af"}
-                            stroke="white"
-                            strokeWidth="0.5"
-                          />
-                        </g>
-                      ))}
-                    </svg>
+                    <iframe
+                      src="https://yandex.ru/map-widget/v1/?um=constructor%3A8e2c3a5f4b6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f&amp;source=constructor"
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      className="absolute inset-0"
+                      title="Наши дома на карте"
+                    ></iframe>
                   </div>
                 </CardContent>
               </Card>
