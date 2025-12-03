@@ -584,11 +584,11 @@ const HouseDetail = () => {
                         Диспетчерская служба
                       </h3>
                       <a
-                        href="tel:+78126408826"
+                        href="tel:+78124677777"
                         className="flex items-center gap-2 text-primary hover:underline font-medium text-sm mb-3"
                       >
                         <Icon name="Phone" size={16} />
-                        +7 (812) 640-88-26
+                        467-77-77
                       </a>
                       <p className="text-xs text-muted-foreground">
                         Круглосуточно для аварийных заявок
