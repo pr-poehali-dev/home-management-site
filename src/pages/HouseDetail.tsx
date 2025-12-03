@@ -620,40 +620,83 @@ const HouseDetail = () => {
                   <Icon name="Info" className="text-primary" size={24} />
                   Полезная информация
                 </h3>
-                <div className="space-y-4 text-muted-foreground">
-                  <div className="flex items-start gap-3">
-                    <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <p className="font-medium text-foreground mb-1">График работы офиса</p>
-                      <p className="text-sm">
-                        Понедельник - Пятница: 9:00 - 18:00
-                        <br />
-                        Обед: 13:00 - 14:00
-                      </p>
+                {(house.address.includes("ул. Областная") || 
+                  house.address.includes("Каштановая аллея") || 
+                  house.address.includes("пр. Строителей") || 
+                  house.address.includes("ул. Ленинградская, д. 9/8")) && house.city === "Кудрово" ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба Заневского городского поселения</p>
+                        <p className="text-sm mb-3">г. Кудрово, ул. Ленинградская, 4В</p>
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <Icon name="Phone" size={16} className="flex-shrink-0" />
+                            <a href="tel:+78124024245" className="text-primary hover:underline">
+                              +7 (812) 402-42-45
+                            </a>
+                          </p>
+                          <p className="flex items-center gap-2">
+                            <Icon name="Mail" size={16} className="flex-shrink-0" />
+                            <a href="mailto:passport_kudrovo@zanevkaorg.ru" className="text-primary hover:underline">
+                              passport_kudrovo@zanevkaorg.ru
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан Кудрово</p>
+                        <div className="text-sm space-y-1">
+                          <p>ПОНЕДЕЛЬНИК: с 14:00 до 17:00</p>
+                          <p>ВТОРНИК: с 9:00 до 17:00</p>
+                          <p>СРЕДА: приема нет</p>
+                          <p>ЧЕТВЕРГ: с 14:00 до 16:30</p>
+                          <p>ПЯТНИЦА: с 9:00 до 13:00</p>
+                          <p className="text-muted-foreground italic">ОБЕД: с 13:00 до 14:00</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Icon name="Mail" className="mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <p className="font-medium text-foreground mb-1">Электронная почта</p>
-                      <a
-                        href="mailto:uk.nashdom@inbox.ru"
-                        className="text-sm text-primary hover:underline"
-                      >
-                        uk.nashdom@inbox.ru
-                      </a>
+                ) : (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-1">График работы офиса</p>
+                        <p className="text-sm">
+                          Понедельник - Пятница: 9:00 - 18:00
+                          <br />
+                          Обед: 13:00 - 14:00
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Mail" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-1">Электронная почта</p>
+                        <a
+                          href="mailto:uk.nashdom@inbox.ru"
+                          className="text-sm text-primary hover:underline"
+                        >
+                          uk.nashdom@inbox.ru
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="MapPin" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-1">Адрес офиса</p>
+                        <p className="text-sm">
+                          Санкт-Петербург, ул. Большая Зеленина, д. 24, стр. 1
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Icon name="MapPin" className="mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <p className="font-medium text-foreground mb-1">Адрес офиса</p>
-                      <p className="text-sm">
-                        Санкт-Петербург, ул. Большая Зеленина, д. 24, стр. 1
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
           </div>
