@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import RunningLine from "@/components/RunningLine";
+import YandexMap from "@/components/YandexMap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -161,16 +162,7 @@ const Index = () => {
             <div className="lg:col-span-2">
               <Card className="overflow-hidden">
                 <CardContent className="p-0">
-                  <div className="relative aspect-[16/10] bg-muted">
-                    <iframe
-                      src="https://yandex.ru/map-widget/v1/?um=constructor%3A8e2c3a5f4b6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f&amp;source=constructor"
-                      width="100%"
-                      height="100%"
-                      frameBorder="0"
-                      className="absolute inset-0"
-                      title="Наши дома на карте"
-                    ></iframe>
-                  </div>
+                  <YandexMap onHouseSelect={setSelectedHouse} />
                 </CardContent>
               </Card>
             </div>
