@@ -370,7 +370,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1217800098340",
     legalAddress: "195197, г. Санкт-Петербург, вн.тер.г. муниципальный округ Финляндский округ, пр-кт Полюстровский, д. 59, литера Ф, помещ. 1-Н, офис 443",
     postalAddress: "",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
