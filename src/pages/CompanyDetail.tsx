@@ -40,7 +40,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1077847537460",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, литер. А, помещение 47-Н, офис 16",
     postalAddress: "195197, а/я 150",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -62,7 +62,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1157847435646",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 1-Н, офис 4",
     postalAddress: "195197, а/я 168",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -84,7 +84,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1197847146056",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 15",
     postalAddress: "195197, а/я 162",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -106,7 +106,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1177847260964",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 9",
     postalAddress: "195197, а/я 184",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -128,7 +128,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1207800058784",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 4-Н, офис 5",
     postalAddress: "195197, а/я 163",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -150,7 +150,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1137847414792",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 20",
     postalAddress: "195197, а/я 153",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -172,7 +172,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1157847342938",
     legalAddress: "195197 г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 19",
     postalAddress: "195197, а/я 172",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -194,7 +194,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1177847261240",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 21",
     postalAddress: "195197, а/я 176",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -216,7 +216,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1177847261360",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 18",
     postalAddress: "195197, а/я 178",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -238,7 +238,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1157847343455",
     legalAddress: "195197 г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 7",
     postalAddress: "195197, а/я 169",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -261,7 +261,7 @@ const companiesData: Record<string, CompanyInfo> = {
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 47-Н, офис 14",
     postalAddress: "195197, а/я 174",
     receptionAddress: "Ленинградская область, Ломоносовский район, гп. Новоселье, пр. Питерский, д. 1 (в помещении УК)",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -283,7 +283,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1117847534881",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 6",
     postalAddress: "195197, а/я 181",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -305,7 +305,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1167847496300",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, дом 13, литера А, помещение 46-Н, офис 8",
     postalAddress: "195197, а/я 154",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -327,7 +327,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1154704005830",
     legalAddress: "188689, Ленинградская обл., Всеволожский р-он, гор. Кудрово, аллея Каштановая (Новый Оккервиль мкр), д. 3, пом.18-Н",
     postalAddress: "195197, а/я 173",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -349,7 +349,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1197847249621",
     legalAddress: "188691, Ленинградская обл., Всеволожский м.р-н, Кудрово г., Заневское г.п., Кудрово г., Каштановая аллея (мкр. Новый Оккервиль), д. 3, помещ. 18-Н, офис 1",
     postalAddress: "",
-    phone: "467-77-77",
+    phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
       { name: "Устав", url: "#" },
@@ -392,7 +392,7 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1217800026531",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, лит. А, пом. 47-Н, оф. 13",
     actualAddress: "195197, г. Санкт-Петербург, ул. Васенко, д. 12, лит. А, офис 21-Н",
-    phone: "8 (812) 640-88-26 (доб. 1086)",
+    phone: "467-77-77",
     email: "uk.bsd@mail.ru",
     documents: [
       { name: "Устав", url: "#" },
