@@ -820,7 +820,17 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
-                ) : (house.address.includes("б-р Воронцовский, д. 23/11") || (house.address.includes("пр. Петровский, д. 28") && house.city === "Бугры")) ? (
+                ) : (
+                  house.address.includes("б-р Воронцовский, д. 23/11") || 
+                  (house.address.includes("пр. Петровский, д. 28") && house.city === "Бугры") ||
+                  house.address.includes("пр. Ручьевский, д. 13") ||
+                  house.address.includes("пр. Ручьевский, д. 15") ||
+                  house.address.includes("пр. Ручьевский, д. 17 корп. 1") ||
+                  house.address.includes("ул. Романовская, д. 2") ||
+                  house.address.includes("ул. Шувалова, д. 33/35") ||
+                  house.address.includes("ул. Шувалова, д. 37") ||
+                  house.address.includes("ул. Шувалова, д. 39/21")
+                ) ? (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
                       <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
