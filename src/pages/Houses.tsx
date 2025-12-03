@@ -42,15 +42,13 @@ const Houses = () => {
       <div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: 'url(https://cdn.poehali.dev/files/00e99c93-741c-4c4e-85a4-24bcf90a731c.png)',
+          backgroundImage: 'url(https://cdn.poehali.dev/files/486f5d46-9475-45e5-9b2d-51eddd29866e.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundAttachment: 'fixed',
-          imageRendering: 'crisp-edges',
-          filter: 'brightness(1.1) contrast(1.05)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60"></div>
       </div>
       <section className="relative py-16 md:py-20 z-10">
         <div className="container mx-auto px-4">
