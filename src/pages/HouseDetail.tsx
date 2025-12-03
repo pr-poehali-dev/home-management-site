@@ -852,6 +852,34 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
+                ) : house.address.includes("Фермское шоссе, д. 22, корп. 3 лит. А") && house.city === "Санкт-Петербург" ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба Санкт-Петербургское государственное казенное учреждение «Жилищное агентство Приморского района Санкт-Петербурга»</p>
+                        <p className="text-sm mb-3">Паспортный участок № 4: г. Санкт-Петербург, Земский пер., д. 7</p>
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <Icon name="Phone" size={16} className="flex-shrink-0" />
+                            <a href="tel:+78122412269" className="text-primary hover:underline">
+                              241-22-69
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан осуществляется паспортным участком</p>
+                        <div className="text-sm space-y-1">
+                          <p>понедельник, среда, четверг - с 16:00 до 19:00</p>
+                          <p>вторник, пятница - с 09:00 до 12:00, прямой прием</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
