@@ -25,7 +25,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key',
                 'Access-Control-Max-Age': '86400'
             },
@@ -152,6 +152,54 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'Access-Control-Allow-Origin': '*'
                 },
                 'body': json.dumps({'message': 'Новость удалена'}, ensure_ascii=False),
+                'isBase64Encoded': False
+            }
+        
+        elif method == 'PUT':
+            headers = event.get('headers', {})
+            admin_key = headers.get('X-Admin-Key') or headers.get('x-admin-key')
+            
+            if not admin_key or admin_key != 'admin123':
+                return {
+                    'statusCode': 403,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'error': 'Доступ запрещен'}, ensure_ascii=False),
+                    'isBase64Encoded': False
+                }
+            
+            body_data = json.loads(event.get('body', '{}'))
+            news_id = body_data.get('id')
+            title = body_data.get('title')
+            content = body_data.get('content')
+            tag = body_data.get('tag')
+            
+            if not news_id or not title or not content or not tag:
+                return {
+                    'statusCode': 400,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'error': 'Необходимы поля: id, title, content, tag'}, ensure_ascii=False),
+                    'isBase64Encoded': False
+                }
+            
+            cursor.execute(
+                "UPDATE news SET title = %s, content = %s, tag = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s",
+                (title, content, tag, news_id)
+            )
+            conn.commit()
+            
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({'message': 'Новость обновлена'}, ensure_ascii=False),
                 'isBase64Encoded': False
             }
         
