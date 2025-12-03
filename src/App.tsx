@@ -10,7 +10,7 @@ import News from "./pages/News";
 import Services from "./pages/Services";
 import Documents from "./pages/Documents";
 import ForResidents from "./pages/ForResidents";
-import Contacts from "./pages/Contacts";
+
 import Houses from "./pages/Houses";
 import HouseDetail from "./pages/HouseDetail";
 import NotFound from "./pages/NotFound";
@@ -32,7 +32,7 @@ const App = () => (
             <Route path="/services" element={<Services />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/for-residents" element={<ForResidents />} />
-            <Route path="/contacts" element={<Contacts />} />
+
             <Route path="/houses" element={<Houses />} />
             <Route path="/houses/:id" element={<HouseDetail />} />
             <Route path="*" element={<NotFound />} />
