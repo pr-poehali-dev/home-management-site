@@ -46,9 +46,10 @@ const Houses = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundAttachment: 'fixed',
+          filter: 'brightness(1.3) contrast(1.1)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/40"></div>
       </div>
       <section className="relative py-16 md:py-20 z-10">
         <div className="container mx-auto px-4">
