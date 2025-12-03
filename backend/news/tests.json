@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Получение списка всех новостей",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "news": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Получение новостей по тегу",
+      "method": "GET",
+      "path": "/?tag=Важно!",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "news": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

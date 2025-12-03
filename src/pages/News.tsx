@@ -1,63 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
+interface NewsItem {
+  id: number;
+  title: string;
+  date: string;
+  tag: string;
+  content: string;
+}
+
 const News = () => {
   const [selectedTag, setSelectedTag] = useState<string>("Все");
+  const [allNews, setAllNews] = useState<NewsItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const allNews = [
-    {
-      id: 1,
-      title: "Плановые работы по лифтам в домах №12, №14",
-      date: "15 ноября 2025",
-      tag: "Новое о ЖКХ",
-      content:
-        "С 20 по 25 ноября будут проводиться плановые работы по техническому обслуживанию лифтов. Просим жильцов заранее планировать свои перемещения. Работы будут проводиться с 9:00 до 18:00.",
-    },
-    {
-      id: 2,
-      title: "Общее собрание жильцов дома №8",
-      date: "10 ноября 2025",
-      tag: "Собрание",
-      content:
-        "Приглашаем всех собственников квартир на общее собрание 18 ноября в 19:00 в конференц-зале первого этажа. Повестка дня: утверждение сметы на капитальный ремонт, выбор подрядчика.",
-    },
-    {
-      id: 3,
-      title: "Новые тарифы на отопление",
-      date: "5 ноября 2025",
-      tag: "Важно!",
-      content:
-        "С 1 декабря 2025 года изменяются тарифы на коммунальные услуги. Тариф на отопление увеличится на 4,7%. Подробная информация доступна на официальном сайте поставщика услуг.",
-    },
-    {
-      id: 4,
-      title: "Благоустройство детских площадок",
-      date: "1 ноября 2025",
-      tag: "Новое о ЖКХ",
-      content:
-        "Завершены работы по обновлению детских площадок в домах №3, №7, №15. Установлено новое безопасное покрытие и современное игровое оборудование.",
-    },
-    {
-      id: 5,
-      title: "График отключения горячей воды",
-      date: "28 октября 2025",
-      tag: "Важно!",
-      content:
-        "В период с 5 по 9 декабря в домах по ул. Васенко будет отключена горячая вода в связи с плановым ремонтом теплосетей. Приносим извинения за временные неудобства.",
-    },
-    {
-      id: 6,
-      title: "Итоги конкурса на лучший двор",
-      date: "20 октября 2025",
-      tag: "Собрание",
-      content:
-        "Подведены итоги ежегодного конкурса на лучший двор. Победителем стал ЖК Золотое сечение. Жители получат сертификат на дополнительное благоустройство территории.",
-    },
-  ];
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch("https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555");
+        const data = await response.json();
+        setAllNews(data.news || []);
+      } catch (error) {
+        console.error("Ошибка загрузки новостей:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
 
   const tags = ["Все", "Важно!", "Новое о ЖКХ", "Собрание"];
 
@@ -115,7 +90,16 @@ const News = () => {
             ))}
           </div>
 
-          {filteredNews.length === 0 && (
+          {isLoading && (
+            <div className="text-center py-12">
+              <Icon name="Loader2" size={48} className="text-muted-foreground mx-auto mb-4 animate-spin" />
+              <p className="text-xl text-muted-foreground">
+                Загрузка новостей...
+              </p>
+            </div>
+          )}
+
+          {!isLoading && filteredNews.length === 0 && (
             <div className="text-center py-12">
               <Icon name="FileSearch" size={48} className="text-muted-foreground mx-auto mb-4" />
               <p className="text-xl text-muted-foreground">
