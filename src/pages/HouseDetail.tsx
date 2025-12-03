@@ -820,6 +820,28 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
+                ) : (house.address.includes("б-р Воронцовский, д. 23/11") || (house.address.includes("пр. Петровский, д. 28") && house.city === "Бугры")) ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба</p>
+                        <p className="text-sm mb-3">Ленинградская область, Всеволожский район, Мурино, пр. Ручьевский, д. 15, 4 парадная, 1 этаж</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан осуществляется</p>
+                        <div className="text-sm space-y-1">
+                          <p>вторник - с 17:00 до 19:00</p>
+                          <p>среда - с 17:00 до 19:00</p>
+                          <p>четверг - с 14:00 до 17:00</p>
+                          <p>пятница - с 09:00 до 11:00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
