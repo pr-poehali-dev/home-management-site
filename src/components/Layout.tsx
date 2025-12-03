@@ -162,8 +162,8 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="space-y-2 text-sm opacity-75">
                 <div className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  <a href="tel:+78126408826" className="hover:opacity-100">
-                    +7 (812) 640-88-26
+                  <a href="tel:+78124677777" className="hover:opacity-100">
+                    467-77-77
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
