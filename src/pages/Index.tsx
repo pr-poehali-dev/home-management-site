@@ -273,8 +273,8 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
                   <Icon name="Wrench" className="text-secondary" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Услуги и тарифы</h3>
-                <p className="text-muted-foreground mb-4">Полный перечень услуг с ценами</p>
+                <h3 className="text-xl font-semibold mb-2">Услуги</h3>
+                <p className="text-muted-foreground mb-4">Полный перечень услуг</p>
                 <Link to="/services">
                   <Button variant="outline" className="w-full">
                     Узнать подробнее
