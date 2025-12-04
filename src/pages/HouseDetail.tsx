@@ -622,7 +622,9 @@ const HouseDetail = () => {
               house.address.includes("ул. Одоевского, д. 21 корп. 2 стр. 1") ||
               house.address.includes("Красносельское шоссе, д. 4") ||
               house.address.includes("Красносельское шоссе, д. 8") ||
-              house.address.includes("Красносельское шоссе, д. 20")
+              house.address.includes("Красносельское шоссе, д. 20") ||
+              house.address.includes("ул. Ремесленная, д. 21 стр. 1") ||
+              house.address.includes("ул. Большая Зеленина, д. 24 стр. 1")
             ) && (
             <Card className="bg-muted/50">
               <CardContent className="p-8">
