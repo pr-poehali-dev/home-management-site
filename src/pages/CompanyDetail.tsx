@@ -1,8 +1,15 @@
 import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface CompanyInfo {
   id: string;
@@ -22,7 +29,7 @@ interface CompanyInfo {
   receptionAddress?: string;
   phone: string;
   email: string;
-  documents: { name: string; url: string }[];
+  documents: { name: string; url?: string; images?: string[] }[];
 }
 
 const companiesData: Record<string, CompanyInfo> = {
@@ -43,9 +50,18 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
-      { name: "Устав", url: "/documents/uk-nash-dom-sity-ustav.html" },
-      { name: "Лицензия", url: "#" },
-      { name: "Свидетельство о регистрации", url: "#" },
+      { 
+        name: "Устав", 
+        images: [
+          "https://cdn.poehali.dev/files/fc048f8c-4478-4db7-8a92-60286923fcc9.jpg",
+          "https://cdn.poehali.dev/files/7faf8760-fb4d-4b3f-9499-fad5087318ab.jpg",
+          "https://cdn.poehali.dev/files/b54f26d0-f57d-4ea7-86c5-af528d6002c6.jpg",
+          "https://cdn.poehali.dev/files/45a5b3c1-223d-49ed-81da-a336254c6023.jpg",
+          "https://cdn.poehali.dev/files/b52134cc-c8b8-4e86-8cec-7a53b8baf443.jpg"
+        ]
+      },
+      { name: "Лицензия" },
+      { name: "Свидетельство о регистрации" },
     ]
   },
   "uk-nash-dom-polyustrovo": {
@@ -405,6 +421,31 @@ const companiesData: Record<string, CompanyInfo> = {
 const CompanyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const company = id ? companiesData[id] : null;
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<{ name: string; images: string[] } | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openDocument = (doc: { name: string; url?: string; images?: string[] }) => {
+    if (doc.images && doc.images.length > 0) {
+      setSelectedDocument({ name: doc.name, images: doc.images });
+      setCurrentImageIndex(0);
+      setDialogOpen(true);
+    } else if (doc.url && doc.url !== "#") {
+      window.open(doc.url, "_blank");
+    }
+  };
+
+  const nextImage = () => {
+    if (selectedDocument && currentImageIndex < selectedDocument.images.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    }
+  };
+
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
 
   if (!company) {
     return (
@@ -563,21 +604,19 @@ const CompanyDetail = () => {
                 <ul className="space-y-2">
                   {company.documents.map((doc, idx) => (
                     <li key={idx}>
-                      {doc.url === "#" ? (
+                      {!doc.url && !doc.images ? (
                         <span className="flex items-center gap-2 text-muted-foreground">
                           <Icon name="FileText" size={16} />
                           {doc.name}
                         </span>
                       ) : (
-                        <a
-                          href={doc.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={() => openDocument(doc)}
                           className="flex items-center gap-2 text-primary hover:underline"
                         >
-                          <Icon name="Download" size={16} />
+                          <Icon name="Eye" size={16} />
                           {doc.name}
-                        </a>
+                        </button>
                       )}
                     </li>
                   ))}
@@ -587,6 +626,48 @@ const CompanyDetail = () => {
           </div>
         </div>
       </section>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{selectedDocument?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedDocument && (
+            <div className="space-y-4">
+              <div className="relative">
+                <img
+                  src={selectedDocument.images[currentImageIndex]}
+                  alt={`${selectedDocument.name} - страница ${currentImageIndex + 1}`}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <Button
+                  onClick={prevImage}
+                  disabled={currentImageIndex === 0}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Icon name="ChevronLeft" size={20} />
+                  Назад
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  Страница {currentImageIndex + 1} из {selectedDocument.images.length}
+                </span>
+                <Button
+                  onClick={nextImage}
+                  disabled={currentImageIndex === selectedDocument.images.length - 1}
+                  variant="outline"
+                  size="sm"
+                >
+                  Вперёд
+                  <Icon name="ChevronRight" size={20} />
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
