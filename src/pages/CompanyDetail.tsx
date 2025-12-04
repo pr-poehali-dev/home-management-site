@@ -43,7 +43,7 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
-      { name: "Устав", url: "/documents/uk-nash-dom-sity-ustav.pdf" },
+      { name: "Устав", url: "/documents/uk-nash-dom-sity-ustav.html" },
       { name: "Лицензия", url: "#" },
       { name: "Свидетельство о регистрации", url: "#" },
     ]
