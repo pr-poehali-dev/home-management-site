@@ -43,7 +43,7 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
-      { name: "Устав", url: "#" },
+      { name: "Устав", url: "/documents/uk-nash-dom-sity-ustav.pdf" },
       { name: "Лицензия", url: "#" },
       { name: "Свидетельство о регистрации", url: "#" },
     ]
@@ -563,13 +563,22 @@ const CompanyDetail = () => {
                 <ul className="space-y-2">
                   {company.documents.map((doc, idx) => (
                     <li key={idx}>
-                      <a
-                        href={doc.url}
-                        className="flex items-center gap-2 text-primary hover:underline"
-                      >
-                        <Icon name="Download" size={16} />
-                        {doc.name}
-                      </a>
+                      {doc.url === "#" ? (
+                        <span className="flex items-center gap-2 text-muted-foreground">
+                          <Icon name="FileText" size={16} />
+                          {doc.name}
+                        </span>
+                      ) : (
+                        <a
+                          href={doc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-primary hover:underline"
+                        >
+                          <Icon name="Download" size={16} />
+                          {doc.name}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
