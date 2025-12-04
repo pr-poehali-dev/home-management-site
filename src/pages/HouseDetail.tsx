@@ -614,6 +614,16 @@ const HouseDetail = () => {
               ))}
             </div>
 
+            {!(
+              house.address.includes("ул. Зеленогорская, д. 12 лит. В") ||
+              house.address.includes("ул. Васенко, д. 12 лит. Б") ||
+              house.address.includes("Фермское шоссе, д. 20, корп. 3 лит. А") ||
+              house.address.includes("Фермское шоссе, д. 22, корп. 2 лит. А") ||
+              house.address.includes("ул. Одоевского, д. 21 корп. 2 стр. 1") ||
+              house.address.includes("Красносельское шоссе, д. 4") ||
+              house.address.includes("Красносельское шоссе, д. 8") ||
+              house.address.includes("Красносельское шоссе, д. 20")
+            ) && (
             <Card className="bg-muted/50">
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">
@@ -957,6 +967,7 @@ const HouseDetail = () => {
                 )}
               </CardContent>
             </Card>
+            )}
           </div>
         </div>
       </section>
