@@ -356,23 +356,9 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
-      { 
-        name: "Устав",
-        images: [
-          "https://cdn.poehali.dev/files/bb0df06d-c2b3-4694-9a61-177643c7d554.jpg",
-          "https://cdn.poehali.dev/files/c11ba041-2faf-49f3-8544-1cc34d1e7d66.jpg",
-          "https://cdn.poehali.dev/files/aaf67b30-2208-4186-b3e9-5a1d2980d2c8.jpg",
-          "https://cdn.poehali.dev/files/80a0e9f0-daaf-40fb-8752-c58fa5a720a0.jpg",
-          "https://cdn.poehali.dev/files/115026e8-74cb-49c0-a1dc-3ee1076440ec.jpg",
-          "https://cdn.poehali.dev/files/0ac2c500-1aa6-43f7-98e5-8e6fd5da4b94.jpg",
-          "https://cdn.poehali.dev/files/8b16ba07-3949-4a75-85be-db0c4075ee64.jpg",
-          "https://cdn.poehali.dev/files/e05ead9a-ffb7-45bd-ac49-86456b6ffddd.jpg",
-          "https://cdn.poehali.dev/files/fbbb4a6d-4773-44b2-8cd4-3fc04fd8f46d.jpg",
-          "https://cdn.poehali.dev/files/079fd1fe-8929-41b5-8edb-21d32193ed84.jpg"
-        ]
-      },
-      { name: "Лицензия" },
-      { name: "Свидетельство о регистрации" },
+      { name: "Устав", url: "#" },
+      { name: "Лицензия", url: "#" },
+      { name: "Свидетельство о регистрации", url: "#" },
     ]
   },
   "uk-kapital-komfort": {
