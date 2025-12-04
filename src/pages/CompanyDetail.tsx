@@ -368,7 +368,12 @@ const companiesData: Record<string, CompanyInfo> = {
           "https://cdn.poehali.dev/files/24a0a5a5-06f4-4907-bc3d-33086927a184.jpg",
           "https://cdn.poehali.dev/files/1b0564fa-e639-434e-ba70-8c755b0fd51b.jpg",
           "https://cdn.poehali.dev/files/b472834e-6319-40f7-a8ee-154ff173d553.jpg",
-          "https://cdn.poehali.dev/files/5eb75927-e78c-4822-ba51-6af105a02737.jpg"
+          "https://cdn.poehali.dev/files/5eb75927-e78c-4822-ba51-6af105a02737.jpg",
+          "https://cdn.poehali.dev/files/9dce71a1-4860-4d32-8e1a-538095238820.jpg",
+          "https://cdn.poehali.dev/files/bbe37104-c34c-4245-9558-f43ef4b427ab.jpg",
+          "https://cdn.poehali.dev/files/15e6b89c-ede5-47b8-9406-666bed8fe73c.jpg",
+          "https://cdn.poehali.dev/files/e659ce1f-ea67-497b-925a-29f70f6127f4.jpg",
+          "https://cdn.poehali.dev/files/9ad40f58-b6ae-4349-bb13-12676516d98f.jpg"
         ]
       },
       { name: "Лицензия", url: "#" },
