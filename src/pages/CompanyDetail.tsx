@@ -421,9 +421,18 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26 (доб. 1086)",
     email: "uk.bsd@mail.ru",
     documents: [
-      { name: "Устав", url: "#" },
-      { name: "Лицензия", url: "#" },
-      { name: "Свидетельство о регистрации", url: "#" },
+      { 
+        name: "Устав",
+        images: [
+          "https://cdn.poehali.dev/files/1850188f-f4e2-4346-98f9-8707e9db36d7.jpg",
+          "https://cdn.poehali.dev/files/46987618-3c92-47aa-9c2a-6d25b2304d27.jpg",
+          "https://cdn.poehali.dev/files/a804b8fe-8034-41c3-8259-1057883fe2c4.jpg",
+          "https://cdn.poehali.dev/files/0636c233-b7ef-4297-b09e-6cf24727011b.jpg",
+          "https://cdn.poehali.dev/files/26428fa2-2f2c-48fa-bbc5-690fbfe4b67e.jpg"
+        ]
+      },
+      { name: "Лицензия" },
+      { name: "Свидетельство о регистрации" },
     ]
   },
 };
