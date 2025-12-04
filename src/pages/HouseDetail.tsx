@@ -931,6 +931,36 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
+                ) : house.address.includes("Приморское шоссе, д. 352 стр. 1") && house.city === "Санкт-Петербург" ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба</p>
+                        <p className="text-sm mb-3">Санкт-Петербург, Сестрорецк г., ул. Токарева, 18</p>
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <Icon name="Phone" size={16} className="flex-shrink-0" />
+                            <span>
+                              <a href="tel:+78124373626" className="text-primary hover:underline">+7 (812) 437-36-26</a>
+                              {"; "}
+                              <a href="tel:+78124374020" className="text-primary hover:underline">+7 (812) 437-40-20</a>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан осуществляется</p>
+                        <div className="text-sm space-y-1">
+                          <p>понедельник, среда, четверг - с 16:00 до 19:00</p>
+                          <p>вторник, пятница - с 9:00 до 12:00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
