@@ -223,7 +223,16 @@ const companiesData: Record<string, CompanyInfo> = {
     phone: "8 (812) 640-88-26",
     email: "uk.nash-dom@mail.ru, uk.nashdom@inbox.ru",
     documents: [
-      { name: "Устав", url: "#" },
+      { 
+        name: "Устав",
+        images: [
+          "https://cdn.poehali.dev/files/22a9d2cf-98a7-4f5e-ad74-265636666521.jpg",
+          "https://cdn.poehali.dev/files/ac94373d-70d4-48e5-90d6-93838f65292e.jpg",
+          "https://cdn.poehali.dev/files/893269e7-8043-4b5b-8c96-a18c81c68a5b.jpg",
+          "https://cdn.poehali.dev/files/3df79bf2-3c45-447c-a708-4cdf270c441a.jpg",
+          "https://cdn.poehali.dev/files/65b857e3-40de-4573-8b4b-02f50c80a33b.jpg"
+        ]
+      },
       { name: "Лицензия", url: "#" },
       { name: "Свидетельство о регистрации", url: "#" },
     ]
