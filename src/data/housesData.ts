@@ -57,6 +57,12 @@ export const houses: HouseData[] = [
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://cdn.poehali.dev/files/104b9122-0bc5-4862-91e3-26b11deba075.jpg",
     managerPhoto: "https://cdn.poehali.dev/files/1fd552cf-0aa7-40fe-8016-8790d3cde46c.jpg",
+    protocolOss: [
+      "https://cdn.poehali.dev/files/dc475ad1-2b30-4ca0-ae1a-0ce5687e31c2.jpg",
+      "https://cdn.poehali.dev/files/a5acb9a0-4074-4de9-b3e1-79077660ac66.jpg",
+      "https://cdn.poehali.dev/files/3ed75f6a-34b7-41ac-adef-21b1119430aa.jpg",
+      "https://cdn.poehali.dev/files/16217755-effa-457d-ac09-3f6b0e6b19bd.jpg",
+    ],
   },
   {
     id: "spb-fermskoe-22k3",
