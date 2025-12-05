@@ -32,7 +32,13 @@ export const houses: HouseData[] = [
       "https://cdn.poehali.dev/files/35b762ac-1f74-4e27-9ae0-ebed8dbb01c9.jpg",
       "https://cdn.poehali.dev/files/23a1df4f-74cf-472c-bc4b-fafbebbb3799.jpg",
     ],
-    managementAgreement: "#",
+    managementAgreement: [
+      "https://cdn.poehali.dev/files/d02bb619-a123-4e7b-93ed-b52f550da198.jpg",
+      "https://cdn.poehali.dev/files/7ee272b3-a838-4534-bf4e-e83f7c774c8f.jpg",
+      "https://cdn.poehali.dev/files/6c5f8ccd-b2d9-432b-b78d-3f9603a7957d.jpg",
+      "https://cdn.poehali.dev/files/3ec1f09c-162c-4165-88c4-40e9c919ca63.jpg",
+      "https://cdn.poehali.dev/files/9d36c0d8-d50f-4f1f-9ee1-636827a8dfa5.jpg",
+    ],
   },
   {
     id: "spb-vasenko-12a",
