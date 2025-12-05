@@ -9,6 +9,8 @@ export interface HouseData {
   type: string;
   company: string;
   image?: string;
+  protocolOss?: string;
+  managementAgreement?: string;
 }
 
 export const houses: HouseData[] = [

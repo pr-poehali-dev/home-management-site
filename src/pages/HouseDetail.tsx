@@ -607,6 +607,56 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
                 </div>
+
+                {(house.protocolOss || house.managementAgreement) && (
+                  <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
+                    {house.protocolOss && (
+                      <Card className="bg-secondary/5">
+                        <CardContent className="p-6">
+                          <h3 className="font-semibold mb-4 flex items-center gap-2">
+                            <Icon name="FileText" size={20} className="text-primary" />
+                            Протокол ОСС
+                          </h3>
+                          <a
+                            href={house.protocolOss}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                          >
+                            <Icon name="Download" size={16} />
+                            Скачать протокол
+                          </a>
+                          <p className="text-xs text-muted-foreground mt-2">
+                            Протокол общего собрания собственников
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {house.managementAgreement && (
+                      <Card className="bg-secondary/5">
+                        <CardContent className="p-6">
+                          <h3 className="font-semibold mb-4 flex items-center gap-2">
+                            <Icon name="FileCheck" size={20} className="text-primary" />
+                            Договор управления
+                          </h3>
+                          <a
+                            href={house.managementAgreement}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                          >
+                            <Icon name="Download" size={16} />
+                            Скачать договор
+                          </a>
+                          <p className="text-xs text-muted-foreground mt-2">
+                            Договор управления многоквартирным домом
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
