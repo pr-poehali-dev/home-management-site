@@ -581,6 +581,15 @@ const HouseDetail = () => {
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
+                      {house.managerPhoto && (
+                        <div className="mb-4">
+                          <img 
+                            src={house.managerPhoto} 
+                            alt={house.manager}
+                            className="w-24 h-24 rounded-lg object-cover"
+                          />
+                        </div>
+                      )}
                       <p className="text-sm font-medium mb-3">{house.manager}</p>
                       <a
                         href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}

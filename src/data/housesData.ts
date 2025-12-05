@@ -9,6 +9,7 @@ export interface HouseData {
   type: string;
   company: string;
   image?: string;
+  managerPhoto?: string;
   protocolOss?: string | string[];
   managementAgreement?: string | string[];
 }
@@ -25,6 +26,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://cdn.poehali.dev/files/b5ccfd9d-8ac8-4e0c-93b4-907e33d02b66.jpg",
+    managerPhoto: "https://cdn.poehali.dev/files/12feefad-7ee9-4d97-b7ab-85682fea712e.jpg",
     protocolOss: [
       "https://cdn.poehali.dev/files/0a918d37-01e4-4fc0-837e-c5eb2d45dc63.jpg",
       "https://cdn.poehali.dev/files/42ea0ad1-de79-4585-9ce5-0d576a32667c.jpg",
