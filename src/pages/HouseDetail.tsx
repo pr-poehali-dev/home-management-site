@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { houses } from "@/data/housesData";
+import ProtocolViewer from "@/components/ProtocolViewer";
 
 const HouseDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [protocolOpen, setProtocolOpen] = useState(false);
+  const [agreementOpen, setAgreementOpen] = useState(false);
 
   const deleteMeLater = [
     {
@@ -617,15 +621,14 @@ const HouseDetail = () => {
                             <Icon name="FileText" size={20} className="text-primary" />
                             Протокол ОСС
                           </h3>
-                          <a
-                            href={house.protocolOss}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                          <Button
+                            variant="link"
+                            onClick={() => setProtocolOpen(true)}
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto"
                           >
-                            <Icon name="Download" size={16} />
-                            Скачать протокол
-                          </a>
+                            <Icon name="Eye" size={16} />
+                            Просмотреть протокол
+                          </Button>
                           <p className="text-xs text-muted-foreground mt-2">
                             Протокол общего собрания собственников
                           </p>
@@ -640,15 +643,14 @@ const HouseDetail = () => {
                             <Icon name="FileCheck" size={20} className="text-primary" />
                             Договор управления
                           </h3>
-                          <a
-                            href={house.managementAgreement}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                          <Button
+                            variant="link"
+                            onClick={() => setAgreementOpen(true)}
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto"
                           >
-                            <Icon name="Download" size={16} />
-                            Скачать договор
-                          </a>
+                            <Icon name="Eye" size={16} />
+                            Просмотреть договор
+                          </Button>
                           <p className="text-xs text-muted-foreground mt-2">
                             Договор управления многоквартирным домом
                           </p>
@@ -1064,6 +1066,24 @@ const HouseDetail = () => {
           </div>
         </div>
       </section>
+
+      {house.protocolOss && Array.isArray(house.protocolOss) && (
+        <ProtocolViewer
+          open={protocolOpen}
+          onOpenChange={setProtocolOpen}
+          images={house.protocolOss}
+          title="Протокол ОСС от 07.01.2014"
+        />
+      )}
+
+      {house.managementAgreement && Array.isArray(house.managementAgreement) && (
+        <ProtocolViewer
+          open={agreementOpen}
+          onOpenChange={setAgreementOpen}
+          images={house.managementAgreement}
+          title="Договор управления"
+        />
+      )}
     </Layout>
   );
 };
