@@ -63,6 +63,13 @@ export const houses: HouseData[] = [
       "https://cdn.poehali.dev/files/3ed75f6a-34b7-41ac-adef-21b1119430aa.jpg",
       "https://cdn.poehali.dev/files/16217755-effa-457d-ac09-3f6b0e6b19bd.jpg",
     ],
+    managementAgreement: [
+      "https://cdn.poehali.dev/files/2ba2cfd0-34e9-4bbd-bbb5-8714a80a48cd.jpg",
+      "https://cdn.poehali.dev/files/f31d7329-4ecb-49fc-87f8-4e416b8d8ef4.jpg",
+      "https://cdn.poehali.dev/files/77e481d7-c154-4dea-9431-288339f4fa11.jpg",
+      "https://cdn.poehali.dev/files/b892cd2c-a745-4aaf-a410-b235de704309.jpg",
+      "https://cdn.poehali.dev/files/b99ff902-2995-4678-8ffd-e5d7249233ca.jpg",
+    ],
   },
   {
     id: "spb-fermskoe-22k3",
