@@ -27,19 +27,11 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
-              <div className="relative">
-                <img 
-                  src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
-                  alt="НАШ ДОМ" 
-                  className="w-20 h-20 rounded-full object-cover"
-                />
-                <img
-                  src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/990c6595-938e-4846-819a-8a3346291dff.jpg"
-                  alt="Santa Hat"
-                  className="absolute -top-3 -right-2 w-12 h-12 object-contain pointer-events-none"
-                  style={{ transform: 'rotate(-15deg)' }}
-                />
-              </div>
+              <img 
+                src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
+                alt="НАШ ДОМ" 
+                className="w-20 h-20 rounded-full object-cover"
+              />
               <div>
                 <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
               </div>
