@@ -522,11 +522,11 @@ const HouseDetail = () => {
           </Button>
 
           {house.image && (
-            <div className="mb-8 max-w-5xl mx-auto bg-white rounded-2xl overflow-hidden shadow-2xl">
+            <div className="mb-8 max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src={house.image} 
                 alt={house.address}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto"
               />
             </div>
           )}
