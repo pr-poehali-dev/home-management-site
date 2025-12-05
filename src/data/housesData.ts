@@ -8,6 +8,7 @@ export interface HouseData {
   receptionSchedule: string;
   type: string;
   company: string;
+  image?: string;
 }
 
 export const houses: HouseData[] = [
@@ -21,6 +22,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
+    image: "https://cdn.poehali.dev/files/b5ccfd9d-8ac8-4e0c-93b4-907e33d02b66.jpg",
   },
   {
     id: "spb-vasenko-12a",
