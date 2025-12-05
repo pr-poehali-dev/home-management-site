@@ -25,6 +25,8 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://cdn.poehali.dev/files/b5ccfd9d-8ac8-4e0c-93b4-907e33d02b66.jpg",
+    protocolOss: "#",
+    managementAgreement: "#",
   },
   {
     id: "spb-vasenko-12a",
