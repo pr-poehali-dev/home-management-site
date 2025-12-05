@@ -28,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img 
-                src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
+                src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
                 alt="НАШ ДОМ" 
                 className="w-20 h-20 rounded-full object-cover"
               />
@@ -143,7 +143,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/files/58721075-70a5-4144-b310-a5c3a282d128.png" 
+                  src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
                   alt="НАШ ДОМ" 
                   className="w-10 h-10 rounded-full object-cover"
                 />
