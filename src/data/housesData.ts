@@ -38,6 +38,9 @@ export const houses: HouseData[] = [
       "https://cdn.poehali.dev/files/6c5f8ccd-b2d9-432b-b78d-3f9603a7957d.jpg",
       "https://cdn.poehali.dev/files/3ec1f09c-162c-4165-88c4-40e9c919ca63.jpg",
       "https://cdn.poehali.dev/files/9d36c0d8-d50f-4f1f-9ee1-636827a8dfa5.jpg",
+      "https://cdn.poehali.dev/files/aeffca3e-32f4-4ebb-b1d5-4f1af0dd808e.jpg",
+      "https://cdn.poehali.dev/files/c173a39c-c16d-4f92-96d1-4f1a353f7d6e.jpg",
+      "https://cdn.poehali.dev/files/516e5f85-7fcc-4b1c-bc7c-48ab83ebd38a.jpg",
     ],
   },
   {
