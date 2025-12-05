@@ -249,6 +249,7 @@ const HouseDetail = () => {
       manager: "Екатерина Васильевна Павлова",
       managerPhone: "+7 (921) 334-43-74",
       type: 'ЖК "Золотое Сечение"',
+      image: "https://cdn.poehali.dev/files/23521a6c-35be-4fa7-8224-452c76f07a2c.jpg",
     },
     {
       id: "spb-petrovskiy-5",
@@ -545,6 +546,16 @@ const HouseDetail = () => {
                     </div>
                   </div>
                 </div>
+
+                {house.image && (
+                  <div className="mb-8">
+                    <img 
+                      src={house.image} 
+                      alt={house.address}
+                      className="w-full h-auto rounded-xl object-cover shadow-lg"
+                    />
+                  </div>
+                )}
 
                 <div className="grid md:grid-cols-3 gap-6 pt-6 border-t">
                   <Card className="bg-secondary/5">
