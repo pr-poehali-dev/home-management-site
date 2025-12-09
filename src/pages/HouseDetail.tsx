@@ -13,7 +13,7 @@ const HouseDetail = () => {
   const [protocolOpen, setProtocolOpen] = useState(false);
   const [agreementOpen, setAgreementOpen] = useState(false);
 
-  const deleteMeLater = [
+  /*const deleteMeLater = [
     {
       id: "bugry-petrovskiy-28",
       address: "Петровский бульвар, д. 28",
@@ -455,7 +455,7 @@ const HouseDetail = () => {
       managerPhone: "+7 (953) 365-65-05",
       type: "Паркинг",
     },
-  ];
+  ];*/
 
   const house = houses.find((h) => h.id === id);
 
