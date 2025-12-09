@@ -5,8 +5,8 @@ from typing import Dict, Any, Optional
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Обновляет данные дома (изображения и информацию)
-    Args: event - dict с httpMethod, body (house_id, image, managerPhoto)
+    Обновляет данные дома (изображения, документы и информацию)
+    Args: event - dict с httpMethod, body (house_id, image, managerPhoto, protocolOss, managementAgreement)
           context - объект с атрибутами request_id, function_name
     Returns: HTTP response dict с результатом обновления
     '''
@@ -40,6 +40,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     house_id: str = body_data.get('house_id', '')
     image_url: Optional[str] = body_data.get('image')
     manager_photo_url: Optional[str] = body_data.get('managerPhoto')
+    protocol_oss = body_data.get('protocolOss')
+    management_agreement = body_data.get('managementAgreement')
     
     if not house_id:
         return {
@@ -60,7 +62,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             CREATE TABLE IF NOT EXISTS houses (
                 id TEXT PRIMARY KEY,
                 image TEXT,
-                manager_photo TEXT
+                manager_photo TEXT,
+                protocol_oss TEXT,
+                management_agreement TEXT
             )
         """)
         
@@ -79,14 +83,24 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 update_fields.append("manager_photo = %s")
                 update_values.append(manager_photo_url)
             
+            if protocol_oss is not None:
+                update_fields.append("protocol_oss = %s")
+                update_values.append(json.dumps(protocol_oss) if isinstance(protocol_oss, list) else protocol_oss)
+            
+            if management_agreement is not None:
+                update_fields.append("management_agreement = %s")
+                update_values.append(json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement)
+            
             if update_fields:
                 update_values.append(house_id)
                 query = f"UPDATE houses SET {', '.join(update_fields)} WHERE id = %s"
                 cur.execute(query, update_values)
         else:
             cur.execute(
-                "INSERT INTO houses (id, image, manager_photo) VALUES (%s, %s, %s)",
-                (house_id, image_url, manager_photo_url)
+                "INSERT INTO houses (id, image, manager_photo, protocol_oss, management_agreement) VALUES (%s, %s, %s, %s, %s)",
+                (house_id, image_url, manager_photo_url, 
+                 json.dumps(protocol_oss) if isinstance(protocol_oss, list) else protocol_oss,
+                 json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement)
             )
         
         conn.commit()
@@ -96,7 +110,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'house_id': house_id,
             'updated': {
                 'image': image_url if image_url else None,
-                'managerPhoto': manager_photo_url if manager_photo_url else None
+                'managerPhoto': manager_photo_url if manager_photo_url else None,
+                'protocolOss': protocol_oss if protocol_oss is not None else None,
+                'managementAgreement': management_agreement if management_agreement is not None else None
             }
         }
         
