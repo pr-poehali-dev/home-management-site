@@ -103,6 +103,19 @@ const HouseDetail = () => {
       
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        
+        // Проверка размера файла (максимум 5 МБ)
+        const maxSize = 5 * 1024 * 1024; // 5 MB
+        if (file.size > maxSize) {
+          toast({
+            title: "Файл слишком большой",
+            description: `Файл "${file.name}" превышает 5 МБ. Пожалуйста, выберите файл меньшего размера.`,
+            variant: "destructive"
+          });
+          setUploadingDocument(false);
+          return;
+        }
+        
         const reader = new FileReader();
         
         await new Promise<void>((resolve, reject) => {
