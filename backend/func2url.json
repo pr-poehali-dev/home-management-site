@@ -1,4 +1,7 @@
 {
+  "get-house-images": "https://functions.poehali.dev/b6d9dd6d-bfd8-4590-898e-81731c3f176a",
+  "update-house": "https://functions.poehali.dev/a9439849-e04f-4c0a-822c-c2a17456186e",
+  "upload-image": "https://functions.poehali.dev/c671691a-1104-4aec-9df4-1214ba84b0e6",
   "news": "https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555",
   "update-feedback": "https://functions.poehali.dev/19ca673e-5734-4552-a942-c1d5157a9efb",
   "get-feedbacks": "https://functions.poehali.dev/7698e428-c04c-4817-97e8-70eedd7bc07d",

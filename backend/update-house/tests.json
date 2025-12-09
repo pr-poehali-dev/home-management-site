@@ -1,0 +1,25 @@
+{
+  "tests": [
+    {
+      "name": "Test OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Test POST update house image",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "house_id": "test-house-1",
+        "image": "https://cdn.poehali.dev/test.jpg"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "house_id": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

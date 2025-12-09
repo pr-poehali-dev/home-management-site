@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Test OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Test GET house images",
+      "method": "GET",
+      "path": "/?house_id=test-house-1",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "house_id": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

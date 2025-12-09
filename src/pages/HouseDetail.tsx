@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,14 +6,89 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { houses } from "@/data/housesData";
 import ProtocolViewer from "@/components/ProtocolViewer";
+import { useToast } from "@/components/ui/use-toast";
+import funcUrls from "../../backend/func2url.json";
 
 const HouseDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [protocolOpen, setProtocolOpen] = useState(false);
   const [agreementOpen, setAgreementOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [currentHouseImage, setCurrentHouseImage] = useState<string | undefined>();
+  const [currentManagerPhoto, setCurrentManagerPhoto] = useState<string | undefined>();
 
   const house = houses.find((h) => h.id === id);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      if (!id) return;
+      try {
+        const response = await fetch(`${funcUrls['get-house-images']}?house_id=${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.image) setCurrentHouseImage(data.image);
+          if (data.managerPhoto) setCurrentManagerPhoto(data.managerPhoto);
+        }
+      } catch (error) {
+        console.error('Failed to load images:', error);
+      }
+    };
+    loadImages();
+  }, [id]);
+
+  const handleImageUpload = async (file: File, type: 'house' | 'manager') => {
+    setUploading(true);
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64 = (reader.result as string).split(',')[1];
+        
+        const uploadResponse = await fetch(funcUrls['upload-image'], {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64, type })
+        });
+        
+        if (!uploadResponse.ok) throw new Error('Upload failed');
+        
+        const uploadData = await uploadResponse.json();
+        const imageUrl = uploadData.url;
+        
+        const updateResponse = await fetch(funcUrls['update-house'], {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            house_id: id,
+            [type === 'house' ? 'image' : 'managerPhoto']: imageUrl
+          })
+        });
+        
+        if (!updateResponse.ok) throw new Error('Update failed');
+        
+        if (type === 'house') {
+          setCurrentHouseImage(imageUrl);
+        } else {
+          setCurrentManagerPhoto(imageUrl);
+        }
+        
+        toast({
+          title: "Успешно!",
+          description: type === 'house' ? "Фото дома загружено" : "Фото управляющего загружено"
+        });
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить изображение",
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
 
   if (!house) {
     return (
@@ -81,15 +156,42 @@ const HouseDetail = () => {
             Назад к списку домов
           </Button>
 
-          {house.image && (
-            <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white">
+          <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white relative group cursor-pointer">
+            {(currentHouseImage || house.image) ? (
               <img 
-                src={house.image} 
+                src={currentHouseImage || house.image} 
                 alt={house.address}
                 className="w-full h-auto mix-blend-darken"
               />
+            ) : (
+              <div className="w-full h-64 flex items-center justify-center bg-muted">
+                <div className="text-center text-muted-foreground">
+                  <Icon name="Image" size={48} className="mx-auto mb-2" />
+                  <p className="text-sm">Фото дома не загружено</p>
+                </div>
+              </div>
+            )}
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={uploading}
+                onClick={() => {
+                  const input = document.createElement('input');
+                  input.type = 'file';
+                  input.accept = 'image/*';
+                  input.onchange = (e) => {
+                    const file = (e.target as HTMLInputElement).files?.[0];
+                    if (file) handleImageUpload(file, 'house');
+                  };
+                  input.click();
+                }}
+              >
+                <Icon name="Upload" size={16} />
+                {uploading ? 'Загрузка...' : (currentHouseImage || house.image ? 'Изменить фото дома' : 'Загрузить фото дома')}
+              </Button>
             </div>
-          )}
+          </div>
 
           <div className="max-w-5xl mx-auto">
             <Card className="mb-8">
@@ -137,15 +239,39 @@ const HouseDetail = () => {
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      {house.managerPhoto && (
-                        <div className="mb-4">
+                      <div className="mb-4 relative group cursor-pointer w-24 h-24">
+                        {(currentManagerPhoto || house.managerPhoto) ? (
                           <img 
-                            src={house.managerPhoto} 
+                            src={currentManagerPhoto || house.managerPhoto} 
                             alt={house.manager}
                             className="w-24 h-24 rounded-lg object-cover"
                           />
+                        ) : (
+                          <div className="w-24 h-24 rounded-lg bg-muted flex items-center justify-center">
+                            <Icon name="User" size={32} className="text-muted-foreground" />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            disabled={uploading}
+                            onClick={() => {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*';
+                              input.onchange = (e) => {
+                                const file = (e.target as HTMLInputElement).files?.[0];
+                                if (file) handleImageUpload(file, 'manager');
+                              };
+                              input.click();
+                            }}
+                            className="text-xs px-2 py-1 h-auto"
+                          >
+                            <Icon name="Upload" size={12} />
+                          </Button>
                         </div>
-                      )}
+                      </div>
                       <p className="text-sm font-medium mb-3">{house.manager}</p>
                       <a
                         href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}
