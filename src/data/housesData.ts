@@ -869,7 +869,7 @@ export const houses: HouseData[] = [
     company: "ООО «УК «Бизнес сити дом»",
   },
   {
-    id: "spb-zelenina-24",
+    id: "spb-zelenina-24str1",
     address: "ул. Большая Зеленина, д. 24, стр. 1",
     city: "Санкт-Петербург",
     manager: "Информация уточняется",
