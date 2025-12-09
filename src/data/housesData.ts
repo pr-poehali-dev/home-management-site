@@ -86,6 +86,8 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
+    image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
+    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
   },
   {
     id: "spb-kondratyevskiy-62k1",
@@ -97,6 +99,8 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
+    image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
+    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
   },
   {
     id: "spb-kondratyevskiy-62k2",
@@ -108,6 +112,8 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
+    image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
+    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
   },
   {
     id: "spb-kondratyevskiy-66k1",
@@ -119,6 +125,8 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
+    image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
+    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
   },
   {
     id: "spb-zelenogorskaya-12b",
