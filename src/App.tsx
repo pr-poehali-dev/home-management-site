@@ -14,6 +14,7 @@ import ForResidents from "./pages/ForResidents";
 
 import Houses from "./pages/Houses";
 import HouseDetail from "./pages/HouseDetail";
+import BulkUpload from "./pages/BulkUpload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
 
             <Route path="/houses" element={<Houses />} />
             <Route path="/houses/:id" element={<HouseDetail />} />
+            <Route path="/bulk-upload" element={<BulkUpload />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
