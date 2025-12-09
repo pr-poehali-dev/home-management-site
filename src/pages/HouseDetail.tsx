@@ -16,6 +16,7 @@ const HouseDetail = () => {
   const [protocolOpen, setProtocolOpen] = useState(false);
   const [agreementOpen, setAgreementOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingDocument, setUploadingDocument] = useState(false);
   const [currentHouseImage, setCurrentHouseImage] = useState<string | undefined>();
   const [currentManagerPhoto, setCurrentManagerPhoto] = useState<string | undefined>();
 
@@ -48,7 +49,7 @@ const HouseDetail = () => {
         const uploadResponse = await fetch(funcUrls['upload-image'], {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: base64, type })
+          body: JSON.stringify({ image: base64, type, fileType: 'image' })
         });
         
         if (!uploadResponse.ok) throw new Error('Upload failed');
@@ -87,6 +88,73 @@ const HouseDetail = () => {
       });
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleDocumentUpload = async (files: FileList, docType: 'protocol' | 'agreement') => {
+    setUploadingDocument(true);
+    try {
+      const uploadedUrls: string[] = [];
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        
+        await new Promise<void>((resolve, reject) => {
+          reader.onloadend = async () => {
+            try {
+              const base64 = (reader.result as string).split(',')[1];
+              const fileType = file.type === 'application/pdf' ? 'pdf' : 'image';
+              
+              const uploadResponse = await fetch(funcUrls['upload-image'], {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  image: base64, 
+                  type: docType === 'protocol' ? 'protocol' : 'agreement',
+                  fileType
+                })
+              });
+              
+              if (!uploadResponse.ok) throw new Error('Upload failed');
+              
+              const uploadData = await uploadResponse.json();
+              uploadedUrls.push(uploadData.url);
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+      
+      const updateResponse = await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          house_id: id,
+          [docType === 'protocol' ? 'protocolOss' : 'managementAgreement']: uploadedUrls.length === 1 ? uploadedUrls[0] : uploadedUrls
+        })
+      });
+      
+      if (!updateResponse.ok) throw new Error('Update failed');
+      
+      toast({
+        title: "Успешно!",
+        description: `${docType === 'protocol' ? 'Протокол ОСС' : 'Договор управления'} загружен`
+      });
+      
+      window.location.reload();
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить документ",
+        variant: "destructive"
+      });
+    } finally {
+      setUploadingDocument(false);
     }
   };
 
@@ -333,6 +401,7 @@ const HouseDetail = () => {
                             variant="outline"
                             size="sm"
                             className="w-full"
+                            disabled={uploadingDocument}
                             onClick={() => {
                               const input = document.createElement('input');
                               input.type = 'file';
@@ -340,15 +409,15 @@ const HouseDetail = () => {
                               input.multiple = true;
                               input.onchange = (e) => {
                                 const files = (e.target as HTMLInputElement).files;
-                                if (files) {
-                                  alert(`Выбрано файлов: ${files.length}. Функция загрузки будет реализована.`);
+                                if (files && files.length > 0) {
+                                  handleDocumentUpload(files, 'protocol');
                                 }
                               };
                               input.click();
                             }}
                           >
                             <Icon name="Upload" size={16} />
-                            Загрузить протокол
+                            {uploadingDocument ? 'Загрузка...' : 'Загрузить протокол'}
                           </Button>
                         </div>
                       )}
@@ -384,6 +453,7 @@ const HouseDetail = () => {
                             variant="outline"
                             size="sm"
                             className="w-full"
+                            disabled={uploadingDocument}
                             onClick={() => {
                               const input = document.createElement('input');
                               input.type = 'file';
@@ -391,15 +461,15 @@ const HouseDetail = () => {
                               input.multiple = true;
                               input.onchange = (e) => {
                                 const files = (e.target as HTMLInputElement).files;
-                                if (files) {
-                                  alert(`Выбрано файлов: ${files.length}. Функция загрузки будет реализована.`);
+                                if (files && files.length > 0) {
+                                  handleDocumentUpload(files, 'agreement');
                                 }
                               };
                               input.click();
                             }}
                           >
                             <Icon name="Upload" size={16} />
-                            Загрузить договор
+                            {uploadingDocument ? 'Загрузка...' : 'Загрузить договор'}
                           </Button>
                         </div>
                       )}
@@ -814,20 +884,20 @@ const HouseDetail = () => {
         </div>
       </section>
 
-      {house.protocolOss && Array.isArray(house.protocolOss) && (
+      {house.protocolOss && (
         <ProtocolViewer
           open={protocolOpen}
           onOpenChange={setProtocolOpen}
-          images={house.protocolOss}
+          images={Array.isArray(house.protocolOss) ? house.protocolOss : [house.protocolOss]}
           title="Протокол ОСС от 07.01.2014"
         />
       )}
 
-      {house.managementAgreement && Array.isArray(house.managementAgreement) && (
+      {house.managementAgreement && (
         <ProtocolViewer
           open={agreementOpen}
           onOpenChange={setAgreementOpen}
-          images={house.managementAgreement}
+          images={Array.isArray(house.managementAgreement) ? house.managementAgreement : [house.managementAgreement]}
           title="Договор управления"
         />
       )}

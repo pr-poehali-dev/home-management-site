@@ -25,6 +25,9 @@ const ProtocolViewer = ({ open, onOpenChange, images, title }: ProtocolViewerPro
     }
   };
 
+  const currentFile = images[currentPage];
+  const isPDF = currentFile?.toLowerCase().endsWith('.pdf');
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
@@ -33,11 +36,19 @@ const ProtocolViewer = ({ open, onOpenChange, images, title }: ProtocolViewerPro
         </DialogHeader>
         
         <div className="flex-1 overflow-auto">
-          <img 
-            src={images[currentPage]} 
-            alt={`Страница ${currentPage + 1}`}
-            className="w-full h-auto"
-          />
+          {isPDF ? (
+            <iframe 
+              src={currentFile}
+              className="w-full h-[70vh] border-0"
+              title={`Страница ${currentPage + 1}`}
+            />
+          ) : (
+            <img 
+              src={currentFile} 
+              alt={`Страница ${currentPage + 1}`}
+              className="w-full h-auto"
+            />
+          )}
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t">

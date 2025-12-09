@@ -7,10 +7,10 @@ from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Загружает изображение в S3 и возвращает CDN URL
-    Args: event - dict с httpMethod, body (base64 image data)
+    Загружает файл (изображение или PDF) в S3 и возвращает CDN URL
+    Args: event - dict с httpMethod, body (base64 file data, fileType)
           context - объект с атрибутами request_id, function_name
-    Returns: HTTP response dict с CDN URL изображения
+    Returns: HTTP response dict с CDN URL файла
     '''
     method: str = event.get('httpMethod', 'POST')
     
@@ -39,29 +39,35 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         }
     
     body_data = json.loads(event.get('body', '{}'))
-    image_base64 = body_data.get('image', '')
-    image_type = body_data.get('type', 'house')
+    file_base64 = body_data.get('image', '')
+    file_type = body_data.get('type', 'house')
+    specified_file_type = body_data.get('fileType', 'image')
     
-    if not image_base64:
+    if not file_base64:
         return {
             'statusCode': 400,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps({'error': 'No image data provided'}),
+            'body': json.dumps({'error': 'No file data provided'}),
             'isBase64Encoded': False
         }
     
-    image_data = base64.b64decode(image_base64)
+    file_data = base64.b64decode(file_base64)
     
-    file_extension = 'jpg'
-    if image_base64.startswith('iVBOR'):
-        file_extension = 'png'
-    elif image_base64.startswith('/9j/'):
+    if specified_file_type == 'pdf':
+        file_extension = 'pdf'
+        content_type = 'application/pdf'
+    else:
         file_extension = 'jpg'
+        if file_base64.startswith('iVBOR'):
+            file_extension = 'png'
+        elif file_base64.startswith('/9j/'):
+            file_extension = 'jpg'
+        content_type = f'image/{file_extension}'
     
-    file_name = f"{image_type}-{uuid.uuid4()}.{file_extension}"
+    file_name = f"{file_type}-{uuid.uuid4()}.{file_extension}"
     
     s3 = boto3.client('s3',
         endpoint_url='https://bucket.poehali.dev',
@@ -69,11 +75,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
     )
     
-    content_type = f'image/{file_extension}'
     s3.put_object(
         Bucket='files',
         Key=file_name,
-        Body=image_data,
+        Body=file_data,
         ContentType=content_type
     )
     
