@@ -134,7 +134,12 @@ const HouseDetail = () => {
                 })
               });
               
-              if (!uploadResponse.ok) throw new Error('Upload failed');
+              if (!uploadResponse.ok) {
+                if (uploadResponse.status === 413) {
+                  throw new Error('FILE_TOO_LARGE');
+                }
+                throw new Error('Upload failed');
+              }
               
               const uploadData = await uploadResponse.json();
               uploadedUrls.push(uploadData.url);
@@ -166,9 +171,13 @@ const HouseDetail = () => {
       
       window.location.reload();
     } catch (error) {
+      const errorMessage = error instanceof Error && error.message === 'FILE_TOO_LARGE'
+        ? "Файл слишком большой! Максимальный размер: 5 МБ. Сожмите PDF перед загрузкой."
+        : "Не удалось загрузить документ";
+      
       toast({
         title: "Ошибка",
-        description: "Не удалось загрузить документ",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
