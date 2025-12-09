@@ -5,10 +5,10 @@ from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Получает загруженные изображения для дома
+    Получает загруженные изображения и документы для дома
     Args: event - dict с httpMethod, queryStringParameters (house_id)
           context - объект с атрибутами request_id, function_name
-    Returns: HTTP response dict с URL изображений
+    Returns: HTTP response dict с URL изображений и документов
     '''
     method: str = event.get('httpMethod', 'GET')
     
@@ -55,23 +55,27 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     try:
         cur.execute(
-            "SELECT image, manager_photo FROM houses WHERE id = %s",
+            "SELECT image, manager_photo, protocol_oss, management_agreement FROM houses WHERE id = %s",
             (house_id,)
         )
         result = cur.fetchone()
         
         if result:
-            image_url, manager_photo_url = result
+            image_url, manager_photo_url, protocol_oss, management_agreement = result
             data = {
                 'house_id': house_id,
                 'image': image_url,
-                'managerPhoto': manager_photo_url
+                'managerPhoto': manager_photo_url,
+                'protocolOss': protocol_oss,
+                'managementAgreement': management_agreement
             }
         else:
             data = {
                 'house_id': house_id,
                 'image': None,
-                'managerPhoto': None
+                'managerPhoto': None,
+                'protocolOss': None,
+                'managementAgreement': None
             }
         
         return {

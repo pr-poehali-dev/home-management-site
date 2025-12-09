@@ -20,11 +20,13 @@ const HouseDetail = () => {
   const [deletingDocument, setDeletingDocument] = useState(false);
   const [currentHouseImage, setCurrentHouseImage] = useState<string | undefined>();
   const [currentManagerPhoto, setCurrentManagerPhoto] = useState<string | undefined>();
+  const [currentProtocolOss, setCurrentProtocolOss] = useState<string | string[] | undefined>();
+  const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
 
   const house = houses.find((h) => h.id === id);
 
   useEffect(() => {
-    const loadImages = async () => {
+    const loadData = async () => {
       if (!id) return;
       try {
         const response = await fetch(`${funcUrls['get-house-images']}?house_id=${id}`);
@@ -32,12 +34,14 @@ const HouseDetail = () => {
           const data = await response.json();
           if (data.image) setCurrentHouseImage(data.image);
           if (data.managerPhoto) setCurrentManagerPhoto(data.managerPhoto);
+          if (data.protocolOss) setCurrentProtocolOss(data.protocolOss);
+          if (data.managementAgreement) setCurrentManagementAgreement(data.managementAgreement);
         }
       } catch (error) {
-        console.error('Failed to load images:', error);
+        console.error('Failed to load data:', error);
       }
     };
-    loadImages();
+    loadData();
   }, [id]);
 
   const handleImageUpload = async (file: File, type: 'house' | 'manager') => {
@@ -414,7 +418,7 @@ const HouseDetail = () => {
                         <Icon name="FileText" size={20} className="text-primary" />
                         Протокол ОСС
                       </h3>
-                      {house.protocolOss ? (
+                      {(currentProtocolOss || house.protocolOss) ? (
                         <>
                           <div className="flex items-center gap-3 mb-2">
                             <Button
@@ -477,7 +481,7 @@ const HouseDetail = () => {
                         <Icon name="FileCheck" size={20} className="text-primary" />
                         Договор управления
                       </h3>
-                      {house.managementAgreement ? (
+                      {(currentManagementAgreement || house.managementAgreement) ? (
                         <>
                           <div className="flex items-center gap-3 mb-2">
                             <Button
@@ -942,20 +946,20 @@ const HouseDetail = () => {
         </div>
       </section>
 
-      {house.protocolOss && (
+      {(currentProtocolOss || house.protocolOss) && (
         <ProtocolViewer
           open={protocolOpen}
           onOpenChange={setProtocolOpen}
-          images={Array.isArray(house.protocolOss) ? house.protocolOss : [house.protocolOss]}
+          images={Array.isArray(currentProtocolOss || house.protocolOss) ? (currentProtocolOss || house.protocolOss) as string[] : [currentProtocolOss || house.protocolOss] as string[]}
           title="Протокол ОСС от 07.01.2014"
         />
       )}
 
-      {house.managementAgreement && (
+      {(currentManagementAgreement || house.managementAgreement) && (
         <ProtocolViewer
           open={agreementOpen}
           onOpenChange={setAgreementOpen}
-          images={Array.isArray(house.managementAgreement) ? house.managementAgreement : [house.managementAgreement]}
+          images={Array.isArray(currentManagementAgreement || house.managementAgreement) ? (currentManagementAgreement || house.managementAgreement) as string[] : [currentManagementAgreement || house.managementAgreement] as string[]}
           title="Договор управления"
         />
       )}
