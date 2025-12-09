@@ -177,15 +177,15 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                {(house.protocolOss || house.managementAgreement) && (
-                  <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
-                    {house.protocolOss && (
-                      <Card className="bg-secondary/5">
-                        <CardContent className="p-6">
-                          <h3 className="font-semibold mb-4 flex items-center gap-2">
-                            <Icon name="FileText" size={20} className="text-primary" />
-                            Протокол ОСС
-                          </h3>
+                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
+                  <Card className="bg-secondary/5">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-4 flex items-center gap-2">
+                        <Icon name="FileText" size={20} className="text-primary" />
+                        Протокол ОСС
+                      </h3>
+                      {house.protocolOss ? (
+                        <>
                           <Button
                             variant="link"
                             onClick={() => setProtocolOpen(true)}
@@ -197,17 +197,46 @@ const HouseDetail = () => {
                           <p className="text-xs text-muted-foreground mt-2">
                             Протокол общего собрания собственников
                           </p>
-                        </CardContent>
-                      </Card>
-                    )}
+                        </>
+                      ) : (
+                        <div className="space-y-3">
+                          <p className="text-sm text-muted-foreground">
+                            Протокол ОСС не загружен
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full"
+                            onClick={() => {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*,.pdf';
+                              input.multiple = true;
+                              input.onchange = (e) => {
+                                const files = (e.target as HTMLInputElement).files;
+                                if (files) {
+                                  alert(`Выбрано файлов: ${files.length}. Функция загрузки будет реализована.`);
+                                }
+                              };
+                              input.click();
+                            }}
+                          >
+                            <Icon name="Upload" size={16} />
+                            Загрузить протокол
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
 
-                    {house.managementAgreement && (
-                      <Card className="bg-secondary/5">
-                        <CardContent className="p-6">
-                          <h3 className="font-semibold mb-4 flex items-center gap-2">
-                            <Icon name="FileCheck" size={20} className="text-primary" />
-                            Договор управления
-                          </h3>
+                  <Card className="bg-secondary/5">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-4 flex items-center gap-2">
+                        <Icon name="FileCheck" size={20} className="text-primary" />
+                        Договор управления
+                      </h3>
+                      {house.managementAgreement ? (
+                        <>
                           <Button
                             variant="link"
                             onClick={() => setAgreementOpen(true)}
@@ -219,11 +248,38 @@ const HouseDetail = () => {
                           <p className="text-xs text-muted-foreground mt-2">
                             Договор управления многоквартирным домом
                           </p>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </div>
-                )}
+                        </>
+                      ) : (
+                        <div className="space-y-3">
+                          <p className="text-sm text-muted-foreground">
+                            Договор управления не загружен
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full"
+                            onClick={() => {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*,.pdf';
+                              input.multiple = true;
+                              input.onchange = (e) => {
+                                const files = (e.target as HTMLInputElement).files;
+                                if (files) {
+                                  alert(`Выбрано файлов: ${files.length}. Функция загрузки будет реализована.`);
+                                }
+                              };
+                              input.click();
+                            }}
+                          >
+                            <Icon name="Upload" size={16} />
+                            Загрузить договор
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
               </CardContent>
             </Card>
 
