@@ -48,7 +48,7 @@ const About = () => {
 
   return (
     <Layout>
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">О компании</h1>
@@ -93,11 +93,11 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
+            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2 bg-white">
               <img
                 src="https://cdn.poehali.dev/files/photostudio_1765349350587.jpg"
                 alt="Наши объекты"
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
