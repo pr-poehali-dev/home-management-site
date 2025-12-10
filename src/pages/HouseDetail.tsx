@@ -442,25 +442,14 @@ const HouseDetail = () => {
                       </h3>
                       {(currentProtocolOss || house.protocolOss) ? (
                         <>
-                          <div className="flex items-center gap-3 mb-2">
-                            <Button
-                              variant="link"
-                              onClick={() => setProtocolOpen(true)}
-                              className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto"
-                            >
-                              <Icon name="Eye" size={16} />
-                              Просмотреть протокол
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              disabled={deletingDocument}
-                              onClick={() => handleDocumentDelete('protocol')}
-                              className="text-destructive hover:text-destructive h-auto p-1"
-                            >
-                              <Icon name="Trash2" size={16} />
-                            </Button>
-                          </div>
+                          <Button
+                            variant="link"
+                            onClick={() => setProtocolOpen(true)}
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto mb-2"
+                          >
+                            <Icon name="Eye" size={16} />
+                            Просмотреть протокол
+                          </Button>
                           <p className="text-xs text-muted-foreground">
                             Протокол общего собрания собственников
                           </p>
@@ -505,25 +494,14 @@ const HouseDetail = () => {
                       </h3>
                       {(currentManagementAgreement || house.managementAgreement) ? (
                         <>
-                          <div className="flex items-center gap-3 mb-2">
-                            <Button
-                              variant="link"
-                              onClick={() => setAgreementOpen(true)}
-                              className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto"
-                            >
-                              <Icon name="Eye" size={16} />
-                              Просмотреть договор
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              disabled={deletingDocument}
-                              onClick={() => handleDocumentDelete('agreement')}
-                              className="text-destructive hover:text-destructive h-auto p-1"
-                            >
-                              <Icon name="Trash2" size={16} />
-                            </Button>
-                          </div>
+                          <Button
+                            variant="link"
+                            onClick={() => setAgreementOpen(true)}
+                            className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto mb-2"
+                          >
+                            <Icon name="Eye" size={16} />
+                            Просмотреть договор
+                          </Button>
                           <p className="text-xs text-muted-foreground">
                             Договор управления многоквартирным домом
                           </p>
