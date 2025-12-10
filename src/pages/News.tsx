@@ -4,6 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface NewsItem {
   id: number;
@@ -17,6 +23,7 @@ const News = () => {
   const [selectedTag, setSelectedTag] = useState<string>("Все");
   const [allNews, setAllNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -64,7 +71,11 @@ const News = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {filteredNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow">
+              <Card 
+                key={news.id} 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => setSelectedNews(news)}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Badge
@@ -84,11 +95,45 @@ const News = () => {
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
-                  <p className="text-sm text-muted-foreground">{news.content}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">
+                    {news.content}
+                  </p>
+                  <div className="mt-4 text-primary text-sm font-medium flex items-center gap-1">
+                    Читать полностью
+                    <Icon name="ChevronRight" size={16} />
+                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+
+          <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>
+            <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <Badge
+                    className={
+                      selectedNews?.tag === "Важно!"
+                        ? "bg-destructive"
+                        : selectedNews?.tag === "Новое о ЖКХ"
+                        ? "bg-secondary"
+                        : "bg-primary"
+                    }
+                  >
+                    {selectedNews?.tag}
+                  </Badge>
+                  <span className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Icon name="Calendar" size={14} />
+                    {selectedNews?.date}
+                  </span>
+                </div>
+                <DialogTitle className="text-2xl">{selectedNews?.title}</DialogTitle>
+              </DialogHeader>
+              <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
+                {selectedNews?.content}
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {isLoading && (
             <div className="text-center py-12">
