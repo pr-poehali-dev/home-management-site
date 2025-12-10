@@ -219,27 +219,27 @@ const About = () => {
 
           <div className="mb-20">
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3]" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_110204.jpg"
                   alt="Офис компании"
-                  className="w-full h-auto object-contain block"
+                  className="w-full h-full object-cover block"
                   style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3]" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_111754_804.jpg"
                   alt="Наша работа"
-                  className="w-full h-auto object-contain block"
+                  className="w-full h-full object-cover block"
                   style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3]" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/photostudio_1765355415314.jpg"
                   alt="Наши помещения"
-                  className="w-full h-auto object-contain block"
+                  className="w-full h-full object-cover block"
                   style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
