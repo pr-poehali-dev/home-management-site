@@ -30,7 +30,38 @@ const News = () => {
       try {
         const response = await fetch("https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555");
         const data = await response.json();
-        setAllNews(data.news || []);
+        
+        // Добавляем новость о MAX, если её ещё нет
+        const hasMaxNews = data.news?.some((n: NewsItem) => 
+          n.title.includes("СМИ о создании домовых чатов")
+        );
+        
+        const maxNews: NewsItem = {
+          id: 999,
+          title: "СМИ о создании домовых чатов в национальном мессенджере MAX",
+          date: "10 Декабря 2024",
+          tag: "Актуальное из СМИ",
+          content: `Министр строительства и ЖКХ РФ Ирек Файзуллин объявил о переводе общедомовых чатов в российский мессенджер Max до конца 2025 года.
+
+Основные требования:
+• Каждый многоквартирный дом должен создать чат в Max
+• Необходимо перенести все данные из Telegram и WhatsApp
+• Официально закрепить статус домового чата
+
+Работа затронет почти миллион российских многоквартирных домов.
+
+Подробнее читайте в материалах СМИ:
+• Российская газета: https://rg.ru/2025/11/12/fajzullin-obshchedomovye-chaty-dolzhny-perejti-v-max-do-konca-goda.html
+• РБК: https://www.rbc.ru/rbcfreenews/6914fc889a794770b27a83b4
+
+Наша управляющая компания готова помочь жителям в переходе на новый мессенджер и создании общедомовых чатов.`
+        };
+        
+        // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новость о MAX
+        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ");
+        const finalNews = hasMaxNews ? filteredNews : [maxNews, ...filteredNews];
+        
+        setAllNews(finalNews);
       } catch (error) {
         console.error("Ошибка загрузки новостей:", error);
       } finally {
