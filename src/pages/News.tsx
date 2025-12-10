@@ -31,9 +31,12 @@ const News = () => {
         const response = await fetch("https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555");
         const data = await response.json();
         
-        // Добавляем новость о MAX, если её ещё нет
+        // Добавляем новости СМИ, если их ещё нет
         const hasMaxNews = data.news?.some((n: NewsItem) => 
           n.title.includes("СМИ о создании домовых чатов")
+        );
+        const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => 
+          n.title.includes("периоде охлаждения")
         );
         
         const maxNews: NewsItem = {
@@ -56,10 +59,39 @@ const News = () => {
 
 Наша управляющая компания готова помочь жителям в переходе на новый мессенджер и создании общедомовых чатов.`
         };
+
+        const coolingPeriodNews: NewsItem = {
+          id: 998,
+          title: "СМИ о периоде охлаждения при продаже квартир",
+          date: "10 Декабря 2024",
+          tag: "Актуальное из СМИ",
+          content: `В Госдуму внесён законопроект о введении «периода охлаждения» при продаже недвижимости. Если его примут, новые правила могут вступить в силу с января 2026 года.
+
+Основные положения законопроекта:
+
+• 7-дневный период охлаждения — госрегистрация сделки будет проводиться только через семь дней после заключения договора купли-продажи
+
+• Запрет наличных расчётов — продавец сможет получить деньги только после регистрации перехода права собственности и только на банковский счёт
+
+• Обязательное нотариальное удостоверение для всех сделок с недвижимостью
+
+• При продаже единственного жилья потребуется нотариально заверенное согласие лица, у которого продавец будет жить после сделки
+
+Цель законопроекта: защита от мошенничества при продаже квартир и обеспечение надёжной защиты добросовестных продавцов и покупателей.
+
+Подробнее читайте в материалах СМИ:
+• Коммерсантъ: https://www.kommersant.ru/doc/8229770
+• РБК: https://companies.rbc.ru/news/IKrLq5tqJh/period-ohlazhdeniya-kak-novyij-zakonoproekt-menyaet-ryinok-nedvizhimosti/
+
+Мы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
+        };
         
-        // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новость о MAX
+        // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новости СМИ
         const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ");
-        const finalNews = hasMaxNews ? filteredNews : [maxNews, ...filteredNews];
+        const newsToAdd: NewsItem[] = [];
+        if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
+        if (!hasMaxNews) newsToAdd.push(maxNews);
+        const finalNews = [...newsToAdd, ...filteredNews];
         
         setAllNews(finalNews);
       } catch (error) {
