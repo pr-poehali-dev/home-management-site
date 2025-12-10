@@ -104,12 +104,12 @@ const HouseDetail = () => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
-        // Проверка размера файла (максимум 5 МБ)
-        const maxSize = 5 * 1024 * 1024; // 5 MB
+        // Проверка размера файла (максимум 10 МБ)
+        const maxSize = 10 * 1024 * 1024; // 10 MB
         if (file.size > maxSize) {
           toast({
             title: "Файл слишком большой",
-            description: `Файл "${file.name}" превышает 5 МБ. Пожалуйста, выберите файл меньшего размера.`,
+            description: `Файл "${file.name}" превышает 10 МБ (размер: ${(file.size / 1024 / 1024).toFixed(2)} МБ). Пожалуйста, выберите файл меньшего размера.`,
             variant: "destructive"
           });
           setUploadingDocument(false);
@@ -172,7 +172,7 @@ const HouseDetail = () => {
       window.location.reload();
     } catch (error) {
       const errorMessage = error instanceof Error && error.message === 'FILE_TOO_LARGE'
-        ? "Файл слишком большой! Максимальный размер: 5 МБ. Сожмите PDF перед загрузкой."
+        ? "Файл слишком большой! Максимальный размер: 10 МБ. Сожмите PDF перед загрузкой."
         : "Не удалось загрузить документ";
       
       toast({
