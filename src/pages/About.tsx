@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { houses } from "@/data/housesData";
 
 const About = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const companyData = [
     { id: "uk-nash-dom-sity", name: 'ООО «УК «Наш дом-Сити»' },
     { id: "uk-nash-dom-polyustrovo", name: 'ООО «УК «Наш дом-Полюстрово»' },
@@ -219,7 +221,11 @@ const About = () => {
 
           <div className="mb-20">
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div 
+                className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" 
+                style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}
+                onClick={() => setSelectedImage("https://cdn.poehali.dev/files/IMG_20251210_110204.jpg")}
+              >
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_110204.jpg"
                   alt="Офис компании"
@@ -227,7 +233,11 @@ const About = () => {
                   style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div 
+                className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" 
+                style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}
+                onClick={() => setSelectedImage("https://cdn.poehali.dev/files/IMG_20251210_111754_804.jpg")}
+              >
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_111754_804.jpg"
                   alt="Наша работа"
@@ -235,7 +245,11 @@ const About = () => {
                   style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+              <div 
+                className="rounded-2xl overflow-hidden shadow-xl aspect-[4/3] hover:shadow-2xl transition-all duration-300 cursor-pointer" 
+                style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}
+                onClick={() => setSelectedImage("https://cdn.poehali.dev/files/photostudio_1765355415314.jpg")}
+              >
                 <img
                   src="https://cdn.poehali.dev/files/photostudio_1765355415314.jpg"
                   alt="Наши помещения"
@@ -301,6 +315,26 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 cursor-pointer animate-in fade-in duration-200"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={() => setSelectedImage(null)}
+          >
+            <Icon name="X" size={32} />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Полноэкранный просмотр"
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </Layout>
   );
 };
