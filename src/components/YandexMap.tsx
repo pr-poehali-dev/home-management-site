@@ -31,11 +31,15 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
         });
 
         const residentialHouses = housesData.filter(h => h.type === "Жилой дом");
+        let loadedCount = 0;
         
         residentialHouses.forEach((house, index) => {
           const fullAddress = `${house.city}, ${house.address}`;
           
-          window.ymaps.geocode(fullAddress, { results: 1 }).then((res: any) => {
+          window.ymaps.geocode(fullAddress, { 
+            results: 1,
+            kind: 'house'
+          }).then((res: any) => {
             const firstGeoObject = res.geoObjects.get(0);
             if (firstGeoObject) {
               const coords = firstGeoObject.geometry.getCoordinates();
@@ -43,12 +47,21 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
               const placemark = new window.ymaps.Placemark(
                 coords,
                 {
-                  balloonContentHeader: house.address,
-                  balloonContentBody: `<strong>${house.company}</strong><br/>${house.manager}<br/>${house.managerPhone}`,
-                  hintContent: house.address
+                  balloonContentHeader: `<strong>${house.address}</strong>`,
+                  balloonContentBody: `
+                    <div style="max-width: 250px;">
+                      <p style="margin: 8px 0; color: #666;">${house.company}</p>
+                      <p style="margin: 8px 0;"><strong>Менеджер:</strong> ${house.manager}</p>
+                      <p style="margin: 8px 0;"><strong>Телефон:</strong> <a href="tel:${house.managerPhone}">${house.managerPhone}</a></p>
+                      <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${house.managerEmail}">${house.managerEmail}</a></p>
+                      <p style="margin: 8px 0;"><strong>Приём:</strong> ${house.receptionSchedule}</p>
+                    </div>
+                  `,
+                  hintContent: house.address,
+                  iconContent: String(index + 1)
                 },
                 {
-                  preset: 'islands#blueBuildingCircleIcon',
+                  preset: 'islands#blueStretchyIcon',
                   iconColor: '#1e40af'
                 }
               );
@@ -60,9 +73,14 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
               });
 
               map.geoObjects.add(placemark);
+              
+              loadedCount++;
+              if (loadedCount === 1) {
+                map.setCenter(coords, 11);
+              }
             }
           }).catch((err: any) => {
-            console.error('Geocoding error for:', fullAddress, err);
+            console.error('Ошибка геокодирования для адреса:', fullAddress, err);
           });
         });
       });
