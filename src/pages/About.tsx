@@ -95,7 +95,7 @@ const About = () => {
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
               <img
-                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/801844cd-47fb-4688-91d5-de1f503383a3.jpg"
+                src="https://cdn.poehali.dev/files/photostudio_1765349350587.jpg"
                 alt="Наши объекты"
                 className="w-full h-full object-cover"
               />
