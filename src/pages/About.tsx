@@ -93,11 +93,11 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2 bg-white">
+            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
               <img
                 src="https://cdn.poehali.dev/files/photostudio_1765349350587.jpg"
                 alt="Наши объекты"
-                className="w-full h-auto object-contain"
+                className="w-full h-auto"
               />
             </div>
           </div>
