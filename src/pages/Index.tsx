@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Link } from "react-router-dom";
+import { houses as housesData } from "@/data/housesData";
 
 const Index = () => {
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
@@ -66,18 +67,14 @@ const Index = () => {
     },
   ];
 
-  const houses = [
-    { id: 1, name: "ЖК Золотое Сечение", address: "Санкт-Петербург, ул. Васенко, д. 12 лит. А", x: 45, y: 35 },
-    { id: 2, name: "ЖК Панорама", address: "Санкт-Петербург, пр. Кондратьевский, д. 62, корп. 1 лит. А", x: 42, y: 28 },
-    { id: 3, name: "ЖК Панорама", address: "Санкт-Петербург, пр. Кондратьевский, д. 62, корп. 2 лит. А", x: 44, y: 30 },
-    { id: 4, name: "ЖК Панорама", address: "Санкт-Петербург, пр. Кондратьевский, д. 66, корп. 1 лит. А", x: 46, y: 32 },
-    { id: 5, name: "ЖК Полюстрово", address: "Санкт-Петербург, пр. Металлистов, д. 116, корп. 1 лит. А", x: 50, y: 25 },
-    { id: 6, name: "ЖК Полюстрово", address: "Санкт-Петербург, Фермское шоссе, д. 22, корп. 3 лит. А", x: 52, y: 27 },
-    { id: 7, name: "Кудрово", address: "Кудрово, Европейский пр., д. 4, корп. 2", x: 85, y: 35 },
-    { id: 8, name: "Кудрово", address: "Кудрово, Европейский пр., д. 6, корп. 2", x: 87, y: 37 },
-    { id: 9, name: "Кудрово", address: "Кудрово, Европейский пр., д. 8, корп. 2", x: 89, y: 39 },
-    { id: 10, name: "ЖК Остров", address: "Санкт-Петербург, Полюстровский пр., д. 59", x: 48, y: 40 },
-  ];
+  const houses = housesData
+    .filter(h => h.type === "Жилой дом")
+    .map((house, index) => ({
+      id: index + 1,
+      name: house.company.includes("Кудрово") ? "Кудрово" : house.address.split(",")[0],
+      address: `${house.city}, ${house.address}`,
+      houseId: house.id
+    }));
 
   return (
     <Layout>
