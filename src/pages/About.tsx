@@ -58,11 +58,11 @@ const About = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+            <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/fb5ded3f-17e9-4f0d-9fba-df928ac2219d.jpg"
-                alt="Наша команда"
-                className="w-full h-full object-cover"
+                src="https://cdn.poehali.dev/files/photostudio_1765354638585.jpg"
+                alt="Здание компании"
+                className="w-full h-auto object-contain"
               />
             </div>
             <div className="space-y-6">
@@ -93,12 +93,11 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
+            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
               <img
-                src="https://cdn.poehali.dev/files/photostudio_1765349350587.jpg"
-                alt="Наши объекты"
-                className="w-full h-auto block"
-                style={{ mixBlendMode: 'normal', opacity: 1 }}
+                src="https://cdn.poehali.dev/files/photostudio_1765353922094.jpg"
+                alt="Наш офис"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
@@ -213,6 +212,32 @@ const About = () => {
                   </Link>
                 );
               })}
+            </div>
+          </div>
+
+          <div className="mb-20">
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img
+                  src="https://cdn.poehali.dev/files/IMG_20251210_110204.jpg"
+                  alt="Офис компании"
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img
+                  src="https://cdn.poehali.dev/files/IMG_20251210_111754_804.jpg"
+                  alt="Наша работа"
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img
+                  src="https://cdn.poehali.dev/files/photostudio_1765355415314.jpg"
+                  alt="Наши помещения"
+                  className="w-full h-auto object-contain"
+                />
+              </div>
             </div>
           </div>
 
