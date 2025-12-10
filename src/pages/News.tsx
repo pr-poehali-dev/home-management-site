@@ -41,7 +41,7 @@ const News = () => {
     fetchNews();
   }, []);
 
-  const tags = ["Все", "ВНИМАНИЕ", "Новое о ЖКХ", "Собрание"];
+  const tags = ["Все", "ВНИМАНИЕ", "Актуальное из СМИ", "Собрание"];
 
   const filteredNews =
     selectedTag === "Все" 
@@ -91,7 +91,7 @@ const News = () => {
                       className={
                         news.tag === "ВНИМАНИЕ"
                           ? "bg-destructive"
-                          : news.tag === "Новое о ЖКХ"
+                          : news.tag === "Актуальное из СМИ" || news.tag === "Новое о ЖКХ"
                           ? "bg-secondary"
                           : "bg-primary"
                       }
@@ -125,7 +125,7 @@ const News = () => {
                     className={
                       selectedNews?.tag === "ВНИМАНИЕ"
                         ? "bg-destructive"
-                        : selectedNews?.tag === "Новое о ЖКХ"
+                        : selectedNews?.tag === "Актуальное из СМИ" || selectedNews?.tag === "Новое о ЖКХ"
                         ? "bg-secondary"
                         : "bg-primary"
                     }
