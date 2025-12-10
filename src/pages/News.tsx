@@ -41,12 +41,17 @@ const News = () => {
     fetchNews();
   }, []);
 
-  const tags = ["Все", "Важно!", "Новое о ЖКХ", "Собрание"];
+  const tags = ["Все", "ВНИМАНИЕ", "Новое о ЖКХ", "Собрание"];
 
   const filteredNews =
     selectedTag === "Все" 
       ? allNews.filter((news) => news.tag !== "Архив")
-      : allNews.filter((news) => news.tag === selectedTag && news.tag !== "Архив");
+      : allNews.filter((news) => news.tag === selectedTag && news.tag !== "Архив")
+          .map(news => news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news);
+
+  const displayNews = filteredNews.map(news => 
+    news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news
+  );
 
   return (
     <Layout>
@@ -72,7 +77,7 @@ const News = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {filteredNews.map((news) => (
+            {displayNews.map((news) => (
               <Card 
                 key={news.id} 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
@@ -82,13 +87,14 @@ const News = () => {
                   <div className="flex items-center justify-between mb-4">
                     <Badge
                       className={
-                        news.tag === "Важно!"
+                        news.tag === "ВНИМАНИЕ"
                           ? "bg-destructive"
                           : news.tag === "Новое о ЖКХ"
                           ? "bg-secondary"
                           : "bg-primary"
                       }
                     >
+                      {news.tag === "ВНИМАНИЕ" && <Icon name="Zap" size={14} className="mr-1" />}
                       {news.tag}
                     </Badge>
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
@@ -115,13 +121,14 @@ const News = () => {
                 <div className="flex items-center gap-3 mb-2">
                   <Badge
                     className={
-                      selectedNews?.tag === "Важно!"
+                      selectedNews?.tag === "ВНИМАНИЕ"
                         ? "bg-destructive"
                         : selectedNews?.tag === "Новое о ЖКХ"
                         ? "bg-secondary"
                         : "bg-primary"
                     }
                   >
+                    {selectedNews?.tag === "ВНИМАНИЕ" && <Icon name="Zap" size={14} className="mr-1" />}
                     {selectedNews?.tag}
                   </Badge>
                   <span className="text-sm text-muted-foreground flex items-center gap-1">
