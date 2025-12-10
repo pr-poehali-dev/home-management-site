@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Generate presigned URL for PDF upload",
+      "method": "POST",
+      "body": {
+        "type": "protocol",
+        "contentType": "application/pdf"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "uploadUrl": "string",
+        "cdnUrl": "string",
+        "fileName": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
