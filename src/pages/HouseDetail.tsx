@@ -104,13 +104,14 @@ const HouseDetail = () => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
-        // Проверка размера файла (максимум 7 МБ - учитываем увеличение при base64)
-        // После конвертации в base64 файл увеличивается на ~33%, поэтому 7MB * 1.33 ≈ 9.3MB
-        const maxSize = 7 * 1024 * 1024; // 7 MB
+        // Проверка размера файла (максимум 2.5 МБ)
+        // После конвертации в base64 файл увеличивается на ~33%
+        // 2.5 MB * 1.33 ≈ 3.3 MB - укладывается в лимит Cloud Functions (3.5 MB)
+        const maxSize = 2.5 * 1024 * 1024; // 2.5 MB
         if (file.size > maxSize) {
           toast({
             title: "Файл слишком большой",
-            description: `Файл "${file.name}" превышает 7 МБ (размер: ${(file.size / 1024 / 1024).toFixed(2)} МБ). Пожалуйста, выберите файл меньшего размера или сожмите его.`,
+            description: `Файл "${file.name}" превышает 2.5 МБ (размер: ${(file.size / 1024 / 1024).toFixed(2)} МБ). Пожалуйста, сожмите PDF перед загрузкой (используйте ilovepdf.com или smallpdf.com).`,
             variant: "destructive"
           });
           setUploadingDocument(false);
@@ -173,8 +174,8 @@ const HouseDetail = () => {
       window.location.reload();
     } catch (error) {
       const errorMessage = error instanceof Error && error.message === 'FILE_TOO_LARGE'
-        ? "Файл слишком большой! Максимальный размер: 7 МБ. Сожмите PDF перед загрузкой."
-        : "Не удалось загрузить документ";
+        ? "Файл слишком большой! Максимальный размер: 2.5 МБ. Сожмите PDF перед загрузкой (используйте ilovepdf.com или smallpdf.com)."
+        : "Не удалось загрузить документ. Если файл больше 2.5 МБ, сожмите его перед загрузкой.";
       
       toast({
         title: "Ошибка",
