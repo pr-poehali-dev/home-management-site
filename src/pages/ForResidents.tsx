@@ -6,17 +6,6 @@ import Icon from "@/components/ui/icon";
 const ForResidents = () => {
   const guides = [
     {
-      title: "Как передать показания счётчиков",
-      icon: "Zap",
-      steps: [
-        "Снимите показания со счётчика электроэнергии (5 цифр до запятой)",
-        "Войдите в личный кабинет на сайте или используйте форму на главной странице",
-        "Введите показания и нажмите 'Отправить'",
-        "Показания принимаются с 20 по 25 число каждого месяца",
-        "При возникновении проблем обращайтесь в диспетчерскую службу",
-      ],
-    },
-    {
       title: "Как оплатить коммунальные услуги",
       icon: "CreditCard",
       steps: [
@@ -36,17 +25,6 @@ const ForResidents = () => {
         "Крупные собаки должны быть в наморднике и на поводке",
         "Запрещено выгуливать животных на детских и спортивных площадках",
         "В случае нарушений соседи могут обратиться в управляющую компанию",
-      ],
-    },
-    {
-      title: "Как подать заявку на ремонт",
-      icon: "Wrench",
-      steps: [
-        "Позвоните в диспетчерскую службу по телефону 467-77-77",
-        "Или оставьте заявку через личный кабинет на сайте",
-        "Укажите адрес, суть проблемы и контактный телефон",
-        "Диспетчер зарегистрирует заявку и сообщит сроки выполнения работ",
-        "В случае аварии заявка выполняется в первоочередном порядке",
       ],
     },
     {
@@ -70,27 +48,6 @@ const ForResidents = () => {
         "Скорость движения во дворе не более 5 км/ч",
         "При нарушениях соседи могут вызвать эвакуатор через полицию",
       ],
-    },
-  ];
-
-  const contacts = [
-    {
-      title: "Диспетчерская служба",
-      icon: "Phone",
-      info: "467-77-77",
-      description: "Круглосуточно, аварийные заявки",
-    },
-    {
-      title: "Бухгалтерия",
-      icon: "Calculator",
-      info: "пн-пт: 9:00 - 18:00",
-      description: "Вопросы по оплате и начислениям",
-    },
-    {
-      title: "Офис УК",
-      icon: "MapPin",
-      info: "Санкт-Петербург, ул. Большая Зеленина, д. 24",
-      description: "пн-пт: 9:00 - 18:00, обед: 13:00 - 14:00",
     },
   ];
 
@@ -135,24 +92,6 @@ const ForResidents = () => {
                 </Card>
               ))}
             </Accordion>
-          </div>
-
-          <div className="max-w-5xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold mb-8">Контакты служб</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {contacts.map((contact, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <Icon name={contact.icon as any} className="text-primary" size={24} />
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">{contact.title}</h3>
-                    <p className="text-primary font-medium mb-2">{contact.info}</p>
-                    <p className="text-sm text-muted-foreground">{contact.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
           </div>
 
           <div className="max-w-5xl mx-auto">
