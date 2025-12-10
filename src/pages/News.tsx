@@ -44,7 +44,9 @@ const News = () => {
   const tags = ["Все", "Важно!", "Новое о ЖКХ", "Собрание"];
 
   const filteredNews =
-    selectedTag === "Все" ? allNews : allNews.filter((news) => news.tag === selectedTag);
+    selectedTag === "Все" 
+      ? allNews.filter((news) => news.tag !== "Архив")
+      : allNews.filter((news) => news.tag === selectedTag && news.tag !== "Архив");
 
   return (
     <Layout>
