@@ -38,23 +38,43 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'isBase64Encoded': False
         }
     
-    body_data = json.loads(event.get('body', '{}'))
-    file_base64 = body_data.get('image', '')
-    file_type = body_data.get('type', 'house')
-    specified_file_type = body_data.get('fileType', 'image')
+    # Проверяем, это base64 или бинарные данные
+    is_base64_encoded = event.get('isBase64Encoded', False)
+    body_raw = event.get('body', '')
     
-    if not file_base64:
-        return {
-            'statusCode': 400,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps({'error': 'No file data provided'}),
-            'isBase64Encoded': False
-        }
-    
-    file_data = base64.b64decode(file_base64)
+    if is_base64_encoded:
+        # Бинарные данные уже закодированы в base64 в теле запроса
+        file_data = base64.b64decode(body_raw)
+        file_type = event.get('headers', {}).get('x-file-type', 'document')
+        content_type = event.get('headers', {}).get('content-type', 'application/pdf')
+        
+        if 'pdf' in content_type:
+            file_extension = 'pdf'
+        elif 'image' in content_type:
+            file_extension = 'jpg'
+            if file_data[:8] == b'\x89PNG\r\n\x1a\n':
+                file_extension = 'png'
+        else:
+            file_extension = 'pdf'
+    else:
+        # JSON с base64 строкой внутри
+        body_data = json.loads(body_raw)
+        file_base64 = body_data.get('image', '')
+        file_type = body_data.get('type', 'house')
+        specified_file_type = body_data.get('fileType', 'image')
+        
+        if not file_base64:
+            return {
+                'statusCode': 400,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({'error': 'No file data provided'}),
+                'isBase64Encoded': False
+            }
+        
+        file_data = base64.b64decode(file_base64)
     
     if specified_file_type == 'pdf':
         file_extension = 'pdf'

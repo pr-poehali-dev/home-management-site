@@ -104,81 +104,54 @@ const HouseDetail = () => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
-        // Проверка размера файла (максимум 10 МБ для прямой загрузки в S3)
-        const maxSize = 10 * 1024 * 1024; // 10 MB
+        // Проверка размера файла (максимум 2 МБ из-за ограничений Cloud Functions)
+        const maxSize = 2 * 1024 * 1024; // 2 MB
         if (file.size > maxSize) {
           toast({
             title: "Файл слишком большой",
-            description: `Файл "${file.name}" превышает 10 МБ (размер: ${(file.size / 1024 / 1024).toFixed(2)} МБ). Максимальный размер: 10 МБ.`,
-            variant: "destructive"
+            description: `Файл "${file.name}" весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com или smallpdf.com`,
+            variant: "destructive",
+            duration: 10000
           });
           setUploadingDocument(false);
           return;
         }
         
-        // Для больших файлов (>2MB) используем прямую загрузку в S3
-        if (file.size > 2 * 1024 * 1024) {
-          // Получаем presigned URL для прямой загрузки
-          const presignedResponse = await fetch(funcUrls['upload-large-file'], {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              type: docType === 'protocol' ? 'protocol' : 'agreement',
-              contentType: file.type
-            })
-          });
-          
-          if (!presignedResponse.ok) throw new Error('Failed to get upload URL');
-          
-          const { uploadUrl, cdnUrl } = await presignedResponse.json();
-          
-          // Загружаем файл напрямую в S3
-          const s3Response = await fetch(uploadUrl, {
-            method: 'PUT',
-            body: file,
-            headers: {
-              'Content-Type': file.type
-            }
-          });
-          
-          if (!s3Response.ok) throw new Error('S3 upload failed');
-          
-          uploadedUrls.push(cdnUrl);
-        } else {
-          // Для маленьких файлов используем старый метод через base64
-          const reader = new FileReader();
-          
-          await new Promise<void>((resolve, reject) => {
-            reader.onloadend = async () => {
-              try {
-                const base64 = (reader.result as string).split(',')[1];
-                const fileType = file.type === 'application/pdf' ? 'pdf' : 'image';
-                
-                const uploadResponse = await fetch(funcUrls['upload-image'], {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ 
-                    image: base64, 
-                    type: docType === 'protocol' ? 'protocol' : 'agreement',
-                    fileType
-                  })
-                });
-                
-                if (!uploadResponse.ok) {
-                  throw new Error('Upload failed');
+        const reader = new FileReader();
+        
+        await new Promise<void>((resolve, reject) => {
+          reader.onloadend = async () => {
+            try {
+              const base64 = (reader.result as string).split(',')[1];
+              const fileType = file.type === 'application/pdf' ? 'pdf' : 'image';
+              
+              const uploadResponse = await fetch(funcUrls['upload-image'], {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  image: base64, 
+                  type: docType === 'protocol' ? 'protocol' : 'agreement',
+                  fileType
+                })
+              });
+              
+              if (!uploadResponse.ok) {
+                if (uploadResponse.status === 413) {
+                  throw new Error('FILE_TOO_LARGE');
                 }
-                
-                const uploadData = await uploadResponse.json();
-                uploadedUrls.push(uploadData.url);
-                resolve();
-              } catch (error) {
-                reject(error);
+                throw new Error('Upload failed');
               }
-            };
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-          });
-        }
+              
+              const uploadData = await uploadResponse.json();
+              uploadedUrls.push(uploadData.url);
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
       }
       
       const updateResponse = await fetch(funcUrls['update-house'], {
@@ -199,10 +172,15 @@ const HouseDetail = () => {
       
       window.location.reload();
     } catch (error) {
+      const errorMessage = error instanceof Error && error.message === 'FILE_TOO_LARGE'
+        ? "Файл слишком большой (больше 2 МБ после конвертации). Сожмите PDF на ilovepdf.com или smallpdf.com"
+        : "Не удалось загрузить документ. Убедитесь, что файл не превышает 2 МБ.";
+      
       toast({
-        title: "Ошибка",
-        description: "Не удалось загрузить документ. Пожалуйста, попробуйте снова.",
-        variant: "destructive"
+        title: "Ошибка загрузки",
+        description: errorMessage,
+        variant: "destructive",
+        duration: 10000
       });
       console.error('Upload error:', error);
     } finally {
