@@ -80,7 +80,9 @@ const News = () => {
             {displayNews.map((news) => (
               <Card 
                 key={news.id} 
-                className="hover:shadow-lg transition-shadow cursor-pointer"
+                className={`hover:shadow-lg transition-shadow cursor-pointer ${
+                  news.tag === "ВНИМАНИЕ" ? "urgent-card" : ""
+                }`}
                 onClick={() => setSelectedNews(news)}
               >
                 <CardContent className="p-6">
