@@ -58,11 +58,12 @@ const About = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
+            <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
               <img
                 src="https://cdn.poehali.dev/files/photostudio_1765354638585.jpg"
                 alt="Здание компании"
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain block"
+                style={{ mixBlendMode: 'normal', opacity: 1 }}
               />
             </div>
             <div className="space-y-6">
@@ -93,11 +94,12 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
+            <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
               <img
                 src="https://cdn.poehali.dev/files/photostudio_1765353922094.jpg"
                 alt="Наш офис"
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain block"
+                style={{ mixBlendMode: 'normal', opacity: 1 }}
               />
             </div>
           </div>
@@ -217,25 +219,28 @@ const About = () => {
 
           <div className="mb-20">
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="rounded-2xl overflow-hidden shadow-xl">
+              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_110204.jpg"
                   alt="Офис компании"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain block"
+                  style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl">
+              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/IMG_20251210_111754_804.jpg"
                   alt="Наша работа"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain block"
+                  style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-xl">
+              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}>
                 <img
                   src="https://cdn.poehali.dev/files/photostudio_1765355415314.jpg"
                   alt="Наши помещения"
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain block"
+                  style={{ mixBlendMode: 'normal', opacity: 1 }}
                 />
               </div>
             </div>
