@@ -190,7 +190,7 @@ const Index = () => {
 
       <section className="py-8 bg-primary text-primary-foreground scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold mb-1">1 млн м²</div>
               <div className="text-xs opacity-90">Обслуживаемая площадь</div>
