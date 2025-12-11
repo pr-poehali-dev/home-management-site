@@ -809,6 +809,54 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
+                ) : (
+                  house.address.includes("Красносельское шоссе, д. 6") ||
+                  house.address.includes("Красносельское шоссе, д. 16") ||
+                  house.address.includes("пр. Питерский, д. 1") ||
+                  house.address.includes("пр. Питерский, д. 5") ||
+                  house.address.includes("пр. Питерский, д. 7") ||
+                  house.address.includes("ул. Невская, д. 1") ||
+                  house.address.includes("ул. Невская, д. 3") ||
+                  house.address.includes("ул. Невская, д. 4") ||
+                  house.address.includes("ул. Невская, д. 5/7") ||
+                  house.address.includes("ул. Невская, д. 6") ||
+                  house.address.includes("ул. Невская, д. 10/5") ||
+                  house.address.includes("ул. Адмиралтейская, д. 1") ||
+                  house.address.includes("ул. Адмиралтейская, д. 3") ||
+                  house.address.includes("ул. Адмиралтейская, д. 9") ||
+                  house.address.includes("ул. Адмиралтейская, д. 11") ||
+                  house.address.includes("бульвар Белых Ночей, д. 3")
+                ) ? (
+                  <div className="space-y-4 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Паспортная служба:</p>
+                        <p className="text-sm mb-3">Ленинградская область, Ломоносовский район, гп. Новоселье, пр. Питерский, д. 7 (3-я парадная)</p>
+                        <div className="space-y-2 text-sm">
+                          <p className="flex items-center gap-2">
+                            <Icon name="Phone" size={16} className="flex-shrink-0" />
+                            <a href="tel:+78126704715" className="text-primary hover:underline">
+                              670-47-15
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" className="mt-1 flex-shrink-0" size={20} />
+                      <div>
+                        <p className="font-medium text-foreground mb-2">Прием граждан осуществляется</p>
+                        <div className="text-sm space-y-1">
+                          <p>Понедельник – с 17:00 до 21:00</p>
+                          <p>Вторник - с 08:00 до 12:00</p>
+                          <p>Среда - с 17:00 до 20:00</p>
+                          <p>Четверг – выезд в ОУФМС</p>
+                          <p>Пятница - с 08:00 до 12:00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : house.address.includes("Фермское шоссе, д. 22, корп. 3 лит. А") && house.city === "Санкт-Петербург" ? (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
