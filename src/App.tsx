@@ -9,7 +9,7 @@ import CompanyDetail from "./pages/CompanyDetail";
 import News from "./pages/News";
 import AdminNews from "./pages/AdminNews";
 import Services from "./pages/Services";
-import Documents from "./pages/Documents";
+
 import ForResidents from "./pages/ForResidents";
 
 import Houses from "./pages/Houses";
@@ -33,7 +33,7 @@ const App = () => (
             <Route path="/news" element={<News />} />
             <Route path="/admin/news" element={<AdminNews />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/documents" element={<Documents />} />
+
             <Route path="/for-residents" element={<ForResidents />} />
 
             <Route path="/houses" element={<Houses />} />

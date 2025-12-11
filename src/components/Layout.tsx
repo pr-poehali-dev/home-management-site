@@ -17,7 +17,6 @@ const Layout = ({ children }: LayoutProps) => {
     { path: "/houses", label: "Дома" },
     { path: "/news", label: "Новости" },
     { path: "/services", label: "Услуги" },
-    { path: "/documents", label: "Документы" },
     { path: "/for-residents", label: "Для жильцов" },
   ];
 
