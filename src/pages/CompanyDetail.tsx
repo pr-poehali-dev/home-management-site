@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
@@ -10,6 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
+import funcUrls from "../../backend/func2url.json";
 
 interface CompanyInfo {
   id: string;
@@ -29,7 +31,7 @@ interface CompanyInfo {
   receptionAddress?: string;
   phone: string;
   email: string;
-  documents: { name: string; url?: string; images?: string[] }[];
+  documents: { name: string; url?: string; images?: string[]; pdf?: string }[];
 }
 
 const companiesData: Record<string, CompanyInfo> = {
@@ -624,17 +626,108 @@ const companiesData: Record<string, CompanyInfo> = {
 const CompanyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const company = id ? companiesData[id] : null;
+  const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [pdfDialogOpen, setPdfDialogOpen] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<{ name: string; images: string[] } | null>(null);
+  const [selectedPdf, setSelectedPdf] = useState<{ name: string; url: string } | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [companyDocuments, setCompanyDocuments] = useState<{ license?: string; registration?: string }>({});
 
-  const openDocument = (doc: { name: string; url?: string; images?: string[] }) => {
-    if (doc.images && doc.images.length > 0) {
+  useEffect(() => {
+    const loadDocuments = async () => {
+      if (!id) return;
+      try {
+        const response = await fetch(`${funcUrls['get-company-docs']}?company_id=${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setCompanyDocuments(data);
+        }
+      } catch (error) {
+        console.error('Failed to load documents:', error);
+      }
+    };
+    loadDocuments();
+  }, [id]);
+
+  const openDocument = (doc: { name: string; url?: string; images?: string[]; pdf?: string }) => {
+    // Проверяем загруженные PDF документы
+    const docType = doc.name === "Лицензия" ? "license" : doc.name === "Свидетельство о регистрации" ? "registration" : null;
+    const uploadedPdf = docType ? companyDocuments[docType as keyof typeof companyDocuments] : null;
+    
+    if (uploadedPdf) {
+      setSelectedPdf({ name: doc.name, url: uploadedPdf });
+      setPdfDialogOpen(true);
+    } else if (doc.images && doc.images.length > 0) {
       setSelectedDocument({ name: doc.name, images: doc.images });
       setCurrentImageIndex(0);
       setDialogOpen(true);
     } else if (doc.url && doc.url !== "#") {
       window.open(doc.url, "_blank");
+    }
+  };
+
+  const handleDocumentUpload = async (file: File, docType: 'license' | 'registration') => {
+    setUploading(true);
+    try {
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        toast({
+          title: "Файл слишком большой",
+          description: `Файл весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com`,
+          variant: "destructive",
+          duration: 10000
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64 = (reader.result as string).split(',')[1];
+        
+        const uploadResponse = await fetch(funcUrls['upload-image'], {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            image: base64, 
+            type: docType,
+            fileType: 'pdf'
+          })
+        });
+        
+        if (!uploadResponse.ok) throw new Error('Upload failed');
+        
+        const uploadData = await uploadResponse.json();
+        const pdfUrl = uploadData.url;
+        
+        const updateResponse = await fetch(funcUrls['update-company'], {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            company_id: id,
+            [docType]: pdfUrl
+          })
+        });
+        
+        if (!updateResponse.ok) throw new Error('Update failed');
+        
+        setCompanyDocuments(prev => ({ ...prev, [docType]: pdfUrl }));
+        
+        toast({
+          title: "Успешно!",
+          description: `${docType === 'license' ? 'Лицензия' : 'Свидетельство о регистрации'} загружено`
+        });
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить документ",
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -804,25 +897,57 @@ const CompanyDetail = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  {company.documents.map((doc, idx) => (
-                    <li key={idx}>
-                      {!doc.url && !doc.images ? (
-                        <span className="flex items-center gap-2 text-muted-foreground">
-                          <Icon name="FileText" size={16} />
-                          {doc.name}
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => openDocument(doc)}
-                          className="flex items-center gap-2 text-primary hover:underline"
-                        >
-                          <Icon name="Eye" size={16} />
-                          {doc.name}
-                        </button>
-                      )}
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  {company.documents.map((doc, idx) => {
+                    const isLicense = doc.name === "Лицензия";
+                    const isRegistration = doc.name === "Свидетельство о регистрации";
+                    const hasUploadedDoc = (isLicense && companyDocuments.license) || (isRegistration && companyDocuments.registration);
+                    const hasContent = doc.images || doc.url || hasUploadedDoc;
+                    
+                    return (
+                      <li key={idx} className="flex items-center justify-between gap-3">
+                        <div className="flex-1">
+                          {hasContent ? (
+                            <button
+                              onClick={() => openDocument(doc)}
+                              className="flex items-center gap-2 text-primary hover:underline"
+                            >
+                              <Icon name="Eye" size={16} />
+                              {doc.name}
+                            </button>
+                          ) : (
+                            <span className="flex items-center gap-2 text-muted-foreground">
+                              <Icon name="FileText" size={16} />
+                              {doc.name}
+                            </span>
+                          )}
+                        </div>
+                        {(isLicense || isRegistration) && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={uploading}
+                            onClick={() => {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'application/pdf';
+                              input.onchange = (e) => {
+                                const file = (e.target as HTMLInputElement).files?.[0];
+                                if (file) {
+                                  handleDocumentUpload(file, isLicense ? 'license' : 'registration');
+                                }
+                              };
+                              input.click();
+                            }}
+                            className="text-xs px-2 py-1 h-auto"
+                          >
+                            <Icon name="Upload" size={12} className="mr-1" />
+                            Загрузить
+                          </Button>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </CardContent>
             </Card>
@@ -867,6 +992,23 @@ const CompanyDetail = () => {
                   <Icon name="ChevronRight" size={20} />
                 </Button>
               </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={pdfDialogOpen} onOpenChange={setPdfDialogOpen}>
+        <DialogContent className="max-w-6xl max-h-[90vh] h-[90vh] p-0">
+          <DialogHeader className="px-6 pt-6 pb-2">
+            <DialogTitle>{selectedPdf?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedPdf && (
+            <div className="h-[calc(90vh-80px)] px-6 pb-6">
+              <iframe
+                src={selectedPdf.url}
+                className="w-full h-full rounded-lg border"
+                title={selectedPdf.name}
+              />
             </div>
           )}
         </DialogContent>

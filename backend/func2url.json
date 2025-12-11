@@ -1,4 +1,6 @@
 {
+  "update-company": "https://functions.poehali.dev/b7ddd3da-247f-4103-bc75-e13f0097cf3a",
+  "get-company-docs": "https://functions.poehali.dev/7ed2e16c-b150-4b9f-9af4-be07582c7e90",
   "upload-large-file": "https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e",
   "get-house-images": "https://functions.poehali.dev/b6d9dd6d-bfd8-4590-898e-81731c3f176a",
   "update-house": "https://functions.poehali.dev/a9439849-e04f-4c0a-822c-c2a17456186e",

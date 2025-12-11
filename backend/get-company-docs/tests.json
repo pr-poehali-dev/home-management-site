@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "Get company documents",
+      "method": "GET",
+      "path": "/?company_id=uk-nash-dom-sity",
+      "expectedStatus": 200,
+      "expectedBody": {},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "Update company documents",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "company_id": "uk-nash-dom-sity",
+        "license": "https://example.com/license.pdf"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      }
+    }
+  ]
+}
