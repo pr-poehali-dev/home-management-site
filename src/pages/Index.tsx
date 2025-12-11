@@ -188,24 +188,24 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-primary text-primary-foreground scroll-fade-in relative z-10">
+      <section className="py-8 bg-primary text-primary-foreground scroll-fade-in relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-1">1 млн м²</div>
-              <div className="text-xs md:text-sm opacity-90">Обслуживаемая площадь</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">1 млн м²</div>
+              <div className="text-xs opacity-90">Обслуживаемая площадь</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-1">50+</div>
-              <div className="text-xs md:text-sm opacity-90">Многоквартирных домов</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">50+</div>
+              <div className="text-xs opacity-90">Многоквартирных домов</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-1">13</div>
-              <div className="text-xs md:text-sm opacity-90">Паркингов</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">13</div>
+              <div className="text-xs opacity-90">Паркингов</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-1">18 лет</div>
-              <div className="text-xs md:text-sm opacity-90">Опыт работы</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">18 лет</div>
+              <div className="text-xs opacity-90">Опыт работы</div>
             </div>
           </div>
         </div>
