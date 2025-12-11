@@ -9,9 +9,19 @@ import Icon from "@/components/ui/icon";
 import { Link } from "react-router-dom";
 import { houses as housesData } from "@/data/housesData";
 
+interface NewsItem {
+  id: number;
+  title: string;
+  date: string;
+  tag: string;
+  content: string;
+}
+
 const Index = () => {
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
   const [parallaxOffset, setParallaxOffset] = useState(0);
+  const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
+  const [isLoadingNews, setIsLoadingNews] = useState(true);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -43,29 +53,91 @@ const Index = () => {
     };
   }, []);
 
-  const latestNews = [
-    {
-      id: 1,
-      title: "Плановые работы по лифтам в домах №12, №14",
-      date: "15 ноября 2025",
-      tag: "Ремонт",
-      excerpt: "С 20 по 25 ноября будут проводиться плановые работы...",
-    },
-    {
-      id: 2,
-      title: "Общее собрание жильцов дома №8",
-      date: "10 ноября 2025",
-      tag: "Собрание",
-      excerpt: "Приглашаем всех собственников квартир на общее собрание...",
-    },
-    {
-      id: 3,
-      title: "Новые тарифы на отопление",
-      date: "5 ноября 2025",
-      tag: "Важно!",
-      excerpt: "С 1 декабря 2025 года изменяются тарифы на коммунальные услуги...",
-    },
-  ];
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch("https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555");
+        const data = await response.json();
+        
+        // Добавляем новости СМИ, если их ещё нет
+        const hasMaxNews = data.news?.some((n: NewsItem) => 
+          n.title.includes("СМИ о создании домовых чатов")
+        );
+        const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => 
+          n.title.includes("периоде охлаждения")
+        );
+        
+        const maxNews: NewsItem = {
+          id: 999,
+          title: "СМИ о создании домовых чатов в национальном мессенджере MAX",
+          date: "10 Декабря 2024",
+          tag: "Актуальное из СМИ",
+          content: `Министр строительства и ЖКХ РФ Ирек Файзуллин объявил о переводе общедомовых чатов в российский мессенджер Max до конца 2025 года.
+
+Основные требования:
+• Каждый многоквартирный дом должен создать чат в Max
+• Необходимо перенести все данные из Telegram и WhatsApp
+• Официально закрепить статус домового чата
+
+Работа затронет почти миллион российских многоквартирных домов.
+
+Подробнее читайте в материалах СМИ:
+• Российская газета: https://rg.ru/2025/11/12/fajzullin-obshchedomovye-chaty-dolzhny-perejti-v-max-do-konca-goda.html
+• РБК: https://www.rbc.ru/rbcfreenews/6914fc889a794770b27a83b4
+
+Наша управляющая компания готова помочь жителям в переходе на новый мессенджер и создании общедомовых чатов.`
+        };
+
+        const coolingPeriodNews: NewsItem = {
+          id: 998,
+          title: "СМИ о периоде охлаждения при продаже квартир",
+          date: "10 Декабря 2024",
+          tag: "Актуальное из СМИ",
+          content: `В Госдуму внесён законопроект о введении «периода охлаждения» при продаже недвижимости. Если его примут, новые правила могут вступить в силу с января 2026 года.
+
+Основные положения законопроекта:
+
+• 7-дневный период охлаждения — госрегистрация сделки будет проводиться только через семь дней после заключения договора купли-продажи
+
+• Запрет наличных расчётов — продавец сможет получить деньги только после регистрации перехода права собственности и только на банковский счёт
+
+• Обязательное нотариальное удостоверение для всех сделок с недвижимостью
+
+• При продаже единственного жилья потребуется нотариально заверенное согласие лица, у которого продавец будет жить после сделки
+
+Цель законопроекта: защита от мошенничества при продаже квартир и обеспечение надёжной защиты добросовестных продавцов и покупателей.
+
+Подробнее читайте в материалах СМИ:
+• Коммерсантъ: https://www.kommersant.ru/doc/8229770
+• РБК: https://companies.rbc.ru/news/IKrLq5tqJh/period-ohlazhdeniya-kak-novyij-zakonoproekt-menyaet-ryinok-nedvizhimosti/
+
+Мы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
+        };
+        
+        // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новости СМИ
+        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ" && n.tag !== "Архив");
+        const newsToAdd: NewsItem[] = [];
+        if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
+        if (!hasMaxNews) newsToAdd.push(maxNews);
+        const finalNews = [...newsToAdd, ...filteredNews];
+        
+        // Берём только последние 3 новости
+        const displayNews = finalNews.slice(0, 3).map(news => 
+          news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news
+        );
+        
+        setLatestNews(displayNews);
+      } catch (error) {
+        console.error("Ошибка загрузки новостей:", error);
+      } finally {
+        setIsLoadingNews(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+
 
   const houses = housesData
     .filter(h => h.type === "Жилой дом")
@@ -211,36 +283,53 @@ const Index = () => {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {latestNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
-                <CardContent className="p-6">
-                  <Badge
-                    className={
-                      news.tag === "Важно!"
-                        ? "bg-destructive"
-                        : news.tag === "Ремонт"
-                        ? "bg-secondary"
-                        : "bg-primary"
-                    }
-                  >
-                    {news.tag}
-                  </Badge>
-                  <h3 className="font-semibold mt-4 mb-2">{news.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{news.excerpt}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Icon name="Calendar" size={14} />
-                      {news.date}
-                    </span>
-                    <Link to="/news" className="text-primary hover:underline">
-                      Читать далее
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {isLoadingNews ? (
+            <div className="text-center py-12">
+              <Icon name="Loader2" size={48} className="text-muted-foreground mx-auto mb-4 animate-spin" />
+              <p className="text-xl text-muted-foreground">
+                Загрузка новостей...
+              </p>
+            </div>
+          ) : latestNews.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-6">
+              {latestNews.map((news) => (
+                <Card key={news.id} className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
+                  <CardContent className="p-6">
+                    <Badge
+                      className={
+                        news.tag === "ВНИМАНИЕ"
+                          ? "bg-destructive"
+                          : news.tag === "Актуальное из СМИ" || news.tag === "Новое о ЖКХ"
+                          ? "bg-secondary"
+                          : "bg-primary"
+                      }
+                    >
+                      {news.tag === "ВНИМАНИЕ" && <Icon name="Zap" size={14} className="mr-1" />}
+                      {news.tag}
+                    </Badge>
+                    <h3 className="font-semibold mt-4 mb-2">{news.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-3">{news.content}</p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Icon name="Calendar" size={14} />
+                        {news.date}
+                      </span>
+                      <Link to="/news" className="text-primary hover:underline">
+                        Читать далее
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Icon name="FileSearch" size={48} className="text-muted-foreground mx-auto mb-4" />
+              <p className="text-xl text-muted-foreground">
+                Новостей пока нет
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
