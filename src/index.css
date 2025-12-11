@@ -439,4 +439,25 @@
     background-size: 600px 600px;
     pointer-events: none;
   }
+
+  @keyframes snowfall {
+    0% {
+      transform: translateY(-10px) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(100px) translateX(20px);
+      opacity: 0;
+    }
+  }
+
+  .snowflake {
+    animation: snowfall linear infinite;
+  }
 }
