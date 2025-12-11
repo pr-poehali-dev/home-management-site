@@ -22,8 +22,24 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire">
-        <div className="container mx-auto px-4 py-4">
+      <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(40)].map((_, i) => (
+            <div
+              key={i}
+              className="snowflake absolute text-white opacity-70"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${4 + Math.random() * 3}s`,
+                fontSize: `${8 + Math.random() * 12}px`
+              }}
+            >
+              ❄
+            </div>
+          ))}
+        </div>
+        <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img 
