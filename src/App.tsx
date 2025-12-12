@@ -9,13 +9,15 @@ import CompanyDetail from "./pages/CompanyDetail";
 import News from "./pages/News";
 import AdminNews from "./pages/AdminNews";
 import Services from "./pages/Services";
-
 import ForResidents from "./pages/ForResidents";
-
 import Houses from "./pages/Houses";
 import HouseDetail from "./pages/HouseDetail";
 import BulkUpload from "./pages/BulkUpload";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminPages from "./pages/AdminPages";
+import AdminImages from "./pages/AdminImages";
 
 const queryClient = new QueryClient();
 
@@ -33,12 +35,16 @@ const App = () => (
             <Route path="/news" element={<News />} />
             <Route path="/admin/news" element={<AdminNews />} />
             <Route path="/services" element={<Services />} />
-
             <Route path="/for-residents" element={<ForResidents />} />
-
             <Route path="/houses" element={<Houses />} />
             <Route path="/houses/:id" element={<HouseDetail />} />
             <Route path="/bulk-upload" element={<BulkUpload />} />
+            
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/pages" element={<AdminPages />} />
+            <Route path="/admin/images" element={<AdminImages />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
