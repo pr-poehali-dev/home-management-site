@@ -26,6 +26,13 @@ const AdminDashboard = () => {
 
   const sections = [
     {
+      title: "Редактор кода",
+      description: "Создание, редактирование и удаление файлов, функций и страниц",
+      icon: "Code",
+      link: "/admin/code",
+      color: "bg-indigo-500"
+    },
+    {
       title: "Редактор страниц",
       description: "Редактирование текстов и контента страниц",
       icon: "FileText",

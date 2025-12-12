@@ -1,0 +1,25 @@
+{
+  "tests": [
+    {
+      "name": "Get files list",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "files": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get specific file content",
+      "method": "GET",
+      "path": "/?path=src/App.tsx",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "content": "string",
+        "path": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

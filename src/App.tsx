@@ -18,6 +18,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPages from "./pages/AdminPages";
 import AdminImages from "./pages/AdminImages";
+import AdminCode from "./pages/AdminCode";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
             
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/code" element={<AdminCode />} />
             <Route path="/admin/pages" element={<AdminPages />} />
             <Route path="/admin/images" element={<AdminImages />} />
             
