@@ -167,11 +167,11 @@ const Index = () => {
       
       <div className="running-character">
         <img 
-          src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/ce619e27-1dfd-40de-b1c9-564df69cc112.jpg" 
-          alt="Наш Дом - новогодний персонаж"
+          src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/1181ea51-61ec-46c5-9289-d050b20e38db.jpg" 
+          alt="Наш Дом"
           style={{
-            width: '180px',
-            height: '180px',
+            width: '200px',
+            height: '200px',
             objectFit: 'contain',
             filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.4))'
           }}
