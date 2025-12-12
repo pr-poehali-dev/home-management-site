@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Link } from "react-router-dom";
 import { houses as housesData } from "@/data/housesData";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 interface NewsItem {
   id: number;
@@ -18,6 +19,7 @@ interface NewsItem {
 }
 
 const Index = () => {
+  const { getContent } = useSiteContent();
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
@@ -150,7 +152,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <RunningLine text="Дорогие друзья! 2025 год для нас стал особенным, мы стали совсем взрослыми, нам исполнилось 18 лет! В связи с чем пришло время перемен, так что давайте знакомиться заново." />
+      <RunningLine text={getContent('running_line_text', 'Дорогие друзья! 2025 год для нас стал особенным, мы стали совсем взрослыми, нам исполнилось 18 лет! В связи с чем пришло время перемен, так что давайте знакомиться заново.')} />
       <div 
         className="fixed inset-0 z-0"
         style={{
@@ -194,10 +196,10 @@ const Index = () => {
               18 лет на рынке ЖКХ
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-              Живите комфортно, остальное — наша забота.
+              {getContent('home_hero_title', 'Живите комфортно, остальное — наша забота.')}
             </h1>
             <p className="text-xl text-white/90 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              Мы — команда профессионалов в управлении жилой недвижимостью. Обслуживаем более 50 многоквартирных домов, обеспечивая комфорт и безопасность на 1 млн м² площади. Позвольте нам позаботиться о Вашем доме!
+              {getContent('home_hero_description', 'Мы — команда профессионалов в управлении жилой недвижимостью. Обслуживаем более 50 многоквартирных домов, обеспечивая комфорт и безопасность на 1 млн м² площади. Позвольте нам позаботиться о Вашем доме!')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <Link to="/services">

@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "name": "Get all content",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "content": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Update content",
+      "method": "PUT",
+      "path": "/",
+      "body": {
+        "id": "home_hero_title",
+        "title": "Test Title",
+        "content": "Test Content"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

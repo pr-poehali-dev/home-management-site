@@ -1,4 +1,6 @@
 {
+  "admin-images": "https://functions.poehali.dev/2e08b60a-6ddf-4027-ab75-69b7b9401012",
+  "admin-content": "https://functions.poehali.dev/90a8d990-f013-4431-8797-2a81c74d64cc",
   "admin-auth": "https://functions.poehali.dev/8015bc01-9b2d-450d-a4b7-da854c8f3cd9",
   "update-company": "https://functions.poehali.dev/b7ddd3da-247f-4103-bc75-e13f0097cf3a",
   "get-company-docs": "https://functions.poehali.dev/7ed2e16c-b150-4b9f-9af4-be07582c7e90",

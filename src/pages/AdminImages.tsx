@@ -16,14 +16,8 @@ interface ImageItem {
 const AdminImages = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [images, setImages] = useState<ImageItem[]>([
-    {
-      id: "1",
-      url: "https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg",
-      title: "Логотип НАШ ДОМ",
-      location: "Шапка сайта"
-    }
-  ]);
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [uploadStatus, setUploadStatus] = useState("");
 
   useEffect(() => {
@@ -32,28 +26,59 @@ const AdminImages = () => {
       navigate("/admin/login");
     } else {
       setIsAuthenticated(true);
+      loadImages();
     }
   }, [navigate]);
+
+  const loadImages = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://functions.poehali.dev/2e08b60a-6ddf-4027-ab75-69b7b9401012");
+      const data = await response.json();
+      setImages(data.images || []);
+    } catch (error) {
+      console.error("Ошибка загрузки изображений:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploadStatus("Загрузка...");
+    setUploadStatus("Загрузка в S3...");
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const newImage: ImageItem = {
-        id: Date.now().toString(),
-        url: reader.result as string,
-        title: file.name,
-        location: "Новое изображение"
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64Data = (reader.result as string).split(',')[1];
+        
+        const response = await fetch("https://functions.poehali.dev/2e08b60a-6ddf-4027-ab75-69b7b9401012", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image_data: base64Data,
+            title: file.name,
+            location: "Новое изображение",
+            mime_type: file.type
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setUploadStatus("✓ Загружено в S3 и базу данных");
+          await loadImages();
+          setTimeout(() => setUploadStatus(""), 3000);
+        } else {
+          setUploadStatus("❌ Ошибка загрузки");
+        }
       };
-      setImages([newImage, ...images]);
-      setUploadStatus("✓ Загружено");
-      setTimeout(() => setUploadStatus(""), 2000);
-    };
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    } catch (error) {
+      setUploadStatus("❌ Ошибка загрузки");
+      console.error(error);
+    }
   };
 
   const handleDelete = (id: string) => {

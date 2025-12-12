@@ -17,26 +17,8 @@ interface PageContent {
 const AdminPages = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pages, setPages] = useState<PageContent[]>([
-    {
-      id: "home-hero",
-      title: "Главная - Заголовок",
-      section: "Главная страница",
-      content: "Живите комфортно, остальное — наша забота."
-    },
-    {
-      id: "home-description",
-      title: "Главная - Описание",
-      section: "Главная страница",
-      content: "Мы — команда профессионалов в управлении жилой недвижимостью..."
-    },
-    {
-      id: "about-title",
-      title: "О компании - Заголовок",
-      section: "О компании",
-      content: "О нашей компании"
-    }
-  ]);
+  const [pages, setPages] = useState<PageContent[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [editingPage, setEditingPage] = useState<PageContent | null>(null);
   const [saveStatus, setSaveStatus] = useState("");
 
@@ -46,22 +28,53 @@ const AdminPages = () => {
       navigate("/admin/login");
     } else {
       setIsAuthenticated(true);
+      loadContent();
     }
   }, [navigate]);
+
+  const loadContent = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://functions.poehali.dev/90a8d990-f013-4431-8797-2a81c74d64cc");
+      const data = await response.json();
+      setPages(data.content || []);
+    } catch (error) {
+      console.error("Ошибка загрузки контента:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSave = async () => {
     if (!editingPage) return;
     
     setSaveStatus("Сохранение...");
     
-    setTimeout(() => {
-      const updatedPages = pages.map(p => 
-        p.id === editingPage.id ? editingPage : p
-      );
-      setPages(updatedPages);
-      setSaveStatus("✓ Сохранено");
-      setTimeout(() => setSaveStatus(""), 2000);
-    }, 500);
+    try {
+      const response = await fetch("https://functions.poehali.dev/90a8d990-f013-4431-8797-2a81c74d64cc", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editingPage.id,
+          title: editingPage.title,
+          content: editingPage.content
+        })
+      });
+      
+      if (response.ok) {
+        const updatedPages = pages.map(p => 
+          p.id === editingPage.id ? editingPage : p
+        );
+        setPages(updatedPages);
+        setSaveStatus("✓ Сохранено в базу данных");
+        setTimeout(() => setSaveStatus(""), 3000);
+      } else {
+        setSaveStatus("❌ Ошибка сохранения");
+      }
+    } catch (error) {
+      setSaveStatus("❌ Ошибка сохранения");
+      console.error(error);
+    }
   };
 
   if (!isAuthenticated) return null;
