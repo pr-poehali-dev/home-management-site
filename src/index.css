@@ -495,4 +495,31 @@
     height: 200px;
     object-fit: contain;
   }
+
+  @keyframes deflate-balloon {
+    0% {
+      transform: scale(1) translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    30% {
+      transform: scale(0.3) translateY(-100px) translateX(50px) rotate(180deg);
+      opacity: 0.7;
+    }
+    60% {
+      transform: scale(0.1) translateY(-300px) translateX(-80px) rotate(360deg);
+      opacity: 0.3;
+    }
+    80% {
+      transform: scale(0.05) translateY(-500px) translateX(100px) rotate(540deg);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1) translateY(0) rotate(720deg);
+      opacity: 1;
+    }
+  }
+
+  .logo-deflate {
+    animation: deflate-balloon 3s ease-in-out;
+  }
 }

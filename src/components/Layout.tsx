@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -10,6 +10,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
+  const [isDeflating, setIsDeflating] = useState(false);
 
   const navLinks = [
     { path: "/", label: "Главная" },
@@ -45,7 +46,12 @@ const Layout = ({ children }: LayoutProps) => {
               <img 
                 src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
                 alt="НАШ ДОМ" 
-                className="w-20 h-20 rounded-full object-cover"
+                className={`w-20 h-20 rounded-full object-cover cursor-pointer transition-all ${isDeflating ? 'logo-deflate' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsDeflating(true);
+                  setTimeout(() => setIsDeflating(false), 3000);
+                }}
               />
               <div>
                 <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
