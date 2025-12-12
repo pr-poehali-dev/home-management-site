@@ -494,9 +494,5 @@
     width: 200px;
     height: 200px;
     object-fit: contain;
-    filter: brightness(1.1) contrast(1.2)
-      drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    background: transparent;
-    mix-blend-mode: darken;
   }
 }

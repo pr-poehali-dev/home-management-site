@@ -165,11 +165,25 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
       </div>
       
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <filter id="remove-white">
+            <feColorMatrix type="matrix" values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              -1 -1 -1 2 0
+            "/>
+          </filter>
+        </defs>
+      </svg>
+      
       <div className="running-character">
         <img 
           src="https://cdn.poehali.dev/files/10057953-8a2e-440e-be01-e3f0f5d32c05_0567dc02-1482-483f-a2ec-8ce68670e4dd.png" 
           alt="Наш Дом"
           className="character-img"
+          style={{ filter: 'url(#remove-white)' }}
         />
       </div>
       
