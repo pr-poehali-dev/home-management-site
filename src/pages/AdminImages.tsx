@@ -81,9 +81,22 @@ const AdminImages = () => {
     }
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm("Удалить это изображение?")) {
-      setImages(images.filter(img => img.id !== id));
+  const handleDelete = async (id: string) => {
+    if (!confirm("Удалить это изображение из базы данных?")) return;
+    
+    try {
+      const response = await fetch(`https://functions.poehali.dev/2e08b60a-6ddf-4027-ab75-69b7b9401012?id=${id}`, {
+        method: "DELETE"
+      });
+      
+      if (response.ok) {
+        setImages(images.filter(img => img.id !== id));
+      } else {
+        alert("Ошибка удаления изображения");
+      }
+    } catch (error) {
+      console.error("Ошибка удаления:", error);
+      alert("Ошибка удаления изображения");
     }
   };
 

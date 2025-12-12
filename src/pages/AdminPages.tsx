@@ -77,6 +77,25 @@ const AdminPages = () => {
     }
   };
 
+  const handleDelete = async (pageId: string) => {
+    if (!confirm("Удалить этот раздел?")) return;
+    
+    try {
+      const response = await fetch(`https://functions.poehali.dev/90a8d990-f013-4431-8797-2a81c74d64cc?id=${pageId}`, {
+        method: "DELETE"
+      });
+      
+      if (response.ok) {
+        setPages(pages.filter(p => p.id !== pageId));
+        if (editingPage?.id === pageId) {
+          setEditingPage(null);
+        }
+      }
+    } catch (error) {
+      console.error("Ошибка удаления:", error);
+    }
+  };
+
   if (!isAuthenticated) return null;
 
   return (
@@ -107,14 +126,28 @@ const AdminPages = () => {
               {pages.map((page) => (
                 <Card 
                   key={page.id}
-                  className={`cursor-pointer transition-all ${editingPage?.id === page.id ? 'ring-2 ring-primary' : 'hover:shadow-md'}`}
-                  onClick={() => setEditingPage(page)}
+                  className={`transition-all ${editingPage?.id === page.id ? 'ring-2 ring-primary' : 'hover:shadow-md'}`}
                 >
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-base">{page.title}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{page.section}</p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 cursor-pointer" onClick={() => setEditingPage(page)}>
+                        <CardTitle className="text-base">{page.title}</CardTitle>
+                        <p className="text-sm text-muted-foreground">{page.section}</p>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(page.id);
+                        }}
+                      >
+                        <Icon name="Trash2" size={18} />
+                      </Button>
+                    </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="cursor-pointer" onClick={() => setEditingPage(page)}>
                     <p className="text-sm text-muted-foreground line-clamp-2">
                       {page.content}
                     </p>

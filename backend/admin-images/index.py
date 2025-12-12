@@ -118,6 +118,37 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'isBase64Encoded': False
             }
         
+        elif method == 'DELETE':
+            query_params = event.get('queryStringParameters', {})
+            image_key = query_params.get('id') if query_params else None
+            
+            if not image_key:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Missing image id'}),
+                    'isBase64Encoded': False
+                }
+            
+            conn = get_db_connection()
+            cur = conn.cursor()
+            
+            cur.execute("""
+                DELETE FROM site_images 
+                WHERE image_key = %s
+            """, (image_key,))
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'success': True, 'message': 'Image deleted'}),
+                'isBase64Encoded': False
+            }
+        
         else:
             return {
                 'statusCode': 405,

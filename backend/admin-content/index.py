@@ -15,7 +15,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token',
                 'Access-Control-Max-Age': '86400'
             },
@@ -84,6 +84,34 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'statusCode': 200,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({'success': True, 'message': 'Content updated'}),
+                'isBase64Encoded': False
+            }
+        
+        elif method == 'DELETE':
+            query_params = event.get('queryStringParameters', {})
+            content_key = query_params.get('id') if query_params else None
+            
+            if not content_key:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Missing content id'}),
+                    'isBase64Encoded': False
+                }
+            
+            cur.execute("""
+                DELETE FROM site_content 
+                WHERE content_key = %s
+            """, (content_key,))
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            
+            return {
+                'statusCode': 200,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'success': True, 'message': 'Content deleted'}),
                 'isBase64Encoded': False
             }
         
