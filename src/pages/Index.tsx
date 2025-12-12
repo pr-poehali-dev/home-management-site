@@ -167,14 +167,13 @@ const Index = () => {
       
       <div className="running-character">
         <img 
-          src="https://cdn.poehali.dev/files/10057953-8a2e-440e-be01-e3f0f5d32c05_0567dc02-1482-483f-a2ec-8ce68670e4dd.png" 
-          alt="Наш Дом"
+          src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/ce619e27-1dfd-40de-b1c9-564df69cc112.jpg" 
+          alt="Наш Дом - новогодний персонаж"
           style={{
-            width: '150px',
-            height: '150px',
+            width: '180px',
+            height: '180px',
             objectFit: 'contain',
-            filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
-            mixBlendMode: 'normal'
+            filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.4))'
           }}
         />
       </div>
