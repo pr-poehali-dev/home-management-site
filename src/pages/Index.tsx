@@ -164,21 +164,6 @@ const Index = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
       </div>
-      
-      <div className="running-character">
-        <img 
-          src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/ccbf4504-38b5-4b76-a2f1-d477563b7612.jpg" 
-          alt="Наш Дом"
-          style={{
-            width: '220px',
-            height: '220px',
-            objectFit: 'contain',
-            filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.5))',
-            background: 'transparent'
-          }}
-        />
-      </div>
-      
       <section className="relative py-16 md:py-24 overflow-hidden min-h-[600px] md:min-h-[700px] z-10">
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
