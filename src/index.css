@@ -491,10 +491,11 @@
   }
 
   .character-img {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    mix-blend-mode: normal;
+    background: transparent;
+    mix-blend-mode: multiply;
   }
 }

@@ -167,7 +167,7 @@ const Index = () => {
       
       <div className="running-character">
         <img 
-          src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/files/e085f4f8-dc0a-4662-9d44-82e3b8e1f607.jpg" 
+          src="https://cdn.poehali.dev/files/10057953-8a2e-440e-be01-e3f0f5d32c05_0567dc02-1482-483f-a2ec-8ce68670e4dd.png" 
           alt="Наш Дом"
           className="character-img"
         />
