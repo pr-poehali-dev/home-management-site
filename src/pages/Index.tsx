@@ -361,24 +361,7 @@ const Index = () => {
       <section className="py-20 scroll-fade-in relative z-10">
         <div className="absolute inset-0 bg-background/85"></div>
         <div className="container mx-auto px-4 relative">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
-                  <Icon name="FileText" className="text-primary" size={24} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Документы</h3>
-                <p className="text-muted-foreground mb-4">
-                  Устав, отчётность, протоколы собраний
-                </p>
-                <Link to="/documents">
-                  <Button variant="outline" className="w-full">
-                    Перейти в раздел
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
+          <div className="grid md:grid-cols-2 gap-6">
             <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-lg flex items-center justify-center mb-4 shadow-md">
