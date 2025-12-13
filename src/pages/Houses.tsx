@@ -57,17 +57,9 @@ const Houses = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gradient-sapphire">
               Наши дома
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Найдите информацию о вашем доме и управляющем
             </p>
-            <Button
-              onClick={() => navigate("/bulk-upload")}
-              variant="outline"
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20"
-            >
-              <Icon name="Upload" size={16} />
-              Массовая загрузка фото
-            </Button>
           </div>
 
           <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
