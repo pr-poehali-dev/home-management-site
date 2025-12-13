@@ -905,45 +905,20 @@ const CompanyDetail = () => {
                     const hasContent = doc.images || doc.url || hasUploadedDoc;
                     
                     return (
-                      <li key={idx} className="flex items-center justify-between gap-3">
-                        <div className="flex-1">
-                          {hasContent ? (
-                            <button
-                              onClick={() => openDocument(doc)}
-                              className="flex items-center gap-2 text-primary hover:underline"
-                            >
-                              <Icon name="Eye" size={16} />
-                              {doc.name}
-                            </button>
-                          ) : (
-                            <span className="flex items-center gap-2 text-muted-foreground">
-                              <Icon name="FileText" size={16} />
-                              {doc.name}
-                            </span>
-                          )}
-                        </div>
-                        {(isLicense || isRegistration) && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={uploading}
-                            onClick={() => {
-                              const input = document.createElement('input');
-                              input.type = 'file';
-                              input.accept = 'application/pdf';
-                              input.onchange = (e) => {
-                                const file = (e.target as HTMLInputElement).files?.[0];
-                                if (file) {
-                                  handleDocumentUpload(file, isLicense ? 'license' : 'registration');
-                                }
-                              };
-                              input.click();
-                            }}
-                            className="text-xs px-2 py-1 h-auto"
+                      <li key={idx} className="flex items-center gap-3">
+                        {hasContent ? (
+                          <button
+                            onClick={() => openDocument(doc)}
+                            className="flex items-center gap-2 text-primary hover:underline"
                           >
-                            <Icon name="Upload" size={12} className="mr-1" />
-                            Загрузить
-                          </Button>
+                            <Icon name="Eye" size={16} />
+                            {doc.name}
+                          </button>
+                        ) : (
+                          <span className="flex items-center gap-2 text-muted-foreground">
+                            <Icon name="FileText" size={16} />
+                            {doc.name}
+                          </span>
                         )}
                       </li>
                     );
