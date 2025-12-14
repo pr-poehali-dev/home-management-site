@@ -25,8 +25,8 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
         if (!mapRef.current) return;
 
         const map = new window.ymaps.Map(mapRef.current, {
-          center: [59.95, 30.45],
-          zoom: 10,
+          center: [59.85, 30.15],
+          zoom: 9,
           controls: ['zoomControl', 'fullscreenControl']
         });
 
@@ -101,10 +101,6 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
         residentialHouses.forEach((house, index) => {
           const coords = addressCoords[house.address];
           
-          if (!coords) {
-            console.log('Дом без координат:', house.address, 'Компания:', house.company);
-          }
-          
           if (coords) {
             const placemark = new window.ymaps.Placemark(
               coords,
@@ -135,6 +131,9 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
             });
 
             map.geoObjects.add(placemark);
+            console.log('Добавлена метка:', house.address, coords);
+          } else {
+            console.log('Нет координат для:', house.address, 'Компания:', house.company);
           }
         });
       });
