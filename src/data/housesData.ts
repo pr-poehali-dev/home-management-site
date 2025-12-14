@@ -186,7 +186,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-krasnoselskoe-4",
     address: "Красносельское шоссе, д. 4",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Стекольников Алексей Сергеевич",
     managerPhone: "+7 (953) 365-65-05",
     managerEmail: "chistocom@yandex.ru",
@@ -197,7 +197,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-krasnoselskoe-8",
     address: "Красносельское шоссе, д. 8",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Стекольников Алексей Сергеевич",
     managerPhone: "+7 (953) 365-65-05",
     managerEmail: "chistocom@yandex.ru",
@@ -208,7 +208,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-krasnoselskoe-20",
     address: "Красносельское шоссе, д. 20",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Стекольников Алексей Сергеевич",
     managerPhone: "+7 (953) 365-65-05",
     managerEmail: "chistocom@yandex.ru",
