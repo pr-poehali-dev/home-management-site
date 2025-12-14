@@ -100,6 +100,7 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
         
         residentialHouses.forEach((house, index) => {
           const coords = addressCoords[house.address];
+          const fullAddress = `${house.city}, ${house.address}`;
           
           if (coords) {
             const placemark = new window.ymaps.Placemark(
@@ -131,9 +132,45 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
             });
 
             map.geoObjects.add(placemark);
-            console.log('Добавлена метка:', house.address, coords);
           } else {
-            console.log('Нет координат для:', house.address, 'Компания:', house.company);
+            // Геокодируем адрес через Яндекс API
+            window.ymaps.geocode(fullAddress, { results: 1 }).then((res: any) => {
+              const firstGeoObject = res.geoObjects.get(0);
+              if (firstGeoObject) {
+                const coords = firstGeoObject.geometry.getCoordinates();
+                console.log('Геокодирован:', fullAddress, '→', coords);
+                
+                const placemark = new window.ymaps.Placemark(
+                  coords,
+                  {
+                    balloonContentHeader: `<strong>${house.address}</strong>`,
+                    balloonContentBody: `
+                      <div style="max-width: 250px;">
+                        <p style="margin: 8px 0; color: #666;">${house.company}</p>
+                        <p style="margin: 8px 0;"><strong>Менеджер:</strong> ${house.manager}</p>
+                        <p style="margin: 8px 0;"><strong>Телефон:</strong> <a href="tel:${house.managerPhone}">${house.managerPhone}</a></p>
+                        <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${house.managerEmail}">${house.managerEmail}</a></p>
+                        <p style="margin: 8px 0;"><strong>Приём:</strong> ${house.receptionSchedule}</p>
+                      </div>
+                    `,
+                    hintContent: house.address,
+                    iconContent: String(index + 1)
+                  },
+                  {
+                    preset: 'islands#blueStretchyIcon',
+                    iconColor: '#1e40af'
+                  }
+                );
+
+                placemark.events.add('click', () => {
+                  if (onHouseSelect) {
+                    onHouseSelect(index + 1);
+                  }
+                });
+
+                map.geoObjects.add(placemark);
+              }
+            });
           }
         });
       });
