@@ -101,6 +101,10 @@ const YandexMap = ({ onHouseSelect }: YandexMapProps) => {
         residentialHouses.forEach((house, index) => {
           const coords = addressCoords[house.address];
           
+          if (!coords) {
+            console.log('Дом без координат:', house.address, 'Компания:', house.company);
+          }
+          
           if (coords) {
             const placemark = new window.ymaps.Placemark(
               coords,
