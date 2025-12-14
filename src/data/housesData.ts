@@ -483,7 +483,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-krasnoselskoe-6",
     address: "Красносельское шоссе, д. 6",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -494,7 +494,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-krasnoselskoe-16",
     address: "Красносельское шоссе, д. 16",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -505,7 +505,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-piterskiy-1",
     address: "пр. Питерский, д. 1",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -516,7 +516,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-piterskiy-5",
     address: "пр. Питерский, д. 5",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -527,7 +527,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-piterskiy-7",
     address: "пр. Питерский, д. 7",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -538,7 +538,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-1",
     address: "ул. Невская, д. 1",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -549,7 +549,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-3",
     address: "ул. Невская, д. 3",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -560,7 +560,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-4",
     address: "ул. Невская, д. 4",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -571,7 +571,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-5-7",
     address: "ул. Невская, д. 5/7",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -582,7 +582,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-6",
     address: "ул. Невская, д. 6",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -593,7 +593,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-nevskaya-10-5",
     address: "ул. Невская, д. 10/5",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -604,7 +604,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-admiralteyskaya-1",
     address: "ул. Адмиралтейская, д. 1",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -615,7 +615,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-admiralteyskaya-3",
     address: "ул. Адмиралтейская, д. 3",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Васильева Ольга Вадимовна",
     managerPhone: "+7 (921) 943-72-93",
     managerEmail: "vasilyeva.ukdom@mail.ru",
@@ -626,7 +626,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-admiralteyskaya-9",
     address: "ул. Адмиралтейская, д. 9",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -637,7 +637,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-admiralteyskaya-11",
     address: "ул. Адмиралтейская, д. 11",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
@@ -648,7 +648,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-belyhNochey-3",
     address: "бульвар Белых Ночей, д. 3",
-    city: "Санкт-Петербург",
+    city: "Ленинградская область, Ломоносовский район, гп. Новоселье",
     manager: "Бакшеева Вера Ивановна",
     managerPhone: "+7 (921) 337-43-41",
     managerEmail: "vera-b82@mail.ru",
