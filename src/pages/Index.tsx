@@ -24,6 +24,7 @@ const Index = () => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
+  const [isCharacterDeflating, setIsCharacterDeflating] = useState(false);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -180,7 +181,18 @@ const Index = () => {
         </defs>
       </svg>
       
-      <div className="running-character">
+      <div 
+        className={`running-character ${isCharacterDeflating ? 'character-deflating' : ''}`}
+        onClick={() => {
+          if (!isCharacterDeflating) {
+            setIsCharacterDeflating(true);
+            setTimeout(() => {
+              setIsCharacterDeflating(false);
+            }, 8000);
+          }
+        }}
+        style={{ cursor: 'pointer' }}
+      >
         <img 
           src="https://cdn.poehali.dev/files/10057953-8a2e-440e-be01-e3f0f5d32c05_0567dc02-1482-483f-a2ec-8ce68670e4dd.png" 
           alt="Наш Дом"
