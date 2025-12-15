@@ -544,9 +544,11 @@ const HouseDetail = () => {
               </CardContent>
             </Card>
 
-            <h2 className="text-2xl font-bold mb-6">Услуги для вашего дома</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {services.map((service, index) => (
+            {!['spb-moskovskiy-72k2str1', 'spb-ruchevskiy-17k2', 'spb-reshetnikova-29str1', 'spb-blagodatnaya-50str1', 'spb-sad-vremeni'].includes(id || '') && (
+              <>
+                <h2 className="text-2xl font-bold mb-6">Услуги для вашего дома</h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {services.map((service, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
@@ -992,6 +994,8 @@ const HouseDetail = () => {
                 )}
               </CardContent>
             </Card>
+            )}
+              </>
             )}
           </div>
         </div>
