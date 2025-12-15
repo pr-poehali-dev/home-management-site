@@ -528,7 +528,7 @@
       transform: translate(0, 0) rotate(0deg) scale(1);
       opacity: 1;
     }
-    20% {
+    15% {
       opacity: 1;
     }
     100% {
@@ -538,7 +538,7 @@
   }
 
   .logo-fragment {
-    animation: fragment-explode 1s ease-out forwards;
+    animation: fragment-explode 0.7s ease-out forwards;
   }
 
   @keyframes logo-appear {

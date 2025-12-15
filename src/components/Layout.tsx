@@ -58,29 +58,29 @@ const Layout = ({ children }: LayoutProps) => {
                           setIsExploding(true);
                           setTimeout(() => {
                             setShowMainLogo(true);
-                          }, 1000);
+                          }, 700);
                         }
                       }}
                     />
                     {isExploding && (
                       <div className="absolute inset-0 w-32 h-32">
-                        {[...Array(25)].map((_, i) => (
+                        {[...Array(100)].map((_, i) => (
                           <div
                             key={i}
                             className="logo-fragment absolute"
                             style={{
-                              width: '20%',
-                              height: '20%',
-                              left: `${(i % 5) * 20}%`,
-                              top: `${Math.floor(i / 5) * 20}%`,
+                              width: '10%',
+                              height: '10%',
+                              left: `${(i % 10) * 10}%`,
+                              top: `${Math.floor(i / 10) * 10}%`,
                               backgroundImage: 'url(https://cdn.poehali.dev/files/fYyx6wzse2A.jpg)',
-                              backgroundSize: '500% 500%',
-                              backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * 25}%`,
-                              borderRadius: '20%',
-                              animationDelay: `${i * 0.02}s`,
-                              '--tx': `${(Math.random() - 0.5) * 400}px`,
-                              '--ty': `${(Math.random() - 0.5) * 400}px`,
-                              '--rot': `${(Math.random() - 0.5) * 720}deg`
+                              backgroundSize: '1000% 1000%',
+                              backgroundPosition: `${(i % 10) * 11.11}% ${Math.floor(i / 10) * 11.11}%`,
+                              borderRadius: '15%',
+                              animationDelay: `${i * 0.005}s`,
+                              '--tx': `${(Math.random() - 0.5) * 600}px`,
+                              '--ty': `${(Math.random() - 0.5) * 600}px`,
+                              '--rot': `${(Math.random() - 0.5) * 1080}deg`
                             } as React.CSSProperties}
                           />
                         ))}
