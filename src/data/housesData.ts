@@ -670,7 +670,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-romanovskaya-2",
     address: "ул. Романовская, д. 2",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -681,7 +681,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-shuvalova-33-35",
     address: "ул. Шувалова, д. 33/35",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -692,7 +692,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-shuvalova-37",
     address: "ул. Шувалова, д. 37",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -703,7 +703,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-shuvalova-39-21",
     address: "ул. Шувалова, д. 39/21",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -736,7 +736,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-ruchevskiy-13",
     address: "пр. Ручьевский, д. 13",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -747,7 +747,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-ruchevskiy-15",
     address: "пр. Ручьевский, д. 15",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -758,7 +758,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-ruchevskiy-17k1",
     address: "пр. Ручьевский, д. 17 корп. 1",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
@@ -769,7 +769,7 @@ export const houses: HouseData[] = [
   {
     id: "spb-ruchevskiy-17k2",
     address: "пр. Ручьевский, д. 17 корп. 2 (паркинг)",
-    city: "Санкт-Петербург",
+    city: "Мурино",
     manager: "Саврандейкина Виктория Валерьевна",
     managerPhone: "+7 (981) 760-16-16",
     managerEmail: "savrandeykina@ukdom.spb.ru",
