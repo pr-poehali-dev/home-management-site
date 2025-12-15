@@ -47,20 +47,46 @@ const Layout = ({ children }: LayoutProps) => {
             <Link to="/" className="flex items-center gap-3">
               <div className="relative w-32 h-32">
                 {!showMainLogo && (
-                  <img 
-                    src="https://cdn.poehali.dev/files/fYyx6wzse2A.jpg" 
-                    alt="Группа управляющих компаний" 
-                    className={`w-32 h-32 rounded-full object-cover cursor-pointer transition-all ${isExploding ? 'logo-explode' : ''}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (!isExploding && !showMainLogo) {
-                        setIsExploding(true);
-                        setTimeout(() => {
-                          setShowMainLogo(true);
-                        }, 600);
-                      }
-                    }}
-                  />
+                  <div className="relative w-32 h-32">
+                    <img 
+                      src="https://cdn.poehali.dev/files/fYyx6wzse2A.jpg" 
+                      alt="Группа управляющих компаний" 
+                      className={`w-32 h-32 rounded-full object-cover cursor-pointer ${!isExploding ? 'block' : 'hidden'}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (!isExploding && !showMainLogo) {
+                          setIsExploding(true);
+                          setTimeout(() => {
+                            setShowMainLogo(true);
+                          }, 1000);
+                        }
+                      }}
+                    />
+                    {isExploding && (
+                      <div className="absolute inset-0 w-32 h-32">
+                        {[...Array(25)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="logo-fragment absolute"
+                            style={{
+                              width: '20%',
+                              height: '20%',
+                              left: `${(i % 5) * 20}%`,
+                              top: `${Math.floor(i / 5) * 20}%`,
+                              backgroundImage: 'url(https://cdn.poehali.dev/files/fYyx6wzse2A.jpg)',
+                              backgroundSize: '500% 500%',
+                              backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * 25}%`,
+                              borderRadius: '20%',
+                              animationDelay: `${i * 0.02}s`,
+                              '--tx': `${(Math.random() - 0.5) * 400}px`,
+                              '--ty': `${(Math.random() - 0.5) * 400}px`,
+                              '--rot': `${(Math.random() - 0.5) * 720}deg`
+                            } as React.CSSProperties}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
                 {showMainLogo && (
                   <img 
