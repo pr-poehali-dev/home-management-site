@@ -48,6 +48,14 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="relative w-32 h-32">
                 {!showMainLogo && (
                   <div className="relative w-32 h-32">
+                    {!isExploding && (
+                      <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none animate-bounce">
+                        <span className="text-white text-sm font-bold whitespace-nowrap bg-primary/90 px-3 py-1 rounded-full shadow-lg">
+                          Нажми меня
+                        </span>
+                        <div className="text-white text-2xl mt-1">↓</div>
+                      </div>
+                    )}
                     <img 
                       src="https://cdn.poehali.dev/files/fYyx6wzse2A.jpg" 
                       alt="Группа управляющих компаний" 
