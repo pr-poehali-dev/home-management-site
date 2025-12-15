@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
   const [isDeflating, setIsDeflating] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
-  const [showMainLogo, setShowMainLogo] = useState(false);
+  const [showMainLogo, setShowMainLogo] = useState(location.pathname !== '/');
 
   const navLinks = [
     { path: "/", label: "Главная" },
