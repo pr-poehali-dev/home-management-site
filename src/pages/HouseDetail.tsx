@@ -458,33 +458,9 @@ const HouseDetail = () => {
                           </p>
                         </>
                       ) : (
-                        <div className="space-y-3">
-                          <p className="text-sm text-muted-foreground">
-                            Протокол ОСС не загружен
-                          </p>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full"
-                            disabled={uploadingDocument}
-                            onClick={() => {
-                              const input = document.createElement('input');
-                              input.type = 'file';
-                              input.accept = 'image/*,.pdf';
-                              input.multiple = true;
-                              input.onchange = (e) => {
-                                const files = (e.target as HTMLInputElement).files;
-                                if (files && files.length > 0) {
-                                  handleDocumentUpload(files, 'protocol');
-                                }
-                              };
-                              input.click();
-                            }}
-                          >
-                            <Icon name="Upload" size={16} />
-                            {uploadingDocument ? 'Загрузка...' : 'Загрузить протокол'}
-                          </Button>
-                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Протокол ОСС не загружен
+                        </p>
                       )}
                     </CardContent>
                   </Card>
@@ -510,33 +486,9 @@ const HouseDetail = () => {
                           </p>
                         </>
                       ) : (
-                        <div className="space-y-3">
-                          <p className="text-sm text-muted-foreground">
-                            Договор управления не загружен
-                          </p>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full"
-                            disabled={uploadingDocument}
-                            onClick={() => {
-                              const input = document.createElement('input');
-                              input.type = 'file';
-                              input.accept = 'image/*,.pdf';
-                              input.multiple = true;
-                              input.onchange = (e) => {
-                                const files = (e.target as HTMLInputElement).files;
-                                if (files && files.length > 0) {
-                                  handleDocumentUpload(files, 'agreement');
-                                }
-                              };
-                              input.click();
-                            }}
-                          >
-                            <Icon name="Upload" size={16} />
-                            {uploadingDocument ? 'Загрузка...' : 'Загрузить договор'}
-                          </Button>
-                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Договор управления не загружен
+                        </p>
                       )}
                     </CardContent>
                   </Card>
