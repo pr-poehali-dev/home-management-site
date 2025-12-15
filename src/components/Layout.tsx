@@ -11,6 +11,8 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
   const [isDeflating, setIsDeflating] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
+  const [showMainLogo, setShowMainLogo] = useState(false);
 
   const navLinks = [
     { path: "/", label: "Главная" },
@@ -43,16 +45,31 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
-                alt="НАШ ДОМ" 
-                className={`w-32 h-32 rounded-full object-cover cursor-pointer transition-all ${isDeflating ? 'logo-deflate' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsDeflating(true);
-                  setTimeout(() => setIsDeflating(false), 3000);
-                }}
-              />
+              <div className="relative w-32 h-32">
+                {!showMainLogo && (
+                  <img 
+                    src="https://cdn.poehali.dev/files/fYyx6wzse2A.jpg" 
+                    alt="Группа управляющих компаний" 
+                    className={`w-32 h-32 rounded-full object-cover cursor-pointer transition-all ${isExploding ? 'logo-explode' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (!isExploding && !showMainLogo) {
+                        setIsExploding(true);
+                        setTimeout(() => {
+                          setShowMainLogo(true);
+                        }, 600);
+                      }
+                    }}
+                  />
+                )}
+                {showMainLogo && (
+                  <img 
+                    src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
+                    alt="НАШ ДОМ" 
+                    className="w-32 h-32 rounded-full object-cover logo-appear"
+                  />
+                )}
+              </div>
               <div>
                 <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
               </div>
