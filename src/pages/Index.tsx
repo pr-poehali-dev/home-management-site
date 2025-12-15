@@ -177,6 +177,11 @@ const Index = () => {
               0 0 1 0 0
               -0.5 -0.5 -0.5 1.5 0
             "/>
+            <feComponentTransfer>
+              <feFuncR type="linear" slope="1.3" intercept="0.1"/>
+              <feFuncG type="linear" slope="1.3" intercept="0.1"/>
+              <feFuncB type="linear" slope="1.3" intercept="0.1"/>
+            </feComponentTransfer>
           </filter>
         </defs>
       </svg>
