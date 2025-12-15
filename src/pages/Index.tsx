@@ -18,6 +18,22 @@ interface NewsItem {
   content: string;
 }
 
+const formatDate = (dateString: string): string => {
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return dateString;
+    }
+    return date.toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  } catch {
+    return dateString;
+  }
+};
+
 const Index = () => {
   const { getContent } = useSiteContent();
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
@@ -354,7 +370,7 @@ const Index = () => {
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Icon name="Calendar" size={14} />
-                        {news.date}
+                        {formatDate(news.date)}
                       </span>
                       <Link to="/news" className="text-primary hover:underline">
                         Читать далее
