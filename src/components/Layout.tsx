@@ -46,7 +46,7 @@ const Layout = ({ children }: LayoutProps) => {
               <img 
                 src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
                 alt="НАШ ДОМ" 
-                className={`w-20 h-20 rounded-full object-cover cursor-pointer transition-all ${isDeflating ? 'logo-deflate' : ''}`}
+                className={`w-32 h-32 rounded-full object-cover cursor-pointer transition-all ${isDeflating ? 'logo-deflate' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   setIsDeflating(true);
