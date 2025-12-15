@@ -289,7 +289,7 @@ const HouseDetail = () => {
             Назад к списку домов
           </Button>
 
-          <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white relative group cursor-pointer">
+          <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white relative">
             {(currentHouseImage || house.image) ? (
               <img 
                 src={currentHouseImage || house.image} 
@@ -304,26 +304,6 @@ const HouseDetail = () => {
                 </div>
               </div>
             )}
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={uploading}
-                onClick={() => {
-                  const input = document.createElement('input');
-                  input.type = 'file';
-                  input.accept = 'image/*';
-                  input.onchange = (e) => {
-                    const file = (e.target as HTMLInputElement).files?.[0];
-                    if (file) handleImageUpload(file, 'house');
-                  };
-                  input.click();
-                }}
-              >
-                <Icon name="Upload" size={16} />
-                {uploading ? 'Загрузка...' : (currentHouseImage || house.image ? 'Изменить фото дома' : 'Загрузить фото дома')}
-              </Button>
-            </div>
           </div>
 
           <div className="max-w-5xl mx-auto">
