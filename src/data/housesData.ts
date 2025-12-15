@@ -295,7 +295,7 @@ export const houses: HouseData[] = [
   },
   {
     id: "spb-malaya-buharestskaya-12str1",
-    address: "ул. Малая Бухарестская, д. 12 стр. 1",
+    address: "ул. Малая Бухарестская, д. 12 стр. 1 (+паркинг)",
     city: "Санкт-Петербург",
     manager: "Мурашова Наталья Геннадьевна",
     managerPhone: "+7 (921) 388-65-80",
