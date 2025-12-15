@@ -46,9 +46,9 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 relative">
               {!showMainLogo && !isExploding && (
-                <div className="absolute -top-8 left-32 flex items-center gap-2 pointer-events-none animate-bounce z-20">
-                  <div className="text-yellow-400 text-4xl rotate-180" style={{ transform: 'rotate(200deg)' }}>➜</div>
-                  <span className="text-yellow-400 text-base font-bold whitespace-nowrap bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg shadow-xl border-2 border-yellow-300">
+                <div className="absolute top-2 left-36 flex items-center gap-2 pointer-events-none animate-bounce z-20">
+                  <div className="text-yellow-400 text-4xl" style={{ transform: 'rotate(180deg)' }}>➜</div>
+                  <span className="text-white text-base font-bold whitespace-nowrap bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 rounded-lg shadow-xl border-2 border-yellow-300">
                     Нажми меня!
                   </span>
                 </div>
