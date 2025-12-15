@@ -55,7 +55,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
-    image: "https://cdn.poehali.dev/files/104b9122-0bc5-4862-91e3-26b11deba075.jpg",
+    image: "https://cdn.poehali.dev/files/47ee4e58-e209-4b8e-bf41-e2b237cf0b82_9148ef12-fc23-4f65-b673-37a908ebe413.png",
     managerPhoto: "https://cdn.poehali.dev/files/1fd552cf-0aa7-40fe-8016-8790d3cde46c.jpg",
     protocolOss: [
       "https://cdn.poehali.dev/files/dc475ad1-2b30-4ca0-ae1a-0ce5687e31c2.jpg",
