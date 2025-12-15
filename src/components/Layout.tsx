@@ -44,18 +44,18 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 relative">
+              {!showMainLogo && !isExploding && (
+                <div className="absolute -top-8 left-32 flex items-center gap-2 pointer-events-none animate-bounce z-20">
+                  <div className="text-yellow-400 text-4xl rotate-180" style={{ transform: 'rotate(200deg)' }}>➜</div>
+                  <span className="text-yellow-400 text-base font-bold whitespace-nowrap bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg shadow-xl border-2 border-yellow-300">
+                    Нажми меня!
+                  </span>
+                </div>
+              )}
               <div className="relative w-32 h-32">
                 {!showMainLogo && (
                   <div className="relative w-32 h-32">
-                    {!isExploding && (
-                      <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none animate-bounce">
-                        <span className="text-white text-sm font-bold whitespace-nowrap bg-primary/90 px-3 py-1 rounded-full shadow-lg">
-                          Нажми меня
-                        </span>
-                        <div className="text-white text-2xl mt-1">↓</div>
-                      </div>
-                    )}
                     <img 
                       src="https://cdn.poehali.dev/files/fYyx6wzse2A.jpg" 
                       alt="Группа управляющих компаний" 
