@@ -64,6 +64,7 @@ const Layout = ({ children }: LayoutProps) => {
                     />
                     {isExploding && (
                       <div className="absolute inset-0 w-32 h-32">
+                        <div className="explosion-flash absolute inset-0 rounded-full" />
                         {[...Array(100)].map((_, i) => (
                           <div
                             key={i}
