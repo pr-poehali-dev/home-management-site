@@ -589,6 +589,55 @@
     pointer-events: none;
   }
 
+  @keyframes spark-fly {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+      background: radial-gradient(
+        circle,
+        rgba(255, 220, 100, 1) 0%,
+        rgba(255, 150, 50, 0.9) 50%,
+        rgba(255, 100, 0, 0.7) 100%
+      );
+    }
+    20% {
+      opacity: 1;
+      background: radial-gradient(
+        circle,
+        rgba(255, 200, 80, 1) 0%,
+        rgba(255, 120, 30, 0.8) 50%,
+        rgba(255, 80, 0, 0.6) 100%
+      );
+    }
+    50% {
+      opacity: 0.8;
+      background: radial-gradient(
+        circle,
+        rgba(255, 180, 60, 0.9) 0%,
+        rgba(255, 100, 20, 0.6) 50%,
+        rgba(255, 60, 0, 0.4) 100%
+      );
+    }
+    100% {
+      transform: translate(var(--spark-tx), var(--spark-ty)) scale(0);
+      opacity: 0;
+      background: radial-gradient(
+        circle,
+        rgba(255, 100, 0, 0) 0%,
+        rgba(255, 50, 0, 0) 100%
+      );
+    }
+  }
+
+  .explosion-spark {
+    width: var(--spark-size);
+    height: var(--spark-size);
+    border-radius: 50%;
+    animation: spark-fly 0.8s ease-out forwards;
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(255, 200, 100, 0.8);
+  }
+
   @keyframes logo-appear {
     0% {
       transform: scale(0) rotate(-180deg);

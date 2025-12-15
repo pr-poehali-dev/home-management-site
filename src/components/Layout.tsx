@@ -85,6 +85,20 @@ const Layout = ({ children }: LayoutProps) => {
                             } as React.CSSProperties}
                           />
                         ))}
+                        {[...Array(50)].map((_, i) => (
+                          <div
+                            key={`spark-${i}`}
+                            className="explosion-spark absolute"
+                            style={{
+                              left: '50%',
+                              top: '50%',
+                              animationDelay: `${i * 0.01}s`,
+                              '--spark-tx': `${(Math.random() - 0.5) * 800}px`,
+                              '--spark-ty': `${(Math.random() - 0.5) * 800}px`,
+                              '--spark-size': `${2 + Math.random() * 4}px`
+                            } as React.CSSProperties}
+                          />
+                        ))}
                       </div>
                     )}
                   </div>
