@@ -662,7 +662,7 @@ export const houses: HouseData[] = [
     city: "Санкт-Петербург",
     manager: "Ледодаев Роман Геннадьевич",
     managerPhone: "+7 (931) 251-10-40",
-    managerEmail: "8883301@mail.ru",
+    managerEmail: "kpsadvremeni@yandex.ru",
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "ПОСЕЛОК «САД ВРЕМЕНИ»",
     company: "ООО «УК «Усадьба»",
