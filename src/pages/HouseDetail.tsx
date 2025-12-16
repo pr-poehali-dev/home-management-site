@@ -388,7 +388,7 @@ const HouseDetail = () => {
                       <p className="text-sm font-medium mb-3">{house.manager}</p>
                       <a
                         href={`tel:${house.managerPhone.replace(/\s|\(|\)|\//g, "")}`}
-                        className="flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:underline text-sm font-semibold"
                       >
                         <Icon name="Phone" size={16} />
                         {house.managerPhone}
@@ -404,7 +404,7 @@ const HouseDetail = () => {
                       </h3>
                       <a
                         href="tel:+78124677777"
-                        className="flex items-center gap-2 text-primary hover:underline font-medium text-sm mb-3"
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:underline font-semibold text-sm mb-3"
                       >
                         <Icon name="Phone" size={16} />
                         467-77-77
