@@ -660,7 +660,7 @@ export const houses: HouseData[] = [
     id: "spb-sad-vremeni",
     address: "Санкт-Петербург, Петродворцовый район, г. Петергоф, ул. Беловой",
     city: "Санкт-Петербург",
-    manager: "Павлюк Александр Васильевич",
+    manager: "Ледодаев Роман Геннадьевич",
     managerPhone: "+7 (931) 251-10-40",
     managerEmail: "8883301@mail.ru",
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
