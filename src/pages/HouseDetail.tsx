@@ -522,11 +522,11 @@ const HouseDetail = () => {
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
                             <span>
-                              <a href="tel:+78125400817" className="text-primary hover:underline">540-08-17</a>
+                              <a href="tel:+78125400817" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">540-08-17</a>
                               {"; "}
-                              <a href="tel:+78124098211" className="text-primary hover:underline">409-82-11</a>
+                              <a href="tel:+78124098211" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">409-82-11</a>
                               {"; "}
-                              <a href="tel:+78124098212" className="text-primary hover:underline">409-82-12</a>
+                              <a href="tel:+78124098212" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">409-82-12</a>
                             </span>
                           </p>
                         </div>
@@ -554,9 +554,9 @@ const HouseDetail = () => {
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
                             <span>
-                              <a href="tel:+79313263123" className="text-primary hover:underline">8-931-326-31-23</a>
+                              <a href="tel:+79313263123" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">8-931-326-31-23</a>
                               {"; "}
-                              <a href="tel:+78125563326" className="text-primary hover:underline">556-33-26</a>
+                              <a href="tel:+78125563326" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">556-33-26</a>
                             </span>
                           </p>
                         </div>
@@ -587,7 +587,7 @@ const HouseDetail = () => {
                         <div className="space-y-2 text-sm">
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
-                            <a href="tel:+78124024245" className="text-primary hover:underline">
+                            <a href="tel:+78124024245" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">
                               +7 (812) 402-42-45
                             </a>
                           </p>
@@ -627,7 +627,7 @@ const HouseDetail = () => {
                         <div className="space-y-2 text-sm">
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
-                            <a href="tel:+78124024245" className="text-primary hover:underline">
+                            <a href="tel:+78124024245" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">
                               +7 (812) 402-42-45
                             </a>
                           </p>
@@ -665,7 +665,7 @@ const HouseDetail = () => {
                         <div className="space-y-2 text-sm">
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
-                            <a href="tel:+79319648122" className="text-primary hover:underline">
+                            <a href="tel:+79319648122" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">
                               8-931-964-81-22
                             </a>
                           </p>
@@ -693,7 +693,7 @@ const HouseDetail = () => {
                         <div className="space-y-2 text-sm">
                           <p className="flex items-center gap-2">
                             <Icon name="Phone" size={16} className="flex-shrink-0" />
-                            <a href="tel:+78125096893" className="text-primary hover:underline">
+                            <a href="tel:+78125096893" className="text-blue-600 hover:text-blue-700 hover:underline font-semibold">
                               509-68-93
                             </a>
                           </p>
