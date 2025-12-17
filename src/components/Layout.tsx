@@ -264,6 +264,12 @@ const Layout = ({ children }: LayoutProps) => {
                     uk.nash-dom@mail.ru
                   </a>
                 </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Mail" size={16} />
+                  <a href="mailto:dirukdom@mail.ru" className="hover:opacity-100">
+                    Отдел контроля качества: dirukdom@mail.ru
+                  </a>
+                </div>
               </div>
             </div>
 
