@@ -292,6 +292,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Полюстрово»",
+    image: "https://cdn.poehali.dev/files/62 7 (1).jpg",
   },
   {
     id: "spb-malaya-buharestskaya-12str1",
