@@ -656,6 +656,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш Дом Новоселье»",
+    image: "https://cdn.poehali.dev/files/1.1.jpg",
   },
   {
     id: "spb-sad-vremeni",
