@@ -112,7 +112,7 @@ const NewYearFireworks = () => {
 
       <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-center">
         <h1 
-          className="text-5xl md:text-7xl lg:text-8xl font-bold animate-pulse"
+          className="text-5xl md:text-7xl lg:text-9xl font-bold animate-pulse"
           style={{
             color: '#FFD700',
             textShadow: `
@@ -129,9 +129,9 @@ const NewYearFireworks = () => {
             letterSpacing: '0.05em'
           }}
         >
-          С НАСТУПАЮЩИМ
+          С НОВЫМ
           <br />
-          НОВЫМ ГОДОМ!
+          2026 ГОДОМ!
         </h1>
       </div>
 
