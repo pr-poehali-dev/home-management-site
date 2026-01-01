@@ -60,9 +60,9 @@ const NewYearFireworks = () => {
     const interval = setInterval(() => {
       setFireworks(prev => {
         const newFirework = createFirework();
-        return [...prev.slice(-15), newFirework];
+        return [...prev.slice(-20), newFirework];
       });
-    }, 400);
+    }, 150);
 
     return () => clearInterval(interval);
   }, []);
