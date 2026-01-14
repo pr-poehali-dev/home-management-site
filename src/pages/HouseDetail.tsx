@@ -574,8 +574,11 @@ const HouseDetail = () => {
                     </div>
                   </div>
                 ) : (house.address.includes("пр. Строителей, д. 1") || 
+                  house.address.includes("пр. Строителей, д. 2") || 
                   house.address.includes("пр. Строителей, д. 3") || 
+                  house.address.includes("пр. Строителей, д. 4") || 
                   house.address.includes("пр. Строителей, д. 5") || 
+                  house.address.includes("пр. Строителей, д. 6") || 
                   house.address.includes("ул. Солнечная, д. 2") || 
                   house.address.includes("ул. Солнечная, д. 12")) && house.city === "Кудрово" ? (
                   <div className="space-y-4 text-muted-foreground">
