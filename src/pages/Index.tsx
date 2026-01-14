@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import RunningLine from "@/components/RunningLine";
 import YandexMap from "@/components/YandexMap";
-import NewYearFireworks from "@/components/NewYearFireworks";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +41,7 @@ const Index = () => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
-  const [isCharacterDeflating, setIsCharacterDeflating] = useState(false);
+
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -170,7 +170,6 @@ const Index = () => {
 
   return (
     <Layout>
-      <NewYearFireworks />
       <RunningLine text={getContent('running_line_text', 'Дорогие друзья! 2025 год для нас стал особенным, мы стали совсем взрослыми, нам исполнилось 18 лет! В связи с чем пришло время перемен, так что давайте знакомиться заново.')} />
       <div 
         className="fixed inset-0 z-0"
@@ -204,25 +203,7 @@ const Index = () => {
         </defs>
       </svg>
       
-      <div 
-        className={`running-character ${isCharacterDeflating ? 'character-deflating' : ''}`}
-        onClick={() => {
-          if (!isCharacterDeflating) {
-            setIsCharacterDeflating(true);
-            setTimeout(() => {
-              setIsCharacterDeflating(false);
-            }, 8000);
-          }
-        }}
-        style={{ cursor: 'pointer' }}
-      >
-        <img 
-          src="https://cdn.poehali.dev/files/10057953-8a2e-440e-be01-e3f0f5d32c05_0567dc02-1482-483f-a2ec-8ce68670e4dd.png" 
-          alt="Наш Дом"
-          className="character-img"
-          style={{ filter: 'url(#remove-white)' }}
-        />
-      </div>
+
       
       <section className="relative py-16 md:py-24 overflow-hidden min-h-[600px] md:min-h-[700px] z-10">
         <div className="container mx-auto px-4 relative">
