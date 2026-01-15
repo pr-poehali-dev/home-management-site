@@ -352,7 +352,7 @@ const HouseDetail = () => {
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      <div className="mb-4 relative group cursor-pointer w-24 h-24">
+                      <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <img 
                             src={currentManagerPhoto || house.managerPhoto} 
@@ -364,26 +364,6 @@ const HouseDetail = () => {
                             <Icon name="User" size={32} className="text-muted-foreground" />
                           </div>
                         )}
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            disabled={uploading}
-                            onClick={() => {
-                              const input = document.createElement('input');
-                              input.type = 'file';
-                              input.accept = 'image/*';
-                              input.onchange = (e) => {
-                                const file = (e.target as HTMLInputElement).files?.[0];
-                                if (file) handleImageUpload(file, 'manager');
-                              };
-                              input.click();
-                            }}
-                            className="text-xs px-2 py-1 h-auto"
-                          >
-                            <Icon name="Upload" size={12} />
-                          </Button>
-                        </div>
                       </div>
                       <p className="text-sm font-medium mb-3">{house.manager}</p>
                       <a
