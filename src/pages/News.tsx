@@ -239,8 +239,8 @@ const News = () => {
                 <DialogTitle className="text-2xl">{selectedNews?.title}</DialogTitle>
               </DialogHeader>
               {selectedNews?.imageUrl && (
-                <div className="aspect-video rounded-lg overflow-hidden mb-6">
-                  <img src={selectedNews.imageUrl} alt={selectedNews.title} className="w-full h-full object-cover" />
+                <div className="rounded-lg overflow-hidden mb-6">
+                  <img src={selectedNews.imageUrl} alt={selectedNews.title} className="w-full" />
                 </div>
               )}
               {selectedNews?.videoUrl && (
