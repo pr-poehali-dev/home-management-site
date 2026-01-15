@@ -42,6 +42,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -288,12 +289,26 @@ const News = () => {
                       input.onchange = async (e) => {
                         const file = (e.target as HTMLInputElement).files?.[0];
                         if (file) {
+                          // Проверка размера (макс 50 МБ)
+                          const maxSize = 50 * 1024 * 1024;
+                          if (file.size > maxSize) {
+                            alert('Файл слишком большой. Максимальный размер: 50 МБ');
+                            return;
+                          }
+                          
                           setUploadingVideo(true);
+                          setUploadProgress(0);
+                          
                           try {
+                            setUploadProgress(10);
+                            
                             // Конвертируем файл в base64
                             const reader = new FileReader();
                             reader.onload = async () => {
+                              setUploadProgress(30);
                               const base64 = (reader.result as string).split(',')[1];
+                              
+                              setUploadProgress(50);
                               
                               // Загружаем через backend
                               const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
@@ -304,6 +319,8 @@ const News = () => {
                                   contentType: file.type
                                 })
                               });
+                              
+                              setUploadProgress(80);
                               const data = await response.json();
                               
                               // Обновляем videoUrl текущей новости
@@ -313,13 +330,18 @@ const News = () => {
                                 setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
                               }
                               
-                              setUploadingVideo(false);
+                              setUploadProgress(100);
+                              setTimeout(() => {
+                                setUploadingVideo(false);
+                                setUploadProgress(0);
+                              }, 500);
                             };
                             
                             reader.onerror = () => {
                               console.error('Ошибка чтения файла');
                               alert('Ошибка чтения файла');
                               setUploadingVideo(false);
+                              setUploadProgress(0);
                             };
                             
                             reader.readAsDataURL(file);
@@ -327,6 +349,7 @@ const News = () => {
                             console.error('Ошибка загрузки видео:', error);
                             alert('Ошибка загрузки видео');
                             setUploadingVideo(false);
+                            setUploadProgress(0);
                           }
                         }
                       };
@@ -336,14 +359,22 @@ const News = () => {
                     className="w-full"
                   >
                     {uploadingVideo ? (
-                      <>
-                        <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
-                        Загрузка видео...
-                      </>
+                      <div className="w-full">
+                        <div className="flex items-center justify-center mb-2">
+                          <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
+                          Загрузка видео... {uploadProgress}%
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-2">
+                          <div 
+                            className="bg-primary h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${uploadProgress}%` }}
+                          />
+                        </div>
+                      </div>
                     ) : (
                       <>
                         <Icon name="Upload" size={16} className="mr-2" />
-                        Загрузить видео
+                        Загрузить видео (макс. 50 МБ)
                       </>
                     )}
                   </Button>
