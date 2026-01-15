@@ -290,34 +290,42 @@ const News = () => {
                         if (file) {
                           setUploadingVideo(true);
                           try {
-                            // Получаем presigned URL
-                            const response = await fetch('https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({
-                                type: 'video',
-                                contentType: file.type
-                              })
-                            });
-                            const data = await response.json();
+                            // Конвертируем файл в base64
+                            const reader = new FileReader();
+                            reader.onload = async () => {
+                              const base64 = (reader.result as string).split(',')[1];
+                              
+                              // Загружаем через backend
+                              const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                  video: base64,
+                                  contentType: file.type
+                                })
+                              });
+                              const data = await response.json();
+                              
+                              // Обновляем videoUrl текущей новости
+                              if (selectedNews) {
+                                const updatedNews = { ...selectedNews, videoUrl: data.url };
+                                setSelectedNews(updatedNews);
+                                setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
+                              }
+                              
+                              setUploadingVideo(false);
+                            };
                             
-                            // Загружаем файл
-                            await fetch(data.uploadUrl, {
-                              method: 'PUT',
-                              headers: { 'Content-Type': file.type },
-                              body: file
-                            });
+                            reader.onerror = () => {
+                              console.error('Ошибка чтения файла');
+                              alert('Ошибка чтения файла');
+                              setUploadingVideo(false);
+                            };
                             
-                            // Обновляем videoUrl текущей новости
-                            if (selectedNews) {
-                              const updatedNews = { ...selectedNews, videoUrl: data.cdnUrl };
-                              setSelectedNews(updatedNews);
-                              setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
-                            }
+                            reader.readAsDataURL(file);
                           } catch (error) {
                             console.error('Ошибка загрузки видео:', error);
                             alert('Ошибка загрузки видео');
-                          } finally {
                             setUploadingVideo(false);
                           }
                         }
