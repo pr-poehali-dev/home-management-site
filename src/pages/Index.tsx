@@ -141,8 +141,14 @@ const Index = () => {
         if (!hasMaxNews) newsToAdd.push(maxNews);
         const finalNews = [...newsToAdd, ...filteredNews];
         
-        // Берём только последние 3 новости
-        const displayNews = finalNews.slice(0, 3).map(news => 
+        // Сортируем по дате (новые сверху) и берём 3 последние
+        const sortedNews = finalNews.sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+          return dateB - dateA;
+        });
+        
+        const displayNews = sortedNews.slice(0, 3).map(news => 
           news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news
         );
         
