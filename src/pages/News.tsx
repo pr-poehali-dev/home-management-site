@@ -195,8 +195,8 @@ const News = () => {
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
                   {news.videoUrl && (
-                    <div className="mb-3 aspect-video rounded-lg overflow-hidden bg-muted">
-                      <Icon name="Video" size={32} className="mx-auto mt-8 text-muted-foreground" />
+                    <div className="mb-3 aspect-video rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+                      <Icon name="Video" size={32} className="text-muted-foreground" />
                     </div>
                   )}
                   <p className="text-sm text-muted-foreground line-clamp-3">
@@ -235,13 +235,33 @@ const News = () => {
                 <DialogTitle className="text-2xl">{selectedNews?.title}</DialogTitle>
               </DialogHeader>
               {selectedNews?.videoUrl && (
-                <div className="mt-4 aspect-video rounded-lg overflow-hidden">
-                  <iframe
-                    src={selectedNews.videoUrl}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                <div className="mt-4">
+                  {selectedNews.videoUrl.includes('yandex.ru') ? (
+                    <a
+                      href={selectedNews.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-6 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+                    >
+                      <div className="flex-shrink-0 w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <Icon name="Video" size={32} className="text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold mb-1">Смотреть видео</div>
+                        <div className="text-sm text-muted-foreground">Откроется в новом окне</div>
+                      </div>
+                      <Icon name="ExternalLink" size={20} className="text-muted-foreground" />
+                    </a>
+                  ) : (
+                    <div className="aspect-video rounded-lg overflow-hidden">
+                      <iframe
+                        src={selectedNews.videoUrl}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  )}
                 </div>
               )}
               <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
