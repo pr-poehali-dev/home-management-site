@@ -41,6 +41,7 @@ const News = () => {
   const [allNews, setAllNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -277,6 +278,70 @@ const News = () => {
               <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
                 {selectedNews?.content}
               </div>
+              
+              {selectedNews?.tag === "Обо всём" && !selectedNews?.videoUrl && (
+                <div className="mt-6 border-t pt-6">
+                  <Button
+                    onClick={() => {
+                      const input = document.createElement('input');
+                      input.type = 'file';
+                      input.accept = 'video/*';
+                      input.onchange = async (e) => {
+                        const file = (e.target as HTMLInputElement).files?.[0];
+                        if (file) {
+                          setUploadingVideo(true);
+                          try {
+                            // Получаем presigned URL
+                            const response = await fetch('https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                type: 'video',
+                                contentType: file.type
+                              })
+                            });
+                            const data = await response.json();
+                            
+                            // Загружаем файл
+                            await fetch(data.uploadUrl, {
+                              method: 'PUT',
+                              headers: { 'Content-Type': file.type },
+                              body: file
+                            });
+                            
+                            // Обновляем videoUrl текущей новости
+                            if (selectedNews) {
+                              const updatedNews = { ...selectedNews, videoUrl: data.cdnUrl };
+                              setSelectedNews(updatedNews);
+                              setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
+                            }
+                          } catch (error) {
+                            console.error('Ошибка загрузки видео:', error);
+                            alert('Ошибка загрузки видео');
+                          } finally {
+                            setUploadingVideo(false);
+                          }
+                        }
+                      };
+                      input.click();
+                    }}
+                    disabled={uploadingVideo}
+                    className="w-full"
+                  >
+                    {uploadingVideo ? (
+                      <>
+                        <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
+                        Загрузка видео...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="Upload" size={16} className="mr-2" />
+                        Загрузить видео
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
             </DialogContent>
           </Dialog>
 
