@@ -42,7 +42,19 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     content_type = body_data.get('contentType', 'application/pdf')
     
     # Определяем расширение по content type
-    extension = 'pdf' if 'pdf' in content_type else 'jpg'
+    if 'pdf' in content_type:
+        extension = 'pdf'
+    elif 'video' in content_type:
+        if 'mp4' in content_type:
+            extension = 'mp4'
+        elif 'webm' in content_type:
+            extension = 'webm'
+        elif 'quicktime' in content_type:
+            extension = 'mov'
+        else:
+            extension = 'mp4'
+    else:
+        extension = 'jpg'
     file_name = f"{file_type}-{uuid.uuid4()}.{extension}"
     
     s3 = boto3.client('s3',

@@ -252,6 +252,16 @@ const News = () => {
                       </div>
                       <Icon name="ExternalLink" size={20} className="text-muted-foreground" />
                     </a>
+                  ) : selectedNews.videoUrl.includes('cdn.poehali.dev') || selectedNews.videoUrl.includes('.mp4') || selectedNews.videoUrl.includes('.webm') || selectedNews.videoUrl.includes('.mov') ? (
+                    <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                      <video
+                        src={selectedNews.videoUrl}
+                        controls
+                        className="w-full h-full"
+                      >
+                        Ваш браузер не поддерживает воспроизведение видео.
+                      </video>
+                    </div>
                   ) : (
                     <div className="aspect-video rounded-lg overflow-hidden">
                       <iframe
