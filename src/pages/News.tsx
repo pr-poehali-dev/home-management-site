@@ -310,31 +310,50 @@ const News = () => {
                               
                               setUploadProgress(50);
                               
-                              // Загружаем через backend
-                              const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                  video: base64,
-                                  contentType: file.type
-                                })
-                              });
+                              // Загружаем через backend с таймаутом
+                              const controller = new AbortController();
+                              const timeout = setTimeout(() => controller.abort(), 120000); // 2 минуты
                               
-                              setUploadProgress(80);
-                              const data = await response.json();
-                              
-                              // Обновляем videoUrl текущей новости
-                              if (selectedNews) {
-                                const updatedNews = { ...selectedNews, videoUrl: data.url };
-                                setSelectedNews(updatedNews);
-                                setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
+                              try {
+                                const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({
+                                    video: base64,
+                                    contentType: file.type
+                                  }),
+                                  signal: controller.signal
+                                });
+                                clearTimeout(timeout);
+                                
+                                setUploadProgress(80);
+                                
+                                if (!response.ok) {
+                                  const errorData = await response.json();
+                                  throw new Error(errorData.error || 'Ошибка загрузки видео');
+                                }
+                                
+                                const data = await response.json();
+                                
+                                // Обновляем videoUrl текущей новости
+                                if (selectedNews) {
+                                  const updatedNews = { ...selectedNews, videoUrl: data.url };
+                                  setSelectedNews(updatedNews);
+                                  setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
+                                }
+                                
+                                setUploadProgress(100);
+                                setTimeout(() => {
+                                  setUploadingVideo(false);
+                                  setUploadProgress(0);
+                                }, 500);
+                              } catch (uploadError) {
+                                clearTimeout(timeout);
+                                if (uploadError instanceof Error && uploadError.name === 'AbortError') {
+                                  throw new Error('Превышено время ожидания загрузки. Попробуйте файл меньшего размера.');
+                                }
+                                throw uploadError;
                               }
-                              
-                              setUploadProgress(100);
-                              setTimeout(() => {
-                                setUploadingVideo(false);
-                                setUploadProgress(0);
-                              }, 500);
                             };
                             
                             reader.onerror = () => {
