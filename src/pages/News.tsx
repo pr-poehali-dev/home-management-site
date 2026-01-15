@@ -114,7 +114,7 @@ const News = () => {
           date: "2026-01-15",
           tag: "Обо всём",
           content: "Посмотрите короткое видео о жизни в нашем жилом комплексе и работе управляющей компании.",
-          videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+          videoUrl: "https://disk.yandex.ru/d/w50rl-qi2dWyww"
         };
         
         const finalNews = [videoNews, ...newsToAdd, ...filteredNews];
