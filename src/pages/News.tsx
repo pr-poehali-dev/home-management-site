@@ -194,8 +194,8 @@ const News = () => {
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
                   {news.imageUrl && (
-                    <div className="mb-3 aspect-video rounded-lg overflow-hidden">
-                      <img src={news.imageUrl} alt={news.title} className="w-full h-full object-cover" />
+                    <div className="mb-3 rounded-lg overflow-hidden">
+                      <img src={news.imageUrl} alt={news.title} className="w-full" />
                     </div>
                   )}
                   {news.videoUrl && !news.imageUrl && (
