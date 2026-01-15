@@ -43,13 +43,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             
             if tag and tag != 'Все':
                 cursor.execute(
-                    "SELECT id, title, content, tag, TO_CHAR(published_date, 'DD Month YYYY') as date "
+                    "SELECT id, title, content, tag, video_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
                     "FROM news WHERE tag = %s ORDER BY published_date DESC",
                     (tag,)
                 )
             else:
                 cursor.execute(
-                    "SELECT id, title, content, tag, TO_CHAR(published_date, 'DD Month YYYY') as date "
+                    "SELECT id, title, content, tag, video_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
                     "FROM news ORDER BY published_date DESC"
                 )
             
@@ -84,6 +84,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             title = body_data.get('title')
             content = body_data.get('content')
             tag = body_data.get('tag')
+            video_url = body_data.get('video_url')
             
             if not title or not content or not tag:
                 return {
@@ -97,8 +98,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             
             cursor.execute(
-                "INSERT INTO news (title, content, tag) VALUES (%s, %s, %s) RETURNING id",
-                (title, content, tag)
+                "INSERT INTO news (title, content, tag, video_url) VALUES (%s, %s, %s, %s) RETURNING id",
+                (title, content, tag, video_url)
             )
             news_id = cursor.fetchone()['id']
             conn.commit()
@@ -175,21 +176,41 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             title = body_data.get('title')
             content = body_data.get('content')
             tag = body_data.get('tag')
+            video_url = body_data.get('video_url')
             
-            if not news_id or not title or not content or not tag:
+            if not news_id:
                 return {
                     'statusCode': 400,
                     'headers': {
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': '*'
                     },
-                    'body': json.dumps({'error': 'Необходимы поля: id, title, content, tag'}, ensure_ascii=False),
+                    'body': json.dumps({'error': 'Необходимо поле: id'}, ensure_ascii=False),
                     'isBase64Encoded': False
                 }
             
+            update_fields = []
+            update_values = []
+            
+            if title:
+                update_fields.append('title = %s')
+                update_values.append(title)
+            if content:
+                update_fields.append('content = %s')
+                update_values.append(content)
+            if tag:
+                update_fields.append('tag = %s')
+                update_values.append(tag)
+            if video_url is not None:
+                update_fields.append('video_url = %s')
+                update_values.append(video_url)
+            
+            update_fields.append('updated_at = CURRENT_TIMESTAMP')
+            update_values.append(news_id)
+            
             cursor.execute(
-                "UPDATE news SET title = %s, content = %s, tag = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s",
-                (title, content, tag, news_id)
+                f"UPDATE news SET {', '.join(update_fields)} WHERE id = %s",
+                tuple(update_values)
             )
             conn.commit()
             

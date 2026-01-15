@@ -106,7 +106,10 @@ const News = () => {
         };
         
         // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новости СМИ
-        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ");
+        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: any) => ({
+          ...n,
+          videoUrl: n.video_url
+        }));
         const newsToAdd: NewsItem[] = [];
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
         if (!hasMaxNews) newsToAdd.push(maxNews);
@@ -335,8 +338,20 @@ const News = () => {
                             
                             const data = await response.json();
                             
-                            // Обновляем videoUrl текущей новости
+                            // Сохраняем videoUrl в базу данных
                             if (selectedNews) {
+                              await fetch('https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555', {
+                                method: 'PUT',
+                                headers: { 
+                                  'Content-Type': 'application/json',
+                                  'X-Admin-Key': 'admin123'
+                                },
+                                body: JSON.stringify({
+                                  id: selectedNews.id,
+                                  video_url: data.url
+                                })
+                              });
+                              
                               const updatedNews = { ...selectedNews, videoUrl: data.url };
                               setSelectedNews(updatedNews);
                               setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
