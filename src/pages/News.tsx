@@ -18,6 +18,7 @@ interface NewsItem {
   tag: string;
   content: string;
   videoUrl?: string;
+  imageUrl?: string;
 }
 
 const formatDate = (dateString: string): string => {
@@ -105,10 +106,11 @@ const News = () => {
 Мы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
         };
         
-        // Фильтруем старые новости категории "Новое о ЖКХ" и маппим video_url -> videoUrl
+        // Фильтруем старые новости категории "Новое о ЖКХ" и маппим video_url -> videoUrl, image_url -> imageUrl
         const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: any) => ({
           ...n,
-          videoUrl: n.video_url
+          videoUrl: n.video_url,
+          imageUrl: n.image_url
         }));
         const newsToAdd: NewsItem[] = [];
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
@@ -191,7 +193,12 @@ const News = () => {
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
-                  {news.videoUrl && (
+                  {news.imageUrl && (
+                    <div className="mb-3 aspect-video rounded-lg overflow-hidden">
+                      <img src={news.imageUrl} alt={news.title} className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  {news.videoUrl && !news.imageUrl && (
                     <div className="mb-3 aspect-video rounded-lg overflow-hidden bg-muted flex items-center justify-center">
                       <Icon name="Video" size={32} className="text-muted-foreground" />
                     </div>
@@ -231,6 +238,11 @@ const News = () => {
                 </div>
                 <DialogTitle className="text-2xl">{selectedNews?.title}</DialogTitle>
               </DialogHeader>
+              {selectedNews?.imageUrl && (
+                <div className="aspect-video rounded-lg overflow-hidden mb-6">
+                  <img src={selectedNews.imageUrl} alt={selectedNews.title} className="w-full h-full object-cover" />
+                </div>
+              )}
               {selectedNews?.videoUrl && (
                 <div className="mt-4">
                   {selectedNews.videoUrl.includes('yandex.ru') ? (
