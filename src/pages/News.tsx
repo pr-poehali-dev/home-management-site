@@ -302,71 +302,51 @@ const News = () => {
                           try {
                             setUploadProgress(10);
                             
-                            // Конвертируем файл в base64
-                            const reader = new FileReader();
-                            reader.onload = async () => {
-                              setUploadProgress(30);
-                              const base64 = (reader.result as string).split(',')[1];
-                              
-                              setUploadProgress(50);
-                              
-                              // Загружаем через backend с таймаутом
-                              const controller = new AbortController();
-                              const timeout = setTimeout(() => controller.abort(), 120000); // 2 минуты
-                              
-                              try {
-                                const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
-                                  method: 'POST',
-                                  headers: { 'Content-Type': 'application/json' },
-                                  body: JSON.stringify({
-                                    video: base64,
-                                    contentType: file.type
-                                  }),
-                                  signal: controller.signal
-                                });
-                                clearTimeout(timeout);
-                                
-                                setUploadProgress(80);
-                                
-                                if (!response.ok) {
-                                  const errorData = await response.json();
-                                  throw new Error(errorData.error || 'Ошибка загрузки видео');
-                                }
-                                
-                                const data = await response.json();
-                                
-                                // Обновляем videoUrl текущей новости
-                                if (selectedNews) {
-                                  const updatedNews = { ...selectedNews, videoUrl: data.url };
-                                  setSelectedNews(updatedNews);
-                                  setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
-                                }
-                                
-                                setUploadProgress(100);
-                                setTimeout(() => {
-                                  setUploadingVideo(false);
-                                  setUploadProgress(0);
-                                }, 500);
-                              } catch (uploadError) {
-                                clearTimeout(timeout);
-                                if (uploadError instanceof Error && uploadError.name === 'AbortError') {
-                                  throw new Error('Превышено время ожидания загрузки. Попробуйте файл меньшего размера.');
-                                }
-                                throw uploadError;
-                              }
-                            };
+                            // Шаг 1: Получаем presigned URL для прямой загрузки
+                            const presignResponse = await fetch('https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                type: 'video',
+                                contentType: file.type
+                              })
+                            });
                             
-                            reader.onerror = () => {
-                              console.error('Ошибка чтения файла');
-                              alert('Ошибка чтения файла');
+                            if (!presignResponse.ok) {
+                              throw new Error('Ошибка получения URL для загрузки');
+                            }
+                            
+                            const { uploadUrl, cdnUrl } = await presignResponse.json();
+                            setUploadProgress(30);
+                            
+                            // Шаг 2: Загружаем файл напрямую в S3
+                            const uploadResponse = await fetch(uploadUrl, {
+                              method: 'PUT',
+                              headers: { 'Content-Type': file.type },
+                              body: file
+                            });
+                            
+                            if (!uploadResponse.ok) {
+                              throw new Error('Ошибка загрузки видео');
+                            }
+                            
+                            setUploadProgress(80);
+                            
+                            // Обновляем videoUrl текущей новости
+                            if (selectedNews) {
+                              const updatedNews = { ...selectedNews, videoUrl: cdnUrl };
+                              setSelectedNews(updatedNews);
+                              setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
+                            }
+                            
+                            setUploadProgress(100);
+                            setTimeout(() => {
                               setUploadingVideo(false);
                               setUploadProgress(0);
-                            };
-                            
-                            reader.readAsDataURL(file);
+                            }, 500);
                           } catch (error) {
                             console.error('Ошибка загрузки видео:', error);
-                            alert('Ошибка загрузки видео');
+                            alert(error instanceof Error ? error.message : 'Ошибка загрузки видео');
                             setUploadingVideo(false);
                             setUploadProgress(0);
                           }
