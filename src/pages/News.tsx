@@ -289,10 +289,10 @@ const News = () => {
                       input.onchange = async (e) => {
                         const file = (e.target as HTMLInputElement).files?.[0];
                         if (file) {
-                          // Проверка размера (макс 50 МБ)
-                          const maxSize = 50 * 1024 * 1024;
+                          // Проверка размера (макс 10 МБ для надежной загрузки)
+                          const maxSize = 10 * 1024 * 1024;
                           if (file.size > maxSize) {
-                            alert('Файл слишком большой. Максимальный размер: 50 МБ');
+                            alert('Файл слишком большой. Максимальный размер: 10 МБ.\n\nДля больших видео используйте YouTube или VK Video, затем укажите ссылку.');
                             return;
                           }
                           
@@ -300,41 +300,44 @@ const News = () => {
                           setUploadProgress(0);
                           
                           try {
-                            setUploadProgress(10);
+                            setUploadProgress(20);
                             
-                            // Шаг 1: Получаем presigned URL для прямой загрузки
-                            const presignResponse = await fetch('https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e', {
+                            // Читаем файл как ArrayBuffer
+                            const arrayBuffer = await file.arrayBuffer();
+                            const uint8Array = new Uint8Array(arrayBuffer);
+                            
+                            // Конвертируем в base64
+                            let binary = '';
+                            const chunkSize = 0x8000;
+                            for (let i = 0; i < uint8Array.length; i += chunkSize) {
+                              binary += String.fromCharCode.apply(null, Array.from(uint8Array.subarray(i, i + chunkSize)));
+                            }
+                            const base64 = btoa(binary);
+                            
+                            setUploadProgress(50);
+                            
+                            // Загружаем через backend
+                            const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
                               method: 'POST',
                               headers: { 'Content-Type': 'application/json' },
                               body: JSON.stringify({
-                                type: 'video',
+                                video: base64,
                                 contentType: file.type
                               })
                             });
                             
-                            if (!presignResponse.ok) {
-                              throw new Error('Ошибка получения URL для загрузки');
-                            }
-                            
-                            const { uploadUrl, cdnUrl } = await presignResponse.json();
-                            setUploadProgress(30);
-                            
-                            // Шаг 2: Загружаем файл напрямую в S3
-                            const uploadResponse = await fetch(uploadUrl, {
-                              method: 'PUT',
-                              headers: { 'Content-Type': file.type },
-                              body: file
-                            });
-                            
-                            if (!uploadResponse.ok) {
-                              throw new Error('Ошибка загрузки видео');
-                            }
-                            
                             setUploadProgress(80);
+                            
+                            if (!response.ok) {
+                              const errorText = await response.text();
+                              throw new Error(`Ошибка загрузки: ${errorText}`);
+                            }
+                            
+                            const data = await response.json();
                             
                             // Обновляем videoUrl текущей новости
                             if (selectedNews) {
-                              const updatedNews = { ...selectedNews, videoUrl: cdnUrl };
+                              const updatedNews = { ...selectedNews, videoUrl: data.url };
                               setSelectedNews(updatedNews);
                               setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
                             }
@@ -373,10 +376,13 @@ const News = () => {
                     ) : (
                       <>
                         <Icon name="Upload" size={16} className="mr-2" />
-                        Загрузить видео (макс. 50 МБ)
+                        Загрузить видео (макс. 10 МБ)
                       </>
                     )}
                   </Button>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Для больших видео используйте YouTube/VK Video и вставьте ссылку
+                  </p>
                 </div>
               )}
             </DialogContent>
