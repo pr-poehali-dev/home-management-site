@@ -105,7 +105,7 @@ const News = () => {
 Мы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
         };
         
-        // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новости СМИ
+        // Фильтруем старые новости категории "Новое о ЖКХ" и маппим video_url -> videoUrl
         const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: any) => ({
           ...n,
           videoUrl: n.video_url
@@ -113,15 +113,8 @@ const News = () => {
         const newsToAdd: NewsItem[] = [];
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
         if (!hasMaxNews) newsToAdd.push(maxNews);
-        const videoNews: NewsItem = {
-          id: 997,
-          title: "Переустройство и перепланировка помещений в многоквартирных домах",
-          date: "2026-01-15",
-          tag: "Обо всём",
-          content: "Важная информация о правилах переустройства и перепланировки помещений в многоквартирных домах. Смотрите видео для подробностей."
-        };
         
-        const finalNews = [videoNews, ...newsToAdd, ...filteredNews];
+        const finalNews = [...newsToAdd, ...filteredNews];
         
         setAllNews(finalNews);
       } catch (error) {
