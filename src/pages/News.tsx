@@ -17,6 +17,7 @@ interface NewsItem {
   date: string;
   tag: string;
   content: string;
+  videoUrl?: string;
 }
 
 const formatDate = (dateString: string): string => {
@@ -107,7 +108,16 @@ const News = () => {
         const newsToAdd: NewsItem[] = [];
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
         if (!hasMaxNews) newsToAdd.push(maxNews);
-        const finalNews = [...newsToAdd, ...filteredNews];
+        const videoNews: NewsItem = {
+          id: 997,
+          title: "Видео о нашем жилом комплексе",
+          date: "2026-01-15",
+          tag: "Обо всём",
+          content: "Посмотрите короткое видео о жизни в нашем жилом комплексе и работе управляющей компании.",
+          videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        };
+        
+        const finalNews = [videoNews, ...newsToAdd, ...filteredNews];
         
         setAllNews(finalNews);
       } catch (error) {
@@ -184,6 +194,11 @@ const News = () => {
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
+                  {news.videoUrl && (
+                    <div className="mb-3 aspect-video rounded-lg overflow-hidden bg-muted">
+                      <Icon name="Video" size={32} className="mx-auto mt-8 text-muted-foreground" />
+                    </div>
+                  )}
                   <p className="text-sm text-muted-foreground line-clamp-3">
                     {news.content}
                   </p>
@@ -219,6 +234,16 @@ const News = () => {
                 </div>
                 <DialogTitle className="text-2xl">{selectedNews?.title}</DialogTitle>
               </DialogHeader>
+              {selectedNews?.videoUrl && (
+                <div className="mt-4 aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src={selectedNews.videoUrl}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              )}
               <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
                 {selectedNews?.content}
               </div>
