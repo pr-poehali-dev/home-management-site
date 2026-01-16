@@ -52,6 +52,9 @@ const News = () => {
         const data = await response.json();
         
         // Добавляем новости СМИ, если их ещё нет
+        const hasTariffNews = data.news?.some((n: NewsItem) => 
+          n.title.includes("Увеличение размера платы за ЖКУ")
+        );
         const hasMaxNews = data.news?.some((n: NewsItem) => 
           n.title.includes("СМИ о создании домовых чатов")
         );
@@ -59,6 +62,16 @@ const News = () => {
           n.title.includes("периоде охлаждения")
         );
         
+        const tariffIncreaseNews: NewsItem = {
+          id: 1000,
+          title: "Увеличение размера платы за ЖКУ с 01.01.2026",
+          date: "2026-01-16",
+          tag: "ВНИМАНИЕ",
+          content: `Уважаемые собственники!
+
+Уведомляем Вас, что с 01.01.2026 увеличивается размер платы за Жилищно-коммунальные услуги в соответствии с Распоряжениями Комитета по тарифам и ценовой политике Ленинградской области, Администрации Заневского городского поселения.`
+        };
+
         const maxNews: NewsItem = {
           id: 999,
           title: "СМИ о создании домовых чатов в национальном мессенджере MAX",
@@ -113,6 +126,7 @@ const News = () => {
           imageUrl: n.image_url
         }));
         const newsToAdd: NewsItem[] = [];
+        if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
         if (!hasMaxNews) newsToAdd.push(maxNews);
         
