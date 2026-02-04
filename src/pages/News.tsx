@@ -42,8 +42,6 @@ const News = () => {
   const [allNews, setAllNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
-  const [uploadingVideo, setUploadingVideo] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -300,125 +298,6 @@ const News = () => {
               <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
                 {selectedNews?.content}
               </div>
-              
-              {selectedNews?.tag === "Обо всём" && !selectedNews?.videoUrl && (
-                <div className="mt-6 border-t pt-6">
-                  <Button
-                    onClick={() => {
-                      const input = document.createElement('input');
-                      input.type = 'file';
-                      input.accept = 'video/*';
-                      input.onchange = async (e) => {
-                        const file = (e.target as HTMLInputElement).files?.[0];
-                        if (file) {
-                          // Проверка размера (макс 10 МБ для надежной загрузки)
-                          const maxSize = 10 * 1024 * 1024;
-                          if (file.size > maxSize) {
-                            alert('Файл слишком большой. Максимальный размер: 10 МБ.\n\nДля больших видео используйте YouTube или VK Video, затем укажите ссылку.');
-                            return;
-                          }
-                          
-                          setUploadingVideo(true);
-                          setUploadProgress(0);
-                          
-                          try {
-                            setUploadProgress(20);
-                            
-                            // Читаем файл как ArrayBuffer
-                            const arrayBuffer = await file.arrayBuffer();
-                            const uint8Array = new Uint8Array(arrayBuffer);
-                            
-                            // Конвертируем в base64
-                            let binary = '';
-                            const chunkSize = 0x8000;
-                            for (let i = 0; i < uint8Array.length; i += chunkSize) {
-                              binary += String.fromCharCode.apply(null, Array.from(uint8Array.subarray(i, i + chunkSize)));
-                            }
-                            const base64 = btoa(binary);
-                            
-                            setUploadProgress(50);
-                            
-                            // Загружаем через backend
-                            const response = await fetch('https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({
-                                video: base64,
-                                contentType: file.type
-                              })
-                            });
-                            
-                            setUploadProgress(80);
-                            
-                            if (!response.ok) {
-                              const errorText = await response.text();
-                              throw new Error(`Ошибка загрузки: ${errorText}`);
-                            }
-                            
-                            const data = await response.json();
-                            
-                            // Сохраняем videoUrl в базу данных
-                            if (selectedNews) {
-                              await fetch('https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555', {
-                                method: 'PUT',
-                                headers: { 
-                                  'Content-Type': 'application/json',
-                                  'X-Admin-Key': 'admin123'
-                                },
-                                body: JSON.stringify({
-                                  id: selectedNews.id,
-                                  video_url: data.url
-                                })
-                              });
-                              
-                              const updatedNews = { ...selectedNews, videoUrl: data.url };
-                              setSelectedNews(updatedNews);
-                              setAllNews(prev => prev.map(n => n.id === selectedNews.id ? updatedNews : n));
-                            }
-                            
-                            setUploadProgress(100);
-                            setTimeout(() => {
-                              setUploadingVideo(false);
-                              setUploadProgress(0);
-                            }, 500);
-                          } catch (error) {
-                            console.error('Ошибка загрузки видео:', error);
-                            alert(error instanceof Error ? error.message : 'Ошибка загрузки видео');
-                            setUploadingVideo(false);
-                            setUploadProgress(0);
-                          }
-                        }
-                      };
-                      input.click();
-                    }}
-                    disabled={uploadingVideo}
-                    className="w-full"
-                  >
-                    {uploadingVideo ? (
-                      <div className="w-full">
-                        <div className="flex items-center justify-center mb-2">
-                          <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
-                          Загрузка видео... {uploadProgress}%
-                        </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className="bg-primary h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${uploadProgress}%` }}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        <Icon name="Upload" size={16} className="mr-2" />
-                        Загрузить видео (макс. 10 МБ)
-                      </>
-                    )}
-                  </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Для больших видео используйте YouTube/VK Video и вставьте ссылку
-                  </p>
-                </div>
-              )}
             </DialogContent>
           </Dialog>
 
