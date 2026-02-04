@@ -209,7 +209,7 @@ const News = () => {
                   <h3 className="text-lg font-semibold mb-3">{news.title}</h3>
                   {news.imageUrl && (
                     <div className="mb-3 rounded-lg overflow-hidden">
-                      <img src={news.imageUrl} alt={news.title} className="w-full" />
+                      <img src={news.imageUrl} alt={news.title} className="w-full object-contain" />
                     </div>
                   )}
                   {news.videoUrl && !news.imageUrl && (
@@ -254,7 +254,7 @@ const News = () => {
               </DialogHeader>
               {selectedNews?.imageUrl && (
                 <div className="rounded-lg overflow-hidden mb-6">
-                  <img src={selectedNews.imageUrl} alt={selectedNews.title} className="w-full" />
+                  <img src={selectedNews.imageUrl} alt={selectedNews.title} className="w-full object-contain" />
                 </div>
               )}
               {selectedNews?.videoUrl && (
