@@ -351,6 +351,22 @@
     animation: running-line 30s linear infinite;
   }
 
+  @keyframes roll-across {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    50% {
+      transform: translateX(calc(50vw - 64px)) rotate(360deg);
+    }
+    100% {
+      transform: translateX(0) rotate(720deg);
+    }
+  }
+
+  .animate-roll-across {
+    animation: roll-across 2s ease-in-out;
+  }
+
   @keyframes urgent-pulse {
     0%,
     100% {

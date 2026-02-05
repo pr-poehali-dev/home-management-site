@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -10,6 +10,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const [isDeflating, setIsDeflating] = useState(false);
+  const [isRolling, setIsRolling] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { path: "/", label: "Главная" },
@@ -41,16 +44,29 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 relative">
+            <div 
+              className="flex items-center gap-3 relative cursor-pointer"
+              onClick={(e) => {
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  setIsRolling(true);
+                  setTimeout(() => setIsRolling(false), 2000);
+                } else {
+                  navigate('/');
+                }
+              }}
+            >
               <img 
                 src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d045ceeb-c5f9-40d9-8743-7fb2ce11ebb6.png" 
                 alt="НАШ ДОМ" 
-                className="w-28 h-28 rounded-full object-cover"
+                className={`w-28 h-28 rounded-full object-cover transition-transform ${
+                  isRolling ? 'animate-roll-across' : ''
+                }`}
               />
               <div>
                 <h1 className="text-2xl font-bold text-white">НАШ ДОМ</h1>
               </div>
-            </Link>
+            </div>
 
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
