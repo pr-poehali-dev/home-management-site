@@ -135,7 +135,11 @@ const Index = () => {
         };
         
         // Фильтруем старые новости категории "Новое о ЖКХ" и добавляем новости СМИ
-        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ" && n.tag !== "Архив");
+        const filteredNews = (data.news || []).filter((n: NewsItem) => 
+          n.tag !== "Новое о ЖКХ" && 
+          n.tag !== "Архив" && 
+          (n.tag === "ВНИМАНИЕ" || n.tag === "Важно!" || n.tag === "Собрание" || n.tag === "Обо всём" || n.tag === "Актуальное из СМИ")
+        );
         const newsToAdd: NewsItem[] = [];
         if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
         if (!hasMaxNews) newsToAdd.push(maxNews);
@@ -348,10 +352,13 @@ const Index = () => {
                           ? "bg-destructive"
                           : news.tag === "Актуальное из СМИ" || news.tag === "Новое о ЖКХ"
                           ? "bg-secondary"
+                          : news.tag === "Собрание"
+                          ? "bg-primary/90"
                           : "bg-primary"
                       }
                     >
                       {news.tag === "ВНИМАНИЕ" && <Icon name="Zap" size={14} className="mr-1" />}
+                      {news.tag === "Собрание" && <Icon name="Users" size={14} className="mr-1" />}
                       {news.tag}
                     </Badge>
                     <h3 className="font-semibold mt-4 mb-2">{news.title}</h3>
