@@ -45,10 +45,10 @@ const Layout = ({ children }: LayoutProps) => {
               <img 
                 src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d045ceeb-c5f9-40d9-8743-7fb2ce11ebb6.png" 
                 alt="НАШ ДОМ" 
-                className="w-20 h-20 rounded-full object-cover"
+                className="w-28 h-28 rounded-full object-cover"
               />
               <div>
-                <h1 className="text-xl font-bold text-white">НАШ ДОМ</h1>
+                <h1 className="text-2xl font-bold text-white">НАШ ДОМ</h1>
               </div>
             </Link>
 
