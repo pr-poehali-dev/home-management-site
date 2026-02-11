@@ -580,7 +580,7 @@ const companiesData: Record<string, CompanyInfo> = {
   "uk-biznes-sity-dom": {
     id: "uk-biznes-sity-dom",
     name: 'ООО «УК «Бизнес сити дом»',
-    director: "Скоробогатова Ксения Анатольевна",
+    director: "Саврандейкина Виктория Валерьевна",
     directorSchedule: "по предварительной записи",
     accountant: "Аколюшная Наталья Олеговна",
     accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
