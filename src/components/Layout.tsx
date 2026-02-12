@@ -30,15 +30,16 @@ const Layout = ({ children }: LayoutProps) => {
           {[...Array(40)].map((_, i) => (
             <div
               key={i}
-              className="snowflake absolute text-white opacity-70"
+              className="pancake absolute text-white opacity-80"
               style={{
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${4 + Math.random() * 3}s`,
-                fontSize: `${8 + Math.random() * 12}px`
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 4}s`,
+                fontSize: `${16 + Math.random() * 16}px`,
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
               }}
             >
-              ❄
+              🥞
             </div>
           ))}
         </div>
