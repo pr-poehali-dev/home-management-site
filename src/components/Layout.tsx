@@ -41,7 +41,7 @@ const Layout = ({ children }: LayoutProps) => {
               }}
             >
               <img 
-                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d045ceeb-c5f9-40d9-8743-7fb2ce11ebb6.png" 
+                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f8464d4d-360f-4198-9819-6d7978c34e10.jpg" 
                 alt="НАШ ДОМ" 
                 className={`w-28 h-28 rounded-full object-cover transition-transform ${
                   isRolling ? 'animate-roll-across' : ''
