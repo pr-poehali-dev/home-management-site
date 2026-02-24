@@ -26,23 +26,6 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(40)].map((_, i) => (
-            <div
-              key={i}
-              className="pancake absolute text-white opacity-80"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${5 + Math.random() * 4}s`,
-                fontSize: `${16 + Math.random() * 16}px`,
-                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
-              }}
-            >
-              🥞
-            </div>
-          ))}
-        </div>
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
             <div 
