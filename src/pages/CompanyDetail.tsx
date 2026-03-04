@@ -437,7 +437,7 @@ const companiesData: Record<string, CompanyInfo> = {
     directorSchedule: "по предварительной записи",
     accountant: "Скоробогатова Алла Владимировна",
     accountantSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
-    engineer: "Шевчук Анна Николаевна",
+    engineer: "Рябинин Андрей Владимирович",
     engineerSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     inn: "7802772117",
     kpp: "780401001",
