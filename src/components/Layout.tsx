@@ -8,6 +8,58 @@ interface LayoutProps {
   children: ReactNode;
 }
 
+const FLOWERS = ["🌸", "🌺", "🌼", "🌷", "💐", "🌹", "🪷"];
+
+const FallingFlowers = () => {
+  const flowers = Array.from({ length: 18 }, (_, i) => ({
+    id: i,
+    emoji: FLOWERS[i % FLOWERS.length],
+    left: `${(i * 5.5 + Math.sin(i * 1.3) * 4 + 2)}%`,
+    delay: `${(i * 0.37) % 3}s`,
+    duration: `${2.5 + (i % 5) * 0.4}s`,
+    size: `${14 + (i % 3) * 4}px`,
+    rotate: i % 2 === 0 ? "spin-cw" : "spin-ccw",
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <style>{`
+        @keyframes fall {
+          0% { transform: translateY(-30px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 0.8; }
+          100% { transform: translateY(110px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes fall-ccw {
+          0% { transform: translateY(-30px) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 0.8; }
+          100% { transform: translateY(110px) rotate(-360deg); opacity: 0; }
+        }
+        .flower-fall { animation: fall linear infinite; }
+        .flower-fall-ccw { animation: fall-ccw linear infinite; }
+      `}</style>
+      {flowers.map((f) => (
+        <span
+          key={f.id}
+          className={f.rotate === "spin-cw" ? "flower-fall" : "flower-fall-ccw"}
+          style={{
+            position: "absolute",
+            left: f.left,
+            top: "-10px",
+            fontSize: f.size,
+            animationDuration: f.duration,
+            animationDelay: f.delay,
+            lineHeight: 1,
+          }}
+        >
+          {f.emoji}
+        </span>
+      ))}
+    </div>
+  );
+};
+
 const Layout = ({ children }: LayoutProps) => {
   const [isDeflating, setIsDeflating] = useState(false);
   const [isRolling, setIsRolling] = useState(false);
@@ -26,6 +78,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire relative overflow-hidden">
+        <FallingFlowers />
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex items-center justify-between">
             <div 
