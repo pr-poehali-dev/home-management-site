@@ -41,7 +41,7 @@ const Layout = ({ children }: LayoutProps) => {
               }}
             >
               <img 
-                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/6c3f659b-8ce5-4f67-bae9-640aadce65b3.png" 
+                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f8464d4d-360f-4198-9819-6d7978c34e10.jpg" 
                 alt="НАШ ДОМ" 
                 className={`w-28 h-28 rounded-full object-cover transition-transform ${
                   isRolling ? 'animate-roll-across' : ''
@@ -158,7 +158,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/6c3f659b-8ce5-4f67-bae9-640aadce65b3.png" 
+                  src="https://cdn.poehali.dev/files/14eb97fa-77bb-472e-96a3-29f6ef0a52a8.jpg" 
                   alt="НАШ ДОМ" 
                   className="w-10 h-10 rounded-full object-cover"
                 />
