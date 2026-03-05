@@ -10,17 +10,7 @@ interface LayoutProps {
 
 const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
 
-const BOW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
-  <ellipse cx="18" cy="20" rx="16" ry="10" fill="#c084fc" opacity="0.9"/>
-  <ellipse cx="42" cy="20" rx="16" ry="10" fill="#a855f7" opacity="0.9"/>
-  <ellipse cx="30" cy="20" rx="6" ry="6" fill="#d8b4fe"/>
-  <path d="M30 26 Q26 34 22 38" stroke="#c084fc" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M30 26 Q34 34 38 38" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-</svg>`;
-
-const RIBBON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 60">
-  <path d="M10 0 Q14 15 8 30 Q12 45 10 60" stroke="#c084fc" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
-</svg>`;
+const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/9181cb88-c657-486a-9785-3621ff9d0359.png";
 
 const FallingFlowers = () => {
   const items = Array.from({ length: 22 }, (_, i) => {
@@ -74,19 +64,46 @@ const FallingFlowers = () => {
           }}
         >
           {item.type === "bow" ? (
-            <img
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(BOW_SVG)}`}
-              width={item.size}
-              height={Math.round(item.size * 0.66)}
-              alt=""
-            />
+            <div style={{
+              width: item.size,
+              height: item.size * 0.55,
+              overflow: "hidden",
+              position: "relative",
+            }}>
+              <img
+                src={LOGO_URL}
+                alt=""
+                style={{
+                  width: item.size,
+                  height: item.size,
+                  objectFit: "cover",
+                  objectPosition: "50% 0%",
+                  position: "absolute",
+                  top: 0,
+                }}
+              />
+            </div>
           ) : item.type === "ribbon" ? (
-            <img
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(RIBBON_SVG)}`}
-              width={item.size}
-              height={item.size * 3}
-              alt=""
-            />
+            <div style={{
+              width: item.size * 0.35,
+              height: item.size * 2.2,
+              overflow: "hidden",
+              position: "relative",
+            }}>
+              <img
+                src={LOGO_URL}
+                alt=""
+                style={{
+                  width: item.size * 1.4,
+                  height: item.size * 1.4,
+                  objectFit: "cover",
+                  objectPosition: "30% 80%",
+                  position: "absolute",
+                  top: 0,
+                  left: "-30%",
+                }}
+              />
+            </div>
           ) : (
             <span style={{ fontSize: item.size }}>{item.emoji}</span>
           )}
