@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -113,9 +113,82 @@ const FallingFlowers = () => {
   );
 };
 
+const AnimatedLogo = () => {
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const trigger = useCallback(() => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 1200);
+  }, [isAnimating]);
+
+  return (
+    <div
+      className="relative cursor-pointer select-none"
+      style={{ width: 112, height: 112 }}
+      onMouseEnter={trigger}
+      onClick={trigger}
+    >
+      <style>{`
+        @keyframes bow-sway {
+          0%   { transform: rotate(0deg) translateX(0px); }
+          15%  { transform: rotate(-8deg) translateX(-3px); }
+          35%  { transform: rotate(6deg) translateX(2px); }
+          55%  { transform: rotate(-4deg) translateX(-1px); }
+          75%  { transform: rotate(3deg) translateX(1px); }
+          90%  { transform: rotate(-1deg) translateX(0px); }
+          100% { transform: rotate(0deg) translateX(0px); }
+        }
+        @keyframes ribbon-spring {
+          0%   { transform: scaleY(1) translateY(0px); }
+          20%  { transform: scaleY(1.18) translateY(8px); }
+          40%  { transform: scaleY(0.88) translateY(-4px); }
+          60%  { transform: scaleY(1.1) translateY(5px); }
+          78%  { transform: scaleY(0.95) translateY(-2px); }
+          90%  { transform: scaleY(1.03) translateY(1px); }
+          100% { transform: scaleY(1) translateY(0px); }
+        }
+        .logo-bow-anim {
+          animation: bow-sway 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          transform-origin: center bottom;
+        }
+        .logo-ribbon-anim {
+          animation: ribbon-spring 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          transform-origin: center top;
+        }
+      `}</style>
+
+      {/* Base image — нижняя часть (ленточки), пружинит */}
+      <div
+        className={`absolute inset-0 overflow-hidden ${isAnimating ? "logo-ribbon-anim" : ""}`}
+        style={{ clipPath: "inset(50% 0 0 0)", transformOrigin: "center top" }}
+      >
+        <img
+          src={LOGO_URL}
+          alt=""
+          className="w-full h-full object-contain"
+          draggable={false}
+        />
+      </div>
+
+      {/* Верхняя часть (бант), колышется */}
+      <div
+        className={`absolute inset-0 overflow-hidden ${isAnimating ? "logo-bow-anim" : ""}`}
+        style={{ clipPath: "inset(0 0 50% 0)", transformOrigin: "center bottom" }}
+      >
+        <img
+          src={LOGO_URL}
+          alt="НАШ ДОМ"
+          className="w-full h-full object-contain"
+          draggable={false}
+        />
+      </div>
+    </div>
+  );
+};
+
 const Layout = ({ children }: LayoutProps) => {
-  const [isDeflating, setIsDeflating] = useState(false);
-  const [isRolling, setIsRolling] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -136,23 +209,13 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="flex items-center justify-between">
             <div 
               className="flex items-center gap-3 relative cursor-pointer"
-              onClick={(e) => {
-                if (location.pathname === '/') {
-                  e.preventDefault();
-                  setIsRolling(true);
-                  setTimeout(() => setIsRolling(false), 2000);
-                } else {
+              onClick={() => {
+                if (location.pathname !== '/') {
                   navigate('/');
                 }
               }}
             >
-              <img 
-                src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/9181cb88-c657-486a-9785-3621ff9d0359.png" 
-                alt="НАШ ДОМ" 
-                className={`w-28 h-28 object-contain transition-transform ${
-                  isRolling ? 'animate-roll-across' : ''
-                }`}
-              />
+              <AnimatedLogo />
               <div>
                 <h1 className="text-2xl font-bold text-white">НАШ ДОМ</h1>
               </div>
