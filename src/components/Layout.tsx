@@ -1,4 +1,4 @@
-import { ReactNode, useState, useCallback } from "react";
+import { ReactNode, useState, useCallback, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -114,13 +114,16 @@ const FallingFlowers = () => {
 };
 
 const AnimatedLogo = () => {
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [anim, setAnim] = useState<"sway" | "spin" | null>(null);
+  const countRef = useRef(0);
 
   const trigger = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 1600);
-  }, [isAnimating]);
+    if (anim) return;
+    countRef.current = (countRef.current + 1) % 2;
+    const next = countRef.current === 0 ? "sway" : "spin";
+    setAnim(next);
+    setTimeout(() => setAnim(null), next === "spin" ? 1400 : 1600);
+  }, [anim]);
 
   return (
     <>
@@ -134,15 +137,26 @@ const AnimatedLogo = () => {
           82%  { transform: rotate(-1.5deg); }
           100% { transform: rotate(0deg); }
         }
+        @keyframes logo-spin {
+          0%   { transform: rotateY(0deg) scale(1); }
+          25%  { transform: rotateY(180deg) scale(1.08); }
+          50%  { transform: rotateY(360deg) scale(1); }
+          75%  { transform: rotateY(540deg) scale(1.05); }
+          100% { transform: rotateY(720deg) scale(1); }
+        }
         .logo-sway-anim {
           animation: logo-sway 1.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
           transform-origin: center top;
+        }
+        .logo-spin-anim {
+          animation: logo-spin 1.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+          transform-origin: center center;
         }
       `}</style>
       <img
         src={LOGO_URL}
         alt="НАШ ДОМ"
-        className={`w-28 h-28 object-contain cursor-pointer select-none ${isAnimating ? "logo-sway-anim" : ""}`}
+        className={`w-28 h-28 object-contain cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
         draggable={false}
         onMouseEnter={trigger}
         onClick={trigger}
