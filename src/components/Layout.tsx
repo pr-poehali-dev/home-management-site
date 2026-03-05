@@ -8,52 +8,88 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const FLOWERS = ["🌸", "🌺", "🌼", "🌷", "💐", "🌹", "🪷"];
+const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
+
+const BOW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+  <ellipse cx="18" cy="20" rx="16" ry="10" fill="#c084fc" opacity="0.9"/>
+  <ellipse cx="42" cy="20" rx="16" ry="10" fill="#a855f7" opacity="0.9"/>
+  <ellipse cx="30" cy="20" rx="6" ry="6" fill="#d8b4fe"/>
+  <path d="M30 26 Q26 34 22 38" stroke="#c084fc" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M30 26 Q34 34 38 38" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>`;
+
+const RIBBON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 60">
+  <path d="M10 0 Q14 15 8 30 Q12 45 10 60" stroke="#c084fc" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
+</svg>`;
 
 const FallingFlowers = () => {
-  const flowers = Array.from({ length: 18 }, (_, i) => ({
-    id: i,
-    emoji: FLOWERS[i % FLOWERS.length],
-    left: `${(i * 5.5 + Math.sin(i * 1.3) * 4 + 2)}%`,
-    delay: `${(i * 0.37) % 3}s`,
-    duration: `${2.5 + (i % 5) * 0.4}s`,
-    size: `${14 + (i % 3) * 4}px`,
-    rotate: i % 2 === 0 ? "spin-cw" : "spin-ccw",
-  }));
+  const items = Array.from({ length: 22 }, (_, i) => {
+    const isBow = i % 3 === 0;
+    const isRibbon = i % 5 === 4;
+    return {
+      id: i,
+      type: isBow ? "bow" : isRibbon ? "ribbon" : "emoji",
+      emoji: ITEMS[i % ITEMS.length],
+      left: `${(i * 4.5 + Math.sin(i * 1.7) * 3 + 1)}%`,
+      delay: `${(i * 0.29) % 3.5}s`,
+      duration: `${2.8 + (i % 6) * 0.35}s`,
+      size: isBow ? 28 + (i % 3) * 6 : isRibbon ? 14 : 13 + (i % 3) * 4,
+      swing: i % 2 === 0,
+    };
+  });
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       <style>{`
-        @keyframes fall {
-          0% { transform: translateY(-30px) rotate(0deg); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 0.8; }
-          100% { transform: translateY(110px) rotate(360deg); opacity: 0; }
+        @keyframes fall-swing {
+          0%   { transform: translateY(-40px) rotate(-15deg); opacity: 0; }
+          10%  { opacity: 1; }
+          30%  { transform: translateY(30px) rotate(10deg); }
+          50%  { transform: translateY(60px) rotate(-8deg); }
+          70%  { transform: translateY(90px) rotate(6deg); }
+          90%  { opacity: 0.9; }
+          100% { transform: translateY(130px) rotate(-5deg); opacity: 0; }
         }
-        @keyframes fall-ccw {
-          0% { transform: translateY(-30px) rotate(0deg); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 0.8; }
-          100% { transform: translateY(110px) rotate(-360deg); opacity: 0; }
+        @keyframes fall-spin {
+          0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+          10%  { opacity: 1; }
+          90%  { opacity: 0.9; }
+          100% { transform: translateY(130px) rotate(270deg); opacity: 0; }
         }
-        .flower-fall { animation: fall linear infinite; }
-        .flower-fall-ccw { animation: fall-ccw linear infinite; }
+        .item-swing { animation: fall-swing ease-in-out infinite; }
+        .item-spin  { animation: fall-spin linear infinite; }
       `}</style>
-      {flowers.map((f) => (
+      {items.map((item) => (
         <span
-          key={f.id}
-          className={f.rotate === "spin-cw" ? "flower-fall" : "flower-fall-ccw"}
+          key={item.id}
+          className={item.swing ? "item-swing" : "item-spin"}
           style={{
             position: "absolute",
-            left: f.left,
+            left: item.left,
             top: "-10px",
-            fontSize: f.size,
-            animationDuration: f.duration,
-            animationDelay: f.delay,
+            animationDuration: item.duration,
+            animationDelay: item.delay,
             lineHeight: 1,
+            display: "inline-block",
           }}
         >
-          {f.emoji}
+          {item.type === "bow" ? (
+            <img
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(BOW_SVG)}`}
+              width={item.size}
+              height={Math.round(item.size * 0.66)}
+              alt=""
+            />
+          ) : item.type === "ribbon" ? (
+            <img
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(RIBBON_SVG)}`}
+              width={item.size}
+              height={item.size * 3}
+              alt=""
+            />
+          ) : (
+            <span style={{ fontSize: item.size }}>{item.emoji}</span>
+          )}
         </span>
       ))}
     </div>
