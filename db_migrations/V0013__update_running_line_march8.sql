@@ -1,0 +1,1 @@
+UPDATE site_content SET content = 'Милые женщины! Сияйте ярче солнца, будьте неотразимы! Пусть в вашей жизни всегда будет место весне. С 8 Марта!', updated_at = CURRENT_TIMESTAMP WHERE content_key = 'running_line_text';
