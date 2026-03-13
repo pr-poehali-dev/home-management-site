@@ -180,7 +180,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <RunningLine text={getContent('running_line_text', 'Милые женщины! Сияйте ярче солнца, будьте неотразимы! Пусть в вашей жизни всегда будет место весне. С 8 Марта!')} />
+      {getContent('running_line_text', '') && <RunningLine text={getContent('running_line_text', '')} />}
       <div 
         className="fixed inset-0 z-0"
         style={{

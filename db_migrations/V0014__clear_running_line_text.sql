@@ -1,0 +1,1 @@
+UPDATE site_content SET content = '', updated_at = CURRENT_TIMESTAMP WHERE content_key = 'running_line_text';
