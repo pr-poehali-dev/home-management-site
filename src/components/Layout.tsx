@@ -156,7 +156,7 @@ const AnimatedLogo = () => {
       <img
         src={LOGO_URL}
         alt="НАШ ДОМ"
-        className={`w-28 h-28 object-contain cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
+        className={`w-28 h-28 object-cover rounded-full cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
         draggable={false}
         onMouseEnter={trigger}
         onClick={trigger}
