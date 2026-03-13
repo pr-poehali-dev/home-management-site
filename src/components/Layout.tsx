@@ -305,9 +305,9 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/2fee2a71-a5b6-402a-a95f-33f4c2c675a4.png" 
+                  src={LOGO_URL}
                   alt="НАШ ДОМ" 
-                  className="w-10 h-10 object-contain"
+                  className="w-10 h-10 object-cover rounded-full"
                 />
                 <div>
                   <h3 className="font-bold">НАШ ДОМ</h3>
