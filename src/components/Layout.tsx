@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
 
-const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/9181cb88-c657-486a-9785-3621ff9d0359.png";
+const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/2dedb245-1786-4c60-b2e8-26159344cc2e.jpg";
 
 const FallingFlowers = () => {
   const items = Array.from({ length: 22 }, (_, i) => {
