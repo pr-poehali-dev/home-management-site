@@ -346,8 +346,8 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-secondary/5">
-                    <CardContent className="p-6">
+                  <Card className="bg-secondary/5 overflow-visible">
+                    <CardContent className="p-6 overflow-visible">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
@@ -355,7 +355,7 @@ const HouseDetail = () => {
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <div
-                            className="w-24 h-24 rounded-lg overflow-hidden select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl hover:z-10 relative"
+                            className="w-24 h-24 rounded-lg select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl hover:z-50 relative"
                             onContextMenu={(e) => e.preventDefault()}
                           >
                             <img 
