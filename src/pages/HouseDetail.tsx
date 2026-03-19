@@ -346,7 +346,7 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-secondary/5 overflow-visible">
+                  <Card className="bg-secondary/5 overflow-visible" style={{zIndex: 'auto'}}>
                     <CardContent className="p-6 overflow-visible">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
                         <Icon name="UserCircle" size={20} className="text-primary" />
@@ -355,8 +355,11 @@ const HouseDetail = () => {
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <div
-                            className="w-24 h-24 rounded-lg select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl hover:z-50 relative"
+                            className="w-24 h-24 rounded-lg select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl relative"
+                            style={{transformOrigin: 'top left'}}
                             onContextMenu={(e) => e.preventDefault()}
+                            onMouseEnter={(e) => (e.currentTarget.style.zIndex = '9999')}
+                            onMouseLeave={(e) => (e.currentTarget.style.zIndex = 'auto')}
                           >
                             <img 
                               src={currentManagerPhoto || house.managerPhoto} 
@@ -403,7 +406,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t relative z-0">
+                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
