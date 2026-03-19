@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +9,61 @@ import { houses } from "@/data/housesData";
 import ProtocolViewer from "@/components/ProtocolViewer";
 import { useToast } from "@/components/ui/use-toast";
 import funcUrls from "../../backend/func2url.json";
+
+const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
+  const [hovered, setHovered] = useState(false);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (ref.current) setRect(ref.current.getBoundingClientRect());
+    setHovered(true);
+  };
+  const handleMouseLeave = () => setHovered(false);
+
+  return (
+    <>
+      <div
+        ref={ref}
+        className="w-24 h-24 rounded-lg select-none cursor-default"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="w-24 h-24 rounded-lg object-cover pointer-events-none"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      </div>
+      {hovered && rect && createPortal(
+        <div
+          className="pointer-events-none select-none rounded-lg shadow-2xl"
+          style={{
+            position: 'fixed',
+            top: rect.top + rect.height / 2 - (rect.height * 4) / 2,
+            left: rect.left + rect.width / 2 - (rect.width * 4) / 2,
+            width: rect.width * 4,
+            height: rect.height * 4,
+            zIndex: 99999,
+          }}
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-full rounded-lg object-cover pointer-events-none"
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        </div>,
+        document.body
+      )}
+    </>
+  );
+};
 
 const HouseDetail = () => {
   const { id } = useParams();
@@ -355,19 +411,10 @@ const HouseDetail = () => {
                       </h3>
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
-                          <div
-                            className="w-24 h-24 rounded-lg select-none cursor-default transition-transform duration-300 hover:scale-[4] hover:shadow-xl"
-                            style={{transformOrigin: 'top left'}}
-                            onContextMenu={(e) => e.preventDefault()}
-                          >
-                            <img 
-                              src={currentManagerPhoto || house.managerPhoto} 
-                              alt={house.manager}
-                              className="w-24 h-24 rounded-lg object-cover pointer-events-none"
-                              draggable={false}
-                              onContextMenu={(e) => e.preventDefault()}
-                            />
-                          </div>
+                          <ManagerPhotoZoom
+                            src={currentManagerPhoto || house.managerPhoto || ""}
+                            alt={house.manager}
+                          />
                         ) : (
                           <div className="w-24 h-24 rounded-lg bg-muted flex items-center justify-center">
                             <Icon name="User" size={32} className="text-muted-foreground" />
