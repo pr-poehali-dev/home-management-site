@@ -87,7 +87,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
-    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/7ef7a9e8-faee-4327-93bd-57ff930fd294.png",
   },
   {
     id: "spb-kondratyevskiy-62k1",

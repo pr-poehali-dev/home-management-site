@@ -354,11 +354,19 @@ const HouseDetail = () => {
                       </h3>
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
-                          <img 
-                            src={currentManagerPhoto || house.managerPhoto} 
-                            alt={house.manager}
-                            className="w-24 h-24 rounded-lg object-cover"
-                          />
+                          <div
+                            className="w-24 h-24 rounded-lg overflow-hidden select-none pointer-events-none"
+                            onContextMenu={(e) => e.preventDefault()}
+                            draggable={false}
+                          >
+                            <img 
+                              src={currentManagerPhoto || house.managerPhoto} 
+                              alt={house.manager}
+                              className="w-24 h-24 rounded-lg object-cover"
+                              draggable={false}
+                              onContextMenu={(e) => e.preventDefault()}
+                            />
+                          </div>
                         ) : (
                           <div className="w-24 h-24 rounded-lg bg-muted flex items-center justify-center">
                             <Icon name="User" size={32} className="text-muted-foreground" />
@@ -464,7 +472,7 @@ const HouseDetail = () => {
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <Icon name={service.icon as any} className="text-primary" size={24} />
+                      <Icon name={service.icon as string} fallback="Wrench" className="text-primary" size={24} />
                     </div>
                     <h3 className="font-semibold mb-2">{service.title}</h3>
                     <p className="text-sm text-muted-foreground">{service.description}</p>
