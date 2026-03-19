@@ -31,6 +31,7 @@ interface CompanyInfo {
   receptionAddress?: string;
   phone: string;
   email: string;
+  website?: string;
   documents: { name: string; url?: string; images?: string[]; pdf?: string }[];
 }
 
@@ -591,8 +592,9 @@ const companiesData: Record<string, CompanyInfo> = {
     ogrn: "1217800026531",
     legalAddress: "195197, г. Санкт-Петербург, ул. Минеральная, д.13, лит. А, пом. 47-Н, оф. 13",
     receptionAddress: "195197, г. Санкт-Петербург, ул. Васенко, д. 12, лит. А, офис 21-Н",
-    phone: "8 (812) 640-88-26 (доб. 1086)",
+    phone: "8 (812) 640-88-31",
     email: "uk.bsd@mail.ru",
+    website: "https://bcdom.ru/",
     documents: [
       { 
         name: "Устав",
@@ -886,6 +888,19 @@ const CompanyDetail = () => {
                     ))}
                   </div>
                 </div>
+                {company.website && (
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Веб-сайт</p>
+                    <a
+                      href={company.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium hover:text-primary transition-colors"
+                    >
+                      {company.website}
+                    </a>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
