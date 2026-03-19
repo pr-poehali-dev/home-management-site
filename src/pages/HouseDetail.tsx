@@ -355,14 +355,13 @@ const HouseDetail = () => {
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <div
-                            className="w-24 h-24 rounded-lg overflow-hidden select-none pointer-events-none"
+                            className="w-24 h-24 rounded-lg overflow-hidden select-none cursor-default transition-transform duration-300 hover:scale-150 hover:shadow-xl hover:z-10 relative"
                             onContextMenu={(e) => e.preventDefault()}
-                            draggable={false}
                           >
                             <img 
                               src={currentManagerPhoto || house.managerPhoto} 
                               alt={house.manager}
-                              className="w-24 h-24 rounded-lg object-cover"
+                              className="w-24 h-24 rounded-lg object-cover pointer-events-none"
                               draggable={false}
                               onContextMenu={(e) => e.preventDefault()}
                             />
