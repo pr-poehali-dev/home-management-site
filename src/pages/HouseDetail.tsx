@@ -20,6 +20,8 @@ const HouseDetail = () => {
   const [deletingDocument, setDeletingDocument] = useState(false);
   const [currentHouseImage, setCurrentHouseImage] = useState<string | undefined>();
   const [currentManagerPhoto, setCurrentManagerPhoto] = useState<string | undefined>();
+  const [photoHovered, setPhotoHovered] = useState(false);
+  const [photoRect, setPhotoRect] = useState<DOMRect | null>(null);
   const [currentProtocolOss, setCurrentProtocolOss] = useState<string | string[] | undefined>();
   const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
 
@@ -346,29 +348,54 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-secondary/5 overflow-visible" style={{zIndex: 'auto'}}>
-                    <CardContent className="p-6 overflow-visible">
+                  <Card className="bg-secondary/5">
+                    <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      <div className="mb-4 w-24 h-24">
+                      <div className="mb-4 w-24 h-24 relative">
                         {(currentManagerPhoto || house.managerPhoto) ? (
-                          <div
-                            className="w-24 h-24 rounded-lg select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl relative"
-                            style={{transformOrigin: 'top left'}}
-                            onContextMenu={(e) => e.preventDefault()}
-                            onMouseEnter={(e) => (e.currentTarget.style.zIndex = '9999')}
-                            onMouseLeave={(e) => (e.currentTarget.style.zIndex = 'auto')}
-                          >
-                            <img 
-                              src={currentManagerPhoto || house.managerPhoto} 
-                              alt={house.manager}
-                              className="w-24 h-24 rounded-lg object-cover pointer-events-none"
-                              draggable={false}
+                          <>
+                            <div
+                              className="w-24 h-24 rounded-lg select-none cursor-default"
                               onContextMenu={(e) => e.preventDefault()}
-                            />
-                          </div>
+                              onMouseEnter={(e) => {
+                                setPhotoRect(e.currentTarget.getBoundingClientRect());
+                                setPhotoHovered(true);
+                              }}
+                              onMouseLeave={() => setPhotoHovered(false)}
+                            >
+                              <img 
+                                src={currentManagerPhoto || house.managerPhoto} 
+                                alt={house.manager}
+                                className="w-24 h-24 rounded-lg object-cover pointer-events-none"
+                                draggable={false}
+                                onContextMenu={(e) => e.preventDefault()}
+                              />
+                            </div>
+                            {photoHovered && photoRect && (
+                              <div
+                                className="fixed rounded-lg shadow-2xl pointer-events-none select-none"
+                                style={{
+                                  top: photoRect.top + photoRect.height / 2 - (photoRect.width * 5) / 2,
+                                  left: photoRect.left + photoRect.width / 2 - (photoRect.width * 5) / 2,
+                                  width: photoRect.width * 5,
+                                  height: photoRect.height * 5,
+                                  zIndex: 99999,
+                                }}
+                                onContextMenu={(e) => e.preventDefault()}
+                              >
+                                <img
+                                  src={currentManagerPhoto || house.managerPhoto}
+                                  alt={house.manager}
+                                  className="w-full h-full rounded-lg object-cover pointer-events-none"
+                                  draggable={false}
+                                  onContextMenu={(e) => e.preventDefault()}
+                                />
+                              </div>
+                            )}
+                          </>
                         ) : (
                           <div className="w-24 h-24 rounded-lg bg-muted flex items-center justify-center">
                             <Icon name="User" size={32} className="text-muted-foreground" />
