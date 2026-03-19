@@ -355,7 +355,7 @@ const HouseDetail = () => {
                       <div className="mb-4 w-24 h-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <div
-                            className="w-24 h-24 rounded-lg overflow-hidden select-none cursor-default transition-transform duration-300 hover:scale-150 hover:shadow-xl hover:z-10 relative"
+                            className="w-24 h-24 rounded-lg overflow-hidden select-none cursor-default transition-transform duration-300 hover:scale-[5] hover:shadow-xl hover:z-10 relative"
                             onContextMenu={(e) => e.preventDefault()}
                           >
                             <img 
