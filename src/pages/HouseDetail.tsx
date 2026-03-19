@@ -403,7 +403,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
+                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t relative z-0">
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
