@@ -19,6 +19,7 @@ interface NewsItem {
   content: string;
   videoUrl?: string;
   imageUrl?: string;
+  pdfUrl?: string;
 }
 
 const formatDate = (dateString: string): string => {
@@ -118,10 +119,11 @@ const News = () => {
         };
         
         // Фильтруем старые новости категории "Новое о ЖКХ" и маппим video_url -> videoUrl, image_url -> imageUrl
-        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: any) => ({
+        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: NewsItem & { video_url?: string; image_url?: string; pdf_url?: string }) => ({
           ...n,
           videoUrl: n.video_url,
-          imageUrl: n.image_url
+          imageUrl: n.image_url,
+          pdfUrl: n.pdf_url
         }));
         const newsToAdd: NewsItem[] = [];
         if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
@@ -218,6 +220,14 @@ const News = () => {
                   <p className="text-sm text-muted-foreground line-clamp-3">
                     {news.content}
                   </p>
+                  {news.pdfUrl && (
+                    <div className="mt-3">
+                      <span className="inline-flex items-center gap-1 text-sm text-destructive font-medium">
+                        <Icon name="FileText" size={14} />
+                        PDF прикреплён
+                      </span>
+                    </div>
+                  )}
                   <div className="mt-4 text-primary text-sm font-medium flex items-center gap-1">
                     Читать полностью
                     <Icon name="ChevronRight" size={16} />
@@ -298,6 +308,26 @@ const News = () => {
               <div className="mt-4 whitespace-pre-wrap text-muted-foreground">
                 {selectedNews?.content}
               </div>
+              {selectedNews?.pdfUrl && (
+                <div className="mt-6">
+                  <a
+                    href={selectedNews.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors w-full"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <Icon name="FileText" size={24} className="text-red-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-red-800">Решение (PDF)</div>
+                      <div className="text-sm text-red-600">Нажмите для открытия документа</div>
+                    </div>
+                    <Icon name="Download" size={20} className="text-red-500" />
+                  </a>
+                </div>
+              )}
             </DialogContent>
           </Dialog>
 

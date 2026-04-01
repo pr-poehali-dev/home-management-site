@@ -1,0 +1,1 @@
+ALTER TABLE t_p71212982_home_management_site.news ADD COLUMN IF NOT EXISTS pdf_url TEXT;

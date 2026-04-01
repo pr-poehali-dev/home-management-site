@@ -16,6 +16,7 @@ interface NewsItem {
   date: string;
   tag: string;
   content: string;
+  pdf_url?: string;
 }
 
 const AdminNews = () => {
@@ -27,6 +28,9 @@ const AdminNews = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string>("");
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
   const { toast } = useToast();
 
   const handleAuth = () => {
@@ -70,8 +74,8 @@ const AdminNews = () => {
       const url = "https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555";
       const method = editingId ? "PUT" : "POST";
       const body = editingId 
-        ? JSON.stringify({ id: editingId, title, content, tag })
-        : JSON.stringify({ title, content, tag });
+        ? JSON.stringify({ id: editingId, title, content, tag, pdf_url: pdfUrl || null })
+        : JSON.stringify({ title, content, tag, pdf_url: pdfUrl || null });
 
       const response = await fetch(url, {
         method,
@@ -93,6 +97,8 @@ const AdminNews = () => {
         setContent("");
         setTag("Важно!");
         setEditingId(null);
+        setPdfUrl("");
+        setPdfFile(null);
         fetchNews();
       } else {
         toast({
@@ -112,11 +118,40 @@ const AdminNews = () => {
     }
   };
 
+  const handlePdfUpload = async (file: File) => {
+    setIsUploadingPdf(true);
+    try {
+      // Получаем presigned URL
+      const presignedRes = await fetch("https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "news-pdf", contentType: "application/pdf" }),
+      });
+      const { uploadUrl, cdnUrl } = await presignedRes.json();
+
+      // Загружаем файл напрямую в S3
+      await fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/pdf" },
+        body: file,
+      });
+
+      setPdfUrl(cdnUrl);
+      toast({ title: "PDF загружен", description: "Файл успешно загружен" });
+    } catch {
+      toast({ title: "Ошибка", description: "Не удалось загрузить PDF", variant: "destructive" });
+    } finally {
+      setIsUploadingPdf(false);
+    }
+  };
+
   const handleEdit = (newsItem: NewsItem) => {
     setEditingId(newsItem.id);
     setTitle(newsItem.title);
     setContent(newsItem.content);
     setTag(newsItem.tag);
+    setPdfUrl(newsItem.pdf_url || "");
+    setPdfFile(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -159,6 +194,8 @@ const AdminNews = () => {
     setTitle("");
     setContent("");
     setTag("Важно!");
+    setPdfUrl("");
+    setPdfFile(null);
   };
 
   if (!isAuthenticated) {
@@ -237,6 +274,48 @@ const AdminNews = () => {
                       rows={8}
                       required
                     />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="pdfFile">PDF файл (необязательно)</Label>
+                    <div className="mt-2 space-y-2">
+                      <Input
+                        id="pdfFile"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setPdfFile(file);
+                            handlePdfUpload(file);
+                          }
+                        }}
+                        disabled={isUploadingPdf}
+                      />
+                      {isUploadingPdf && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Icon name="Loader2" size={16} className="animate-spin" />
+                          Загрузка PDF...
+                        </div>
+                      )}
+                      {pdfUrl && !isUploadingPdf && (
+                        <div className="flex items-center gap-2 text-sm text-green-600">
+                          <Icon name="CheckCircle" size={16} />
+                          <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="underline truncate max-w-xs">
+                            PDF прикреплён
+                          </a>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="ghost"
+                            className="h-6 px-2 text-destructive"
+                            onClick={() => { setPdfUrl(""); setPdfFile(null); }}
+                          >
+                            <Icon name="X" size={14} />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex gap-4">

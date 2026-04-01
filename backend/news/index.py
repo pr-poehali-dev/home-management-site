@@ -43,13 +43,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             
             if tag and tag != 'Все':
                 cursor.execute(
-                    "SELECT id, title, content, tag, video_url, image_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
+                    "SELECT id, title, content, tag, video_url, image_url, pdf_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
                     "FROM news WHERE tag = %s ORDER BY published_date DESC",
                     (tag,)
                 )
             else:
                 cursor.execute(
-                    "SELECT id, title, content, tag, video_url, image_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
+                    "SELECT id, title, content, tag, video_url, image_url, pdf_url, TO_CHAR(published_date, 'DD Month YYYY') as date "
                     "FROM news ORDER BY published_date DESC"
                 )
             
@@ -86,6 +86,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             tag = body_data.get('tag')
             video_url = body_data.get('video_url')
             image_url = body_data.get('image_url')
+            pdf_url = body_data.get('pdf_url')
             
             if not title or not content or not tag:
                 return {
@@ -99,8 +100,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             
             cursor.execute(
-                "INSERT INTO news (title, content, tag, video_url, image_url) VALUES (%s, %s, %s, %s, %s) RETURNING id",
-                (title, content, tag, video_url, image_url)
+                "INSERT INTO news (title, content, tag, video_url, image_url, pdf_url) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id",
+                (title, content, tag, video_url, image_url, pdf_url)
             )
             news_id = cursor.fetchone()['id']
             conn.commit()
@@ -179,6 +180,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             tag = body_data.get('tag')
             video_url = body_data.get('video_url')
             image_url = body_data.get('image_url')
+            pdf_url = body_data.get('pdf_url')
             
             if not news_id:
                 return {
@@ -209,6 +211,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             if image_url is not None:
                 update_fields.append('image_url = %s')
                 update_values.append(image_url)
+            if pdf_url is not None:
+                update_fields.append('pdf_url = %s')
+                update_values.append(pdf_url)
             
             update_fields.append('updated_at = CURRENT_TIMESTAMP')
             update_values.append(news_id)
