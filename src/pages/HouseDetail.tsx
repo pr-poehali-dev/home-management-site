@@ -284,28 +284,41 @@ const HouseDetail = () => {
   };
 
   const handleBulletinUpload = async (file: File) => {
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      toast({
+        title: 'Файл слишком большой',
+        description: `Файл весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com`,
+        variant: 'destructive',
+        duration: 10000
+      });
+      return;
+    }
     setUploadingBulletin(true);
     try {
-      const presignedRes = await fetch(funcUrls['upload-large-file'], {
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const uploadResponse = await fetch(funcUrls['upload-image'], {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'bulletin-oss', contentType: 'application/pdf' }),
+        body: JSON.stringify({ image: base64, type: 'bulletin', fileType: 'pdf' }),
       });
-      const { uploadUrl, cdnUrl } = await presignedRes.json();
 
-      await fetch(uploadUrl, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/pdf' },
-        body: file,
-      });
+      if (!uploadResponse.ok) throw new Error('Upload failed');
+      const { url } = await uploadResponse.json();
 
       await fetch(funcUrls['update-house'], {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ house_id: id, bulletinOss: cdnUrl }),
+        body: JSON.stringify({ house_id: id, bulletinOss: url }),
       });
 
-      setCurrentBulletinOss(cdnUrl);
+      setCurrentBulletinOss(url);
       toast({ title: 'Успешно!', description: 'Бюллетень для ОСС 2026 загружен' });
     } catch {
       toast({ title: 'Ошибка', description: 'Не удалось загрузить бюллетень', variant: 'destructive' });
