@@ -586,58 +586,22 @@ const HouseDetail = () => {
                               rel="noopener noreferrer"
                               className="flex items-center gap-2 text-primary hover:underline text-sm font-medium mb-2"
                             >
-                              <Icon name="Download" size={16} />
-                              Скачать бюллетень
+                              <Icon name="Eye" size={16} />
+                              Просмотреть бюллетень
                             </a>
-                            <p className="text-xs text-muted-foreground mb-3">
-                              Бюллетень для голосования на ОСС 2026
-                            </p>
-                            <label className="cursor-pointer">
-                              <input
-                                type="file"
-                                accept="application/pdf"
-                                className="hidden"
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) handleBulletinUpload(file);
-                                }}
-                                disabled={uploadingBulletin}
-                              />
-                              <span className="text-xs text-muted-foreground underline cursor-pointer hover:text-foreground">
-                                {uploadingBulletin ? 'Загрузка...' : 'Заменить файл'}
-                              </span>
-                            </label>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="text-destructive h-6 px-2 ml-2 text-xs"
-                              onClick={handleBulletinDelete}
+                            <a
+                              href={currentBulletinOss}
+                              download
+                              className="flex items-center gap-2 text-muted-foreground hover:text-primary hover:underline text-sm"
                             >
-                              Удалить
-                            </Button>
+                              <Icon name="Download" size={16} />
+                              Скачать PDF
+                            </a>
                           </>
                         ) : (
-                          <>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              Бюллетень для ОСС 2026 не загружен
-                            </p>
-                            <label className="cursor-pointer">
-                              <input
-                                type="file"
-                                accept="application/pdf"
-                                className="hidden"
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) handleBulletinUpload(file);
-                                }}
-                                disabled={uploadingBulletin}
-                              />
-                              <span className="flex items-center gap-2 text-primary hover:underline text-sm font-medium cursor-pointer">
-                                <Icon name="Upload" size={16} />
-                                {uploadingBulletin ? 'Загрузка...' : 'Загрузить PDF'}
-                              </span>
-                            </label>
-                          </>
+                          <p className="text-sm text-muted-foreground">
+                            Бюллетень для ОСС 2026 не загружен
+                          </p>
                         )}
                       </CardContent>
                     </Card>
