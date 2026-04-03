@@ -3,6 +3,7 @@ import boto3
 import os
 import base64
 import uuid
+
 from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
