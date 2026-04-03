@@ -79,6 +79,8 @@ const HouseDetail = () => {
 
   const [currentProtocolOss, setCurrentProtocolOss] = useState<string | string[] | undefined>();
   const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
+  const [currentBulletinOss, setCurrentBulletinOss] = useState<string | undefined>();
+  const [uploadingBulletin, setUploadingBulletin] = useState(false);
 
   const house = houses.find((h) => h.id === id);
 
@@ -93,6 +95,7 @@ const HouseDetail = () => {
           if (data.managerPhoto) setCurrentManagerPhoto(data.managerPhoto);
           if (data.protocolOss) setCurrentProtocolOss(data.protocolOss);
           if (data.managementAgreement) setCurrentManagementAgreement(data.managementAgreement);
+          if (data.bulletinOss) setCurrentBulletinOss(data.bulletinOss);
         }
       } catch (error) {
         console.error('Failed to load data:', error);
@@ -280,6 +283,52 @@ const HouseDetail = () => {
     }
   };
 
+  const handleBulletinUpload = async (file: File) => {
+    setUploadingBulletin(true);
+    try {
+      const presignedRes = await fetch(funcUrls['upload-large-file'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'bulletin-oss', contentType: 'application/pdf' }),
+      });
+      const { uploadUrl, cdnUrl } = await presignedRes.json();
+
+      await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/pdf' },
+        body: file,
+      });
+
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, bulletinOss: cdnUrl }),
+      });
+
+      setCurrentBulletinOss(cdnUrl);
+      toast({ title: 'Успешно!', description: 'Бюллетень для ОСС 2026 загружен' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось загрузить бюллетень', variant: 'destructive' });
+    } finally {
+      setUploadingBulletin(false);
+    }
+  };
+
+  const handleBulletinDelete = async () => {
+    if (!confirm('Вы уверены, что хотите удалить бюллетень для ОСС 2026?')) return;
+    try {
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, bulletinOss: null }),
+      });
+      setCurrentBulletinOss(undefined);
+      toast({ title: 'Успешно!', description: 'Бюллетень удалён' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось удалить бюллетень', variant: 'destructive' });
+    }
+  };
+
   if (!house) {
     return (
       <Layout>
@@ -452,7 +501,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
+                <div className={`grid gap-6 pt-6 border-t ${id === 'spb-konstantinova-1k1str1' ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -508,6 +557,78 @@ const HouseDetail = () => {
                       )}
                     </CardContent>
                   </Card>
+
+                  {id === 'spb-konstantinova-1k1str1' && (
+                    <Card className="bg-secondary/5">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold mb-4 flex items-center gap-2">
+                          <Icon name="ClipboardList" size={20} className="text-primary" />
+                          Бюллетень для ОСС 2026
+                        </h3>
+                        {currentBulletinOss ? (
+                          <>
+                            <a
+                              href={currentBulletinOss}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-primary hover:underline text-sm font-medium mb-2"
+                            >
+                              <Icon name="Download" size={16} />
+                              Скачать бюллетень
+                            </a>
+                            <p className="text-xs text-muted-foreground mb-3">
+                              Бюллетень для голосования на ОСС 2026
+                            </p>
+                            <label className="cursor-pointer">
+                              <input
+                                type="file"
+                                accept="application/pdf"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) handleBulletinUpload(file);
+                                }}
+                                disabled={uploadingBulletin}
+                              />
+                              <span className="text-xs text-muted-foreground underline cursor-pointer hover:text-foreground">
+                                {uploadingBulletin ? 'Загрузка...' : 'Заменить файл'}
+                              </span>
+                            </label>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-destructive h-6 px-2 ml-2 text-xs"
+                              onClick={handleBulletinDelete}
+                            >
+                              Удалить
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              Бюллетень для ОСС 2026 не загружен
+                            </p>
+                            <label className="cursor-pointer">
+                              <input
+                                type="file"
+                                accept="application/pdf"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) handleBulletinUpload(file);
+                                }}
+                                disabled={uploadingBulletin}
+                              />
+                              <span className="flex items-center gap-2 text-primary hover:underline text-sm font-medium cursor-pointer">
+                                <Icon name="Upload" size={16} />
+                                {uploadingBulletin ? 'Загрузка...' : 'Загрузить PDF'}
+                              </span>
+                            </label>
+                          </>
+                        )}
+                      </CardContent>
+                    </Card>
+                  )}
                 </div>
               </CardContent>
             </Card>

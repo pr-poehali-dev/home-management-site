@@ -42,6 +42,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     manager_photo_url: Optional[str] = body_data.get('managerPhoto')
     protocol_oss = body_data.get('protocolOss')
     management_agreement = body_data.get('managementAgreement')
+    bulletin_oss = body_data.get('bulletinOss')
     
     if not house_id:
         return {
@@ -64,7 +65,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 image TEXT,
                 manager_photo TEXT,
                 protocol_oss TEXT,
-                management_agreement TEXT
+                management_agreement TEXT,
+                bulletin_oss TEXT
             )
         """)
         
@@ -91,16 +93,21 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 update_fields.append("management_agreement = %s")
                 update_values.append(json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement)
             
+            if bulletin_oss is not None:
+                update_fields.append("bulletin_oss = %s")
+                update_values.append(bulletin_oss)
+            
             if update_fields:
                 update_values.append(house_id)
                 query = f"UPDATE houses SET {', '.join(update_fields)} WHERE id = %s"
                 cur.execute(query, update_values)
         else:
             cur.execute(
-                "INSERT INTO houses (id, image, manager_photo, protocol_oss, management_agreement) VALUES (%s, %s, %s, %s, %s)",
+                "INSERT INTO houses (id, image, manager_photo, protocol_oss, management_agreement, bulletin_oss) VALUES (%s, %s, %s, %s, %s, %s)",
                 (house_id, image_url, manager_photo_url, 
                  json.dumps(protocol_oss) if isinstance(protocol_oss, list) else protocol_oss,
-                 json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement)
+                 json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement,
+                 bulletin_oss)
             )
         
         conn.commit()
