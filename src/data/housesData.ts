@@ -299,7 +299,7 @@ export const houses: HouseData[] = [
     address: "ул. Малая Бухарестская, д. 12 стр. 1 (+паркинг)",
     city: "Санкт-Петербург",
     manager: "Мурашова Наталья Геннадьевна",
-    managerPhone: "+7 (921) 388-65-80",
+    managerPhone: "+7 (931) 388-65-80",
     managerEmail: "uknovoekupchino@yandex.ru",
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
