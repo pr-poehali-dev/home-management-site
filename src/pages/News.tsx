@@ -222,10 +222,7 @@ const News = () => {
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <h1
-              className="text-4xl md:text-5xl font-bold mb-6 cursor-default select-none"
-              onClick={handleSecretClick}
-            >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Новости и объявления
             </h1>
             <p className="text-xl text-muted-foreground">
@@ -516,6 +513,21 @@ const News = () => {
           )}
         </div>
       </section>
+
+      {/* Скрытая кнопка входа в режим редактирования */}
+      <button
+        className="fixed bottom-4 right-4 w-8 h-8 opacity-0 hover:opacity-20 transition-opacity rounded-full bg-primary z-50"
+        onClick={() => {
+          if (isAdmin) {
+            setIsAdmin(false);
+            toast({ title: "Режим редактирования выключен" });
+          } else {
+            setShowAuthDialog(true);
+          }
+        }}
+        title=""
+        aria-label=""
+      />
     </Layout>
   );
 };
