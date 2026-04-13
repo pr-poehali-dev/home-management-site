@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Icon from "@/components/ui/icon";
 import {
   Dialog,
@@ -10,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface NewsItem {
   id: number;
@@ -22,17 +25,15 @@ interface NewsItem {
   pdfUrl?: string;
 }
 
+const NEWS_URL = "https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555";
+const UPLOAD_URL = "https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e";
+const ADMIN_KEY = "admin123";
+
 const formatDate = (dateString: string): string => {
   try {
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-      return dateString;
-    }
-    return date.toLocaleDateString('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+    if (isNaN(date.getTime())) return dateString;
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
   } catch {
     return dateString;
   }
@@ -44,114 +45,175 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
 
+  // Режим администратора
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [authPassword, setAuthPassword] = useState("");
+  const [authError, setAuthError] = useState(false);
+  const secretClickCount = useRef(0);
+  const secretClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Редактирование новости
+  const [editingNews, setEditingNews] = useState<NewsItem | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
+  const [editPdfUrl, setEditPdfUrl] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  const { toast } = useToast();
+
+  const fetchNews = async () => {
+    try {
+      const response = await fetch(NEWS_URL);
+      const data = await response.json();
+
+      const hasTariffNews = data.news?.some((n: NewsItem) => n.title.includes("Увеличение размера платы за ЖКУ"));
+      const hasMaxNews = data.news?.some((n: NewsItem) => n.title.includes("СМИ о создании домовых чатов"));
+      const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => n.title.includes("периоде охлаждения"));
+
+      const tariffIncreaseNews: NewsItem = {
+        id: 1000,
+        title: "Увеличение размера платы за ЖКУ с 01.01.2026",
+        date: "2026-01-16",
+        tag: "ВНИМАНИЕ",
+        content: `Уважаемые собственники!\n\nУведомляем Вас, что с 01.01.2026 увеличивается размер платы за Жилищно-коммунальные услуги в соответствии с Распоряжениями Комитета по тарифам и ценовой политике Ленинградской области, Администрации Заневского городского поселения.`
+      };
+
+      const maxNews: NewsItem = {
+        id: 999,
+        title: "СМИ о создании домовых чатов в национальном мессенджере MAX",
+        date: "2025-12-10",
+        tag: "Актуальное из СМИ",
+        content: `Министр строительства и ЖКХ РФ Ирек Файзуллин объявил о переводе общедомовых чатов в российский мессенджер Max до конца 2025 года.\n\nОсновные требования:\n• Каждый многоквартирный дом должен создать чат в Max\n• Необходимо перенести все данные из Telegram и WhatsApp\n• Официально закрепить статус домового чата\n\nРабота затронет почти миллион российских многоквартирных домов.\n\nПодробнее читайте в материалах СМИ:\n• Российская газета: https://rg.ru/2025/11/12/fajzullin-obshchedomovye-chaty-dolzhny-perejti-v-max-do-konca-goda.html\n• РБК: https://www.rbc.ru/rbcfreenews/6914fc889a794770b27a83b4\n\nНаша управляющая компания готова помочь жителям в переходе на новый мессенджер и создании общедомовых чатов.`
+      };
+
+      const coolingPeriodNews: NewsItem = {
+        id: 998,
+        title: "СМИ о периоде охлаждения при продаже квартир",
+        date: "2025-12-10",
+        tag: "Актуальное из СМИ",
+        content: `В Госдуму внесён законопроект о введении «периода охлаждения» при продаже недвижимости. Если его примут, новые правила могут вступить в силу с января 2026 года.\n\nОсновные положения законопроекта:\n\n• 7-дневный период охлаждения — госрегистрация сделки будет проводиться только через семь дней после заключения договора купли-продажи\n\n• Запрет наличных расчётов — продавец сможет получить деньги только после регистрации перехода права собственности и только на банковский счёт\n\n• Обязательное нотариальное удостоверение для всех сделок с недвижимостью\n\n• При продаже единственного жилья потребуется нотариально заверенное согласие лица, у которого продавец будет жить после сделки\n\nЦель законопроекта: защита от мошенничества при продаже квартир и обеспечение надёжной защиты добросовестных продавцов и покупателей.\n\nПодробнее читайте в материалах СМИ:\n• Коммерсантъ: https://www.kommersant.ru/doc/8229770\n• РБК: https://companies.rbc.ru/news/IKrLq5tqJh/period-ohlazhdeniya-kak-novyij-zakonoproekt-menyaet-ryinok-nedvizhimosti/\n\nМы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
+      };
+
+      const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: NewsItem & { video_url?: string; image_url?: string; pdf_url?: string }) => ({
+        ...n,
+        videoUrl: n.video_url,
+        imageUrl: n.image_url,
+        pdfUrl: n.pdf_url
+      }));
+
+      const newsToAdd: NewsItem[] = [];
+      if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
+      if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
+      if (!hasMaxNews) newsToAdd.push(maxNews);
+
+      setAllNews([...newsToAdd, ...filteredNews]);
+    } catch (error) {
+      console.error("Ошибка загрузки новостей:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch("https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555");
-        const data = await response.json();
-        
-        // Добавляем новости СМИ, если их ещё нет
-        const hasTariffNews = data.news?.some((n: NewsItem) => 
-          n.title.includes("Увеличение размера платы за ЖКУ")
-        );
-        const hasMaxNews = data.news?.some((n: NewsItem) => 
-          n.title.includes("СМИ о создании домовых чатов")
-        );
-        const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => 
-          n.title.includes("периоде охлаждения")
-        );
-        
-        const tariffIncreaseNews: NewsItem = {
-          id: 1000,
-          title: "Увеличение размера платы за ЖКУ с 01.01.2026",
-          date: "2026-01-16",
-          tag: "ВНИМАНИЕ",
-          content: `Уважаемые собственники!
-
-Уведомляем Вас, что с 01.01.2026 увеличивается размер платы за Жилищно-коммунальные услуги в соответствии с Распоряжениями Комитета по тарифам и ценовой политике Ленинградской области, Администрации Заневского городского поселения.`
-        };
-
-        const maxNews: NewsItem = {
-          id: 999,
-          title: "СМИ о создании домовых чатов в национальном мессенджере MAX",
-          date: "2025-12-10",
-          tag: "Актуальное из СМИ",
-          content: `Министр строительства и ЖКХ РФ Ирек Файзуллин объявил о переводе общедомовых чатов в российский мессенджер Max до конца 2025 года.
-
-Основные требования:
-• Каждый многоквартирный дом должен создать чат в Max
-• Необходимо перенести все данные из Telegram и WhatsApp
-• Официально закрепить статус домового чата
-
-Работа затронет почти миллион российских многоквартирных домов.
-
-Подробнее читайте в материалах СМИ:
-• Российская газета: https://rg.ru/2025/11/12/fajzullin-obshchedomovye-chaty-dolzhny-perejti-v-max-do-konca-goda.html
-• РБК: https://www.rbc.ru/rbcfreenews/6914fc889a794770b27a83b4
-
-Наша управляющая компания готова помочь жителям в переходе на новый мессенджер и создании общедомовых чатов.`
-        };
-
-        const coolingPeriodNews: NewsItem = {
-          id: 998,
-          title: "СМИ о периоде охлаждения при продаже квартир",
-          date: "2025-12-10",
-          tag: "Актуальное из СМИ",
-          content: `В Госдуму внесён законопроект о введении «периода охлаждения» при продаже недвижимости. Если его примут, новые правила могут вступить в силу с января 2026 года.
-
-Основные положения законопроекта:
-
-• 7-дневный период охлаждения — госрегистрация сделки будет проводиться только через семь дней после заключения договора купли-продажи
-
-• Запрет наличных расчётов — продавец сможет получить деньги только после регистрации перехода права собственности и только на банковский счёт
-
-• Обязательное нотариальное удостоверение для всех сделок с недвижимостью
-
-• При продаже единственного жилья потребуется нотариально заверенное согласие лица, у которого продавец будет жить после сделки
-
-Цель законопроекта: защита от мошенничества при продаже квартир и обеспечение надёжной защиты добросовестных продавцов и покупателей.
-
-Подробнее читайте в материалах СМИ:
-• Коммерсантъ: https://www.kommersant.ru/doc/8229770
-• РБК: https://companies.rbc.ru/news/IKrLq5tqJh/period-ohlazhdeniya-kak-novyij-zakonoproekt-menyaet-ryinok-nedvizhimosti/
-
-Мы следим за всеми изменениями в законодательстве, чтобы информировать наших жителей о важных нововведениях.`
-        };
-        
-        // Фильтруем старые новости категории "Новое о ЖКХ" и маппим video_url -> videoUrl, image_url -> imageUrl
-        const filteredNews = (data.news || []).filter((n: NewsItem) => n.tag !== "Новое о ЖКХ").map((n: NewsItem & { video_url?: string; image_url?: string; pdf_url?: string }) => ({
-          ...n,
-          videoUrl: n.video_url,
-          imageUrl: n.image_url,
-          pdfUrl: n.pdf_url
-        }));
-        const newsToAdd: NewsItem[] = [];
-        if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
-        if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
-        if (!hasMaxNews) newsToAdd.push(maxNews);
-        
-        const finalNews = [...newsToAdd, ...filteredNews];
-        
-        setAllNews(finalNews);
-      } catch (error) {
-        console.error("Ошибка загрузки новостей:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchNews();
   }, []);
+
+  // Секретный вход: 5 кликов по заголовку страницы
+  const handleSecretClick = () => {
+    secretClickCount.current += 1;
+    if (secretClickTimer.current) clearTimeout(secretClickTimer.current);
+    secretClickTimer.current = setTimeout(() => { secretClickCount.current = 0; }, 2000);
+    if (secretClickCount.current >= 5) {
+      secretClickCount.current = 0;
+      if (isAdmin) {
+        setIsAdmin(false);
+        toast({ title: "Режим редактирования выключен" });
+      } else {
+        setShowAuthDialog(true);
+      }
+    }
+  };
+
+  const handleAuth = () => {
+    if (authPassword === ADMIN_KEY) {
+      setIsAdmin(true);
+      setShowAuthDialog(false);
+      setAuthPassword("");
+      setAuthError(false);
+      toast({ title: "Режим редактирования включён" });
+    } else {
+      setAuthError(true);
+    }
+  };
+
+  const handleEditClick = (e: React.MouseEvent, news: NewsItem) => {
+    e.stopPropagation();
+    setEditingNews(news);
+    setEditTitle(news.title);
+    setEditPdfUrl(news.pdfUrl || "");
+  };
+
+  const handlePdfUpload = async (file: File) => {
+    setIsUploadingPdf(true);
+    try {
+      const presignedRes = await fetch(UPLOAD_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "news-pdf", contentType: "application/pdf" }),
+      });
+      const { uploadUrl, cdnUrl } = await presignedRes.json();
+      await fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/pdf" },
+        body: file,
+      });
+      setEditPdfUrl(cdnUrl);
+      toast({ title: "PDF загружен успешно" });
+    } catch {
+      toast({ title: "Ошибка загрузки PDF", variant: "destructive" });
+    } finally {
+      setIsUploadingPdf(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!editingNews) return;
+    setIsSaving(true);
+    try {
+      const body: Record<string, unknown> = { id: editingNews.id };
+      if (editTitle !== editingNews.title) body.title = editTitle;
+      body.pdf_url = editPdfUrl || null;
+
+      const response = await fetch(NEWS_URL, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", "X-Admin-Key": ADMIN_KEY },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        toast({ title: "Новость сохранена" });
+        setEditingNews(null);
+        await fetchNews();
+      } else {
+        toast({ title: "Ошибка сохранения", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Ошибка соединения", variant: "destructive" });
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const tags = ["Все", "ВНИМАНИЕ", "Актуальное из СМИ", "Собрание", "Обо всём"];
 
   const filteredNews =
-    selectedTag === "Все" 
+    selectedTag === "Все"
       ? allNews.filter((news) => news.tag !== "Архив")
       : allNews.filter((news) => news.tag === selectedTag && news.tag !== "Архив")
           .map(news => news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news);
 
-  const displayNews = filteredNews.map(news => 
+  const displayNews = filteredNews.map(news =>
     news.tag === "Важно!" ? {...news, tag: "ВНИМАНИЕ"} : news
   );
 
@@ -160,10 +222,21 @@ const News = () => {
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Новости и объявления</h1>
+            <h1
+              className="text-4xl md:text-5xl font-bold mb-6 cursor-default select-none"
+              onClick={handleSecretClick}
+            >
+              Новости и объявления
+            </h1>
             <p className="text-xl text-muted-foreground">
               Актуальная информация о событиях, работах и изменениях
             </p>
+            {isAdmin && (
+              <div className="mt-3 inline-flex items-center gap-2 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
+                <Icon name="Pencil" size={14} />
+                Режим редактирования активен
+              </div>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center mb-12">
@@ -180,13 +253,22 @@ const News = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {displayNews.map((news) => (
-              <Card 
-                key={news.id} 
-                className={`hover:shadow-lg transition-shadow cursor-pointer ${
+              <Card
+                key={news.id}
+                className={`hover:shadow-lg transition-shadow cursor-pointer relative ${
                   news.tag === "ВНИМАНИЕ" ? "urgent-card" : ""
                 }`}
                 onClick={() => setSelectedNews(news)}
               >
+                {isAdmin && news.id < 900 && (
+                  <button
+                    className="absolute top-2 right-2 z-10 bg-primary text-primary-foreground rounded-full p-1.5 shadow hover:bg-primary/80 transition-colors"
+                    onClick={(e) => handleEditClick(e, news)}
+                    title="Редактировать"
+                  >
+                    <Icon name="Pencil" size={14} />
+                  </button>
+                )}
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Badge
@@ -237,6 +319,7 @@ const News = () => {
             ))}
           </div>
 
+          {/* Просмотр новости */}
           <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>
             <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
@@ -285,11 +368,7 @@ const News = () => {
                     </a>
                   ) : selectedNews.videoUrl.includes('cdn.poehali.dev') || selectedNews.videoUrl.includes('.mp4') || selectedNews.videoUrl.includes('.webm') || selectedNews.videoUrl.includes('.mov') ? (
                     <div className="aspect-video rounded-lg overflow-hidden bg-black">
-                      <video
-                        src={selectedNews.videoUrl}
-                        controls
-                        className="w-full h-full"
-                      >
+                      <video src={selectedNews.videoUrl} controls className="w-full h-full">
                         Ваш браузер не поддерживает воспроизведение видео.
                       </video>
                     </div>
@@ -331,21 +410,108 @@ const News = () => {
             </DialogContent>
           </Dialog>
 
+          {/* Диалог авторизации */}
+          <Dialog open={showAuthDialog} onOpenChange={(open) => { setShowAuthDialog(open); setAuthPassword(""); setAuthError(false); }}>
+            <DialogContent className="max-w-sm">
+              <DialogHeader>
+                <DialogTitle>Вход в режим редактирования</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="auth-password">Пароль</Label>
+                  <Input
+                    id="auth-password"
+                    type="password"
+                    value={authPassword}
+                    onChange={(e) => { setAuthPassword(e.target.value); setAuthError(false); }}
+                    onKeyDown={(e) => e.key === "Enter" && handleAuth()}
+                    placeholder="Введите пароль"
+                    className={authError ? "border-destructive" : ""}
+                    autoFocus
+                  />
+                  {authError && <p className="text-sm text-destructive mt-1">Неверный пароль</p>}
+                </div>
+                <Button onClick={handleAuth} className="w-full">Войти</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Диалог редактирования новости */}
+          <Dialog open={!!editingNews} onOpenChange={(open) => { if (!open) setEditingNews(null); }}>
+            <DialogContent className="max-w-lg">
+              <DialogHeader>
+                <DialogTitle>Редактирование новости</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-title">Заголовок</Label>
+                  <Input
+                    id="edit-title"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-pdf">PDF файл</Label>
+                  <Input
+                    id="edit-pdf"
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handlePdfUpload(file);
+                    }}
+                    disabled={isUploadingPdf}
+                    className="mt-1"
+                  />
+                  {isUploadingPdf && (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                      <Icon name="Loader2" size={16} className="animate-spin" />
+                      Загрузка PDF...
+                    </div>
+                  )}
+                  {editPdfUrl && !isUploadingPdf && (
+                    <div className="flex items-center gap-2 text-sm text-green-600 mt-2">
+                      <Icon name="CheckCircle" size={16} />
+                      <a href={editPdfUrl} target="_blank" rel="noopener noreferrer" className="underline truncate max-w-xs">
+                        PDF прикреплён
+                      </a>
+                      <button
+                        type="button"
+                        className="text-destructive hover:text-destructive/80"
+                        onClick={() => setEditPdfUrl("")}
+                      >
+                        <Icon name="X" size={14} />
+                      </button>
+                    </div>
+                  )}
+                  {!editPdfUrl && !isUploadingPdf && editingNews?.pdfUrl === undefined && (
+                    <p className="text-xs text-muted-foreground mt-1">PDF не прикреплён</p>
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  <Button onClick={handleSave} disabled={isSaving || isUploadingPdf} className="flex-1">
+                    {isSaving ? "Сохранение..." : "Сохранить"}
+                  </Button>
+                  <Button variant="outline" onClick={() => setEditingNews(null)}>
+                    Отмена
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
           {isLoading && (
             <div className="text-center py-12">
               <Icon name="Loader2" size={48} className="text-muted-foreground mx-auto mb-4 animate-spin" />
-              <p className="text-xl text-muted-foreground">
-                Загрузка новостей...
-              </p>
+              <p className="text-xl text-muted-foreground">Загрузка новостей...</p>
             </div>
           )}
 
           {!isLoading && filteredNews.length === 0 && (
             <div className="text-center py-12">
               <Icon name="FileSearch" size={48} className="text-muted-foreground mx-auto mb-4" />
-              <p className="text-xl text-muted-foreground">
-                Новостей в данной категории пока нет
-              </p>
+              <p className="text-xl text-muted-foreground">Новостей в данной категории пока нет</p>
             </div>
           )}
         </div>
