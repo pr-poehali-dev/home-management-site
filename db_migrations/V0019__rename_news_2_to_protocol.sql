@@ -1,0 +1,1 @@
+UPDATE t_p71212982_home_management_site.news SET title = 'Протокол общего собрания собственников МКД' WHERE id = 2;
