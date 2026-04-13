@@ -228,12 +228,24 @@ const News = () => {
             <p className="text-xl text-muted-foreground">
               Актуальная информация о событиях, работах и изменениях
             </p>
-            {isAdmin && (
-              <div className="mt-3 inline-flex items-center gap-2 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
-                <Icon name="Pencil" size={14} />
-                Режим редактирования активен
-              </div>
-            )}
+            <div className="mt-4">
+              {isAdmin ? (
+                <div className="inline-flex items-center gap-3">
+                  <span className="inline-flex items-center gap-2 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
+                    <Icon name="Pencil" size={14} />
+                    Режим редактирования активен
+                  </span>
+                  <Button size="sm" variant="outline" onClick={() => { setIsAdmin(false); toast({ title: "Режим редактирования выключен" }); }}>
+                    Выйти
+                  </Button>
+                </div>
+              ) : (
+                <Button size="sm" variant="ghost" className="text-muted-foreground/40 hover:text-muted-foreground text-xs" onClick={() => setShowAuthDialog(true)}>
+                  <Icon name="Lock" size={12} className="mr-1" />
+                  Для администратора
+                </Button>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center mb-12">
@@ -514,20 +526,7 @@ const News = () => {
         </div>
       </section>
 
-      {/* Скрытая кнопка входа в режим редактирования */}
-      <button
-        className="fixed bottom-4 right-4 w-8 h-8 opacity-0 hover:opacity-20 transition-opacity rounded-full bg-primary z-50"
-        onClick={() => {
-          if (isAdmin) {
-            setIsAdmin(false);
-            toast({ title: "Режим редактирования выключен" });
-          } else {
-            setShowAuthDialog(true);
-          }
-        }}
-        title=""
-        aria-label=""
-      />
+
     </Layout>
   );
 };
