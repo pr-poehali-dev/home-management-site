@@ -284,6 +284,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Кудрово»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d30cf4ad-fb75-43f0-88c1-c9e2e63b3adc.JPG",
   },
   {
     id: "spb-kondratyevskiy-62k7",
@@ -457,6 +458,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Кудрово Град»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d30cf4ad-fb75-43f0-88c1-c9e2e63b3adc.JPG",
   },
   {
     id: "kudrovo-leningradskaya-9-8",
@@ -468,6 +470,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Кудрово Град»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d30cf4ad-fb75-43f0-88c1-c9e2e63b3adc.JPG",
   },
   {
     id: "kudrovo-oblastnaya-3",
@@ -491,6 +494,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Кудрово-сервис»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d30cf4ad-fb75-43f0-88c1-c9e2e63b3adc.JPG",
   },
   {
     id: "spb-krasnoselskoe-6",
