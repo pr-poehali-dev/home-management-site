@@ -26,7 +26,7 @@ interface NewsItem {
 }
 
 const NEWS_URL = "https://functions.poehali.dev/6f5d03d9-cebe-4ce5-b3cd-39bd952ae555";
-const UPLOAD_URL = "https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e";
+const UPLOAD_PDF_URL = "https://functions.poehali.dev/d40752bf-f3a8-4d3d-98a2-5b33983ccdd1";
 const ADMIN_KEY = "admin123";
 
 const formatDate = (dateString: string): string => {
@@ -157,18 +157,23 @@ const News = () => {
   const handlePdfUpload = async (file: File) => {
     setIsUploadingPdf(true);
     try {
-      const presignedRes = await fetch(UPLOAD_URL, {
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const res = await fetch(UPLOAD_PDF_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "news-pdf", contentType: "application/pdf" }),
+        body: JSON.stringify({ file: base64, type: "news-pdf" }),
       });
-      const { uploadUrl, cdnUrl } = await presignedRes.json();
-      await fetch(uploadUrl, {
-        method: "PUT",
-        headers: { "Content-Type": "application/pdf" },
-        body: file,
-      });
-      setEditPdfUrl(cdnUrl);
+      const data = await res.json();
+      setEditPdfUrl(data.url);
       toast({ title: "PDF загружен успешно" });
     } catch {
       toast({ title: "Ошибка загрузки PDF", variant: "destructive" });
