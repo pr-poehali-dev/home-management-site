@@ -55,20 +55,21 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     try:
         cur.execute(
-            "SELECT image, manager_photo, protocol_oss, management_agreement, bulletin_oss FROM houses WHERE id = %s",
+            "SELECT image, manager_photo, protocol_oss, management_agreement, bulletin_oss, documents FROM houses WHERE id = %s",
             (house_id,)
         )
         result = cur.fetchone()
         
         if result:
-            image_url, manager_photo_url, protocol_oss, management_agreement, bulletin_oss = result
+            image_url, manager_photo_url, protocol_oss, management_agreement, bulletin_oss, documents = result
             data = {
                 'house_id': house_id,
                 'image': image_url,
                 'managerPhoto': manager_photo_url,
                 'protocolOss': protocol_oss,
                 'managementAgreement': management_agreement,
-                'bulletinOss': bulletin_oss
+                'bulletinOss': bulletin_oss,
+                'documents': documents
             }
         else:
             data = {
@@ -77,7 +78,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'managerPhoto': None,
                 'protocolOss': None,
                 'managementAgreement': None,
-                'bulletinOss': None
+                'bulletinOss': None,
+                'documents': None
             }
         
         return {

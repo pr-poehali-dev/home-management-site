@@ -81,6 +81,9 @@ const HouseDetail = () => {
   const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
   const [currentBulletinOss, setCurrentBulletinOss] = useState<string | undefined>();
   const [uploadingBulletin, setUploadingBulletin] = useState(false);
+  const [currentDocuments, setCurrentDocuments] = useState<string | string[] | undefined>();
+  const [uploadingExtraDoc, setUploadingExtraDoc] = useState(false);
+  const [documentsOpen, setDocumentsOpen] = useState(false);
 
   const house = houses.find((h) => h.id === id);
 
@@ -96,6 +99,7 @@ const HouseDetail = () => {
           if (data.protocolOss) setCurrentProtocolOss(data.protocolOss);
           if (data.managementAgreement) setCurrentManagementAgreement(data.managementAgreement);
           if (data.bulletinOss) setCurrentBulletinOss(data.bulletinOss);
+          if (data.documents) setCurrentDocuments(data.documents);
         }
       } catch (error) {
         console.error('Failed to load data:', error);
@@ -342,6 +346,67 @@ const HouseDetail = () => {
     }
   };
 
+  const handleExtraDocUpload = async (files: FileList) => {
+    setUploadingExtraDoc(true);
+    try {
+      const uploadedUrls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const maxSize = 2 * 1024 * 1024;
+        if (file.size > maxSize) {
+          toast({
+            title: 'Файл слишком большой',
+            description: `Файл "${file.name}" весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com`,
+            variant: 'destructive',
+            duration: 10000
+          });
+          return;
+        }
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        const uploadResponse = await fetch(funcUrls['upload-image'], {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64, type: 'document', fileType: 'pdf' })
+        });
+        if (!uploadResponse.ok) throw new Error('Upload failed');
+        const { url } = await uploadResponse.json();
+        uploadedUrls.push(url);
+      }
+      const newDocs = uploadedUrls.length === 1 ? uploadedUrls[0] : uploadedUrls;
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, documents: newDocs })
+      });
+      setCurrentDocuments(newDocs);
+      toast({ title: 'Успешно!', description: 'Документ загружен' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось загрузить документ', variant: 'destructive' });
+    } finally {
+      setUploadingExtraDoc(false);
+    }
+  };
+
+  const handleExtraDocDelete = async () => {
+    if (!confirm('Вы уверены, что хотите удалить документы?')) return;
+    try {
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, documents: null })
+      });
+      setCurrentDocuments(undefined);
+      toast({ title: 'Успешно!', description: 'Документы удалены' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось удалить документы', variant: 'destructive' });
+    }
+  };
+
   if (!house) {
     return (
       <Layout>
@@ -514,7 +579,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className={`grid gap-6 pt-6 border-t ${id === 'spb-konstantinova-1k1str1' ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+                <div className={`grid gap-6 pt-6 border-t ${(id === 'spb-konstantinova-1k1str1' || id === 'spb-petrovskiy-5str1') ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -570,6 +635,79 @@ const HouseDetail = () => {
                       )}
                     </CardContent>
                   </Card>
+
+                  {id === 'spb-petrovskiy-5str1' && (
+                    <Card className="bg-secondary/5">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold mb-4 flex items-center gap-2">
+                          <Icon name="FolderOpen" size={20} className="text-primary" />
+                          Документы
+                        </h3>
+                        {currentDocuments ? (
+                          <>
+                            <Button
+                              variant="link"
+                              onClick={() => setDocumentsOpen(true)}
+                              className="flex items-center gap-2 text-primary hover:underline text-sm font-medium p-0 h-auto mb-2"
+                            >
+                              <Icon name="Eye" size={16} />
+                              Просмотреть документы
+                            </Button>
+                            <p className="text-xs text-muted-foreground mb-3">
+                              Документы дома
+                            </p>
+                            <div className="flex gap-2 flex-wrap">
+                              <label className="cursor-pointer">
+                                <input
+                                  type="file"
+                                  accept=".pdf,image/*"
+                                  multiple
+                                  className="hidden"
+                                  onChange={(e) => e.target.files && handleExtraDocUpload(e.target.files)}
+                                />
+                                <Button variant="outline" size="sm" asChild disabled={uploadingExtraDoc}>
+                                  <span>
+                                    <Icon name="Upload" size={14} />
+                                    {uploadingExtraDoc ? 'Загрузка...' : 'Заменить'}
+                                  </span>
+                                </Button>
+                              </label>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={handleExtraDocDelete}
+                                className="text-destructive hover:text-destructive"
+                              >
+                                <Icon name="Trash2" size={14} />
+                                Удалить
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              Документы не загружены
+                            </p>
+                            <label className="cursor-pointer">
+                              <input
+                                type="file"
+                                accept=".pdf,image/*"
+                                multiple
+                                className="hidden"
+                                onChange={(e) => e.target.files && handleExtraDocUpload(e.target.files)}
+                              />
+                              <Button variant="outline" size="sm" asChild disabled={uploadingExtraDoc}>
+                                <span>
+                                  <Icon name="Upload" size={14} />
+                                  {uploadingExtraDoc ? 'Загрузка...' : 'Загрузить PDF'}
+                                </span>
+                              </Button>
+                            </label>
+                          </>
+                        )}
+                      </CardContent>
+                    </Card>
+                  )}
 
                   {id === 'spb-konstantinova-1k1str1' && (
                     <Card className="bg-secondary/5">
@@ -1085,6 +1223,15 @@ const HouseDetail = () => {
           onOpenChange={setAgreementOpen}
           images={Array.isArray(currentManagementAgreement || house.managementAgreement) ? (currentManagementAgreement || house.managementAgreement) as string[] : [currentManagementAgreement || house.managementAgreement] as string[]}
           title="Договор управления"
+        />
+      )}
+
+      {currentDocuments && (
+        <ProtocolViewer
+          open={documentsOpen}
+          onOpenChange={setDocumentsOpen}
+          images={Array.isArray(currentDocuments) ? currentDocuments : [currentDocuments]}
+          title="Документы"
         />
       )}
     </Layout>
