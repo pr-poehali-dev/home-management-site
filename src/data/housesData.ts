@@ -392,7 +392,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: 'ЖК "Остров"',
     company: "ООО «УК «Остров-град»",
-    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/2f7501ff-e589-4e66-afe6-fe43ea27538f.JPG",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/9b47b799-afd7-452c-afe8-024c811a0201.JPG",
   },
   {
     id: "spb-primorskoe-352str1",
