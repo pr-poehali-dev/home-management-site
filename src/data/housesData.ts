@@ -100,7 +100,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
-    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f4172034-9769-4aab-9722-6193871e2a17.png",
   },
   {
     id: "spb-kondratyevskiy-62k2",
@@ -113,7 +113,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
-    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f4172034-9769-4aab-9722-6193871e2a17.png",
   },
   {
     id: "spb-kondratyevskiy-66k1",
@@ -126,7 +126,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Сити»",
     image: "https://placehold.co/800x600/e2e8f0/64748b?text=Building+Photo",
-    managerPhoto: "https://placehold.co/400x400/e2e8f0/64748b?text=Manager+Photo",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f4172034-9769-4aab-9722-6193871e2a17.png",
   },
   {
     id: "spb-zelenogorskaya-12b",
@@ -296,6 +296,7 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Наш дом-Полюстрово»",
     image: "https://cdn.poehali.dev/files/62 7 (1).jpg",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/f4172034-9769-4aab-9722-6193871e2a17.png",
   },
   {
     id: "spb-malaya-buharestskaya-12str1",
