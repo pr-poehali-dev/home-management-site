@@ -419,7 +419,7 @@ export const houses: HouseData[] = [
     id: "spb-konstantinova-1k1str1",
     address: "ул. Академика Константинова, д. 1 корп. 1 стр. 1 (+ паркинг)",
     city: "Санкт-Петербург",
-    manager: "Суконкина Елена Викторовна",
+    manager: "Рудая Виктория Викторовна",
     managerPhone: "+7 (921) 366-50-88",
     managerEmail: "nauka.ukdom@mail.ru",
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
