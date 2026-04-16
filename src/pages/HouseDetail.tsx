@@ -653,57 +653,14 @@ const HouseDetail = () => {
                               <Icon name="Eye" size={16} />
                               Просмотреть документы
                             </Button>
-                            <p className="text-xs text-muted-foreground mb-3">
+                            <p className="text-xs text-muted-foreground">
                               Документы дома
                             </p>
-                            <div className="flex gap-2 flex-wrap">
-                              <label className="cursor-pointer">
-                                <input
-                                  type="file"
-                                  accept=".pdf,image/*"
-                                  multiple
-                                  className="hidden"
-                                  onChange={(e) => e.target.files && handleExtraDocUpload(e.target.files)}
-                                />
-                                <Button variant="outline" size="sm" asChild disabled={uploadingExtraDoc}>
-                                  <span>
-                                    <Icon name="Upload" size={14} />
-                                    {uploadingExtraDoc ? 'Загрузка...' : 'Заменить'}
-                                  </span>
-                                </Button>
-                              </label>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={handleExtraDocDelete}
-                                className="text-destructive hover:text-destructive"
-                              >
-                                <Icon name="Trash2" size={14} />
-                                Удалить
-                              </Button>
-                            </div>
                           </>
                         ) : (
-                          <>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              Документы не загружены
-                            </p>
-                            <label className="cursor-pointer">
-                              <input
-                                type="file"
-                                accept=".pdf,image/*"
-                                multiple
-                                className="hidden"
-                                onChange={(e) => e.target.files && handleExtraDocUpload(e.target.files)}
-                              />
-                              <Button variant="outline" size="sm" asChild disabled={uploadingExtraDoc}>
-                                <span>
-                                  <Icon name="Upload" size={14} />
-                                  {uploadingExtraDoc ? 'Загрузка...' : 'Загрузить PDF'}
-                                </span>
-                              </Button>
-                            </label>
-                          </>
+                          <p className="text-sm text-muted-foreground">
+                            Документы не загружены
+                          </p>
                         )}
                       </CardContent>
                     </Card>
