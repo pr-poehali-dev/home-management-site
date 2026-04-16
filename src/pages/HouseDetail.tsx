@@ -25,7 +25,7 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
     <>
       <div
         ref={ref}
-        className="w-24 h-24 rounded-lg select-none cursor-default"
+        className="w-24 rounded-lg select-none cursor-default"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onContextMenu={(e) => e.preventDefault()}
@@ -33,7 +33,7 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
         <img
           src={src}
           alt={alt}
-          className="w-24 h-24 rounded-lg object-cover pointer-events-none"
+          className="w-24 rounded-lg object-contain pointer-events-none"
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
         />
@@ -54,7 +54,7 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
           <img
             src={src}
             alt={alt}
-            className="w-full h-full rounded-lg object-cover pointer-events-none"
+            className="w-full h-full rounded-lg object-contain pointer-events-none"
             draggable={false}
             onContextMenu={(e) => e.preventDefault()}
           />
@@ -536,7 +536,7 @@ const HouseDetail = () => {
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      <div className="mb-4 w-24 h-24">
+                      <div className="mb-4 w-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <ManagerPhotoZoom
                             src={currentManagerPhoto || house.managerPhoto || ""}
