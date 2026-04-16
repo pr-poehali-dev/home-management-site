@@ -63,13 +63,12 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
     )
     
-    # Генерируем presigned URL для загрузки (действует 15 минут)
+    # Генерируем presigned URL для загрузки (действует 15 минут, без ContentType чтобы не блокировал CORS)
     presigned_url = s3.generate_presigned_url(
         'put_object',
         Params={
             'Bucket': 'files',
             'Key': file_name,
-            'ContentType': content_type
         },
         ExpiresIn=900  # 15 минут
     )
