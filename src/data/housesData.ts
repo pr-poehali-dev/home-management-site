@@ -309,6 +309,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Новое Купчино»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/97b3c14d-b932-4248-8869-abc6503c61ab.JPG",
   },
   {
     id: "murino-vorontsovskiy-23-11",
