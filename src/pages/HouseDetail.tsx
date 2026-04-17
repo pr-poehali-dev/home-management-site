@@ -536,7 +536,7 @@ const HouseDetail = () => {
                         <Icon name="UserCircle" size={20} className="text-primary" />
                         Ваш управляющий
                       </h3>
-                      <div className="mb-4 w-24 h-24">
+                      <div className="mb-4 w-24">
                         {(currentManagerPhoto || house.managerPhoto) ? (
                           <ManagerPhotoZoom
                             src={currentManagerPhoto || house.managerPhoto || ""}
