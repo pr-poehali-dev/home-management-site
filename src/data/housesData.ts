@@ -138,6 +138,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-vasenko-12b",
@@ -149,6 +150,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-fermskoe-20k3",
@@ -160,6 +162,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-fermskoe-22k2",
@@ -171,6 +174,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-odoevskogo-21k2str1",
@@ -182,6 +186,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-krasnoselskoe-4",
@@ -193,6 +198,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-krasnoselskoe-8",
@@ -204,6 +210,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "spb-krasnoselskoe-20",
@@ -215,6 +222,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Паркинг",
     company: "ООО «Сити Паркинг»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/c4e6b1f2-e230-421b-b9d0-f905570230f6.JPG",
   },
   {
     id: "kudrovo-kashtanovaya-2",
