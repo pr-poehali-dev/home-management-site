@@ -33,7 +33,8 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
         <img
           src={src}
           alt={alt}
-          className="w-24 rounded-lg object-contain pointer-events-none"
+          className="w-24 rounded-lg object-cover pointer-events-none"
+          style={{ objectPosition: 'center 12%' }}
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
         />
