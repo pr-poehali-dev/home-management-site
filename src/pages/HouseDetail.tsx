@@ -25,7 +25,7 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
     <>
       <div
         ref={ref}
-        className="w-24 h-24 rounded-lg select-none cursor-default"
+        className="rounded-lg select-none cursor-default overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onContextMenu={(e) => e.preventDefault()}
@@ -33,7 +33,7 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
         <img
           src={src}
           alt={alt}
-          className="w-24 h-24 rounded-lg object-cover pointer-events-none"
+          className="w-24 rounded-lg object-contain pointer-events-none"
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
         />
@@ -43,10 +43,10 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
           className="pointer-events-none select-none rounded-lg shadow-2xl"
           style={{
             position: 'fixed',
-            top: rect.top + rect.height / 2 - (rect.height * 4) / 2,
+            top: rect.top + rect.height / 2 - (rect.width * 6) / 2,
             left: rect.left + rect.width / 2 - (rect.width * 4) / 2,
             width: rect.width * 4,
-            height: rect.height * 4,
+            height: rect.width * 6,
             zIndex: 99999,
           }}
           onContextMenu={(e) => e.preventDefault()}
