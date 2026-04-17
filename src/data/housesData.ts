@@ -437,6 +437,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "БЦ",
     company: "ООО «УК «Остров-град»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
   },
   {
     id: "spb-odoevskogo-21k1str1",
@@ -448,6 +449,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО УК «СИТИХОУМ»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
   },
   {
     id: "kudrovo-stroiteley-2",
@@ -894,5 +896,6 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Остров-град»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
   },
 ];
