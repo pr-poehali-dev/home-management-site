@@ -296,7 +296,7 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
       </header>
 
-      <div className="bg-red-600 text-white overflow-hidden whitespace-nowrap sticky top-[var(--header-h,0)] z-40" style={{ height: '36px' }}>
+      <div className="bg-red-600 text-white overflow-hidden whitespace-nowrap sticky top-[var(--header-h,0)] z-40" style={{ height: '44px' }}>
         <style>{`
           @keyframes marquee {
             0%   { transform: translateX(100vw); }
@@ -304,11 +304,11 @@ const Layout = ({ children }: LayoutProps) => {
           }
           .marquee-text {
             display: inline-block;
-            animation: marquee 100s linear infinite;
+            animation: marquee 120s linear infinite;
           }
         `}</style>
         <div className="flex items-center h-full">
-          <span className="marquee-text text-sm font-medium">
+          <span className="marquee-text text-base font-medium">
             {warningText}{warningText}
           </span>
         </div>
