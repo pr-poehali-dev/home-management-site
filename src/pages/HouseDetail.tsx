@@ -566,6 +566,15 @@ const HouseDetail = () => {
                         <Icon name="PhoneCall" size={20} className="text-primary" />
                         Диспетчерская служба
                       </h3>
+                      {(id === 'kudrovo-oblastnaya-9k1' || id === 'kudrovo-oblastnaya-9k2') && (
+                        <a
+                          href="tel:+79219989437"
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:underline font-semibold text-sm mb-3"
+                        >
+                          <Icon name="Phone" size={16} />
+                          8 (921) 998-94-37
+                        </a>
+                      )}
                       <p className="text-xs text-muted-foreground">
                         Круглосуточно для аварийных заявок
                       </p>
