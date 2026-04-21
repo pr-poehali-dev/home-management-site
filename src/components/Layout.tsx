@@ -195,23 +195,6 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="bg-red-600 text-white overflow-hidden whitespace-nowrap" style={{ height: '36px' }}>
-        <style>{`
-          @keyframes marquee {
-            0%   { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
-          }
-          .marquee-text {
-            display: inline-block;
-            animation: marquee 40s linear infinite;
-          }
-        `}</style>
-        <div className="flex items-center h-full">
-          <span className="marquee-text text-sm font-medium py-2">
-            {warningText}{warningText}
-          </span>
-        </div>
-      </div>
       <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire relative overflow-hidden">
 
         <div className="container mx-auto px-4 py-4 relative z-10">
@@ -312,6 +295,24 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
         </div>
       </header>
+
+      <div className="bg-red-600 text-white overflow-hidden whitespace-nowrap sticky top-[var(--header-h,0)] z-40" style={{ height: '36px' }}>
+        <style>{`
+          @keyframes marquee {
+            0%   { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+          }
+          .marquee-text {
+            display: inline-block;
+            animation: marquee 70s linear infinite;
+          }
+        `}</style>
+        <div className="flex items-center h-full">
+          <span className="marquee-text text-sm font-medium">
+            {warningText}{warningText}
+          </span>
+        </div>
+      </div>
 
       <main className="flex-1">{children}</main>
 
