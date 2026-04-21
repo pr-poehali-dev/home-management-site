@@ -65,7 +65,9 @@ const About = () => {
                 src="https://cdn.poehali.dev/files/photostudio_1765354638585.jpg"
                 alt="Здание компании"
                 className="w-full h-auto object-contain block"
-                style={{ mixBlendMode: 'normal', opacity: 1 }}
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ mixBlendMode: 'normal', opacity: 1, userSelect: 'none', WebkitUserSelect: 'none', pointerEvents: 'none' }}
               />
             </div>
             <div className="space-y-6">
@@ -101,7 +103,9 @@ const About = () => {
                 src="https://cdn.poehali.dev/files/photostudio_1765353922094.jpg"
                 alt="Наш офис"
                 className="w-full h-auto object-contain block"
-                style={{ mixBlendMode: 'normal', opacity: 1 }}
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ mixBlendMode: 'normal', opacity: 1, userSelect: 'none', WebkitUserSelect: 'none', pointerEvents: 'none' }}
               />
             </div>
           </div>

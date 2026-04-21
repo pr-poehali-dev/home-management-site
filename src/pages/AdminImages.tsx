@@ -157,6 +157,9 @@ const AdminImages = () => {
                   src={image.url} 
                   alt={image.title}
                   className="w-full h-48 object-cover rounded-lg"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                 />
               </CardHeader>
               <CardContent>

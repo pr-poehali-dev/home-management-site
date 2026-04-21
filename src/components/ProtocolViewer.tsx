@@ -47,6 +47,9 @@ const ProtocolViewer = ({ open, onOpenChange, images, title }: ProtocolViewerPro
               src={currentFile} 
               alt={`Страница ${currentPage + 1}`}
               className="w-full h-auto"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              style={{ userSelect: 'none', WebkitUserSelect: 'none', pointerEvents: 'none' }}
             />
           )}
         </div>
