@@ -256,7 +256,7 @@ const News = () => {
               Актуальная информация о событиях, работах и изменениях
             </p>
             <div className="mt-4">
-              {isAdmin ? (
+              {isAdmin && (
                 <div className="inline-flex items-center gap-3">
                   <span className="inline-flex items-center gap-2 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
                     <Icon name="Pencil" size={14} />
@@ -266,11 +266,6 @@ const News = () => {
                     Выйти
                   </Button>
                 </div>
-              ) : (
-                <Button size="sm" variant="ghost" className="text-muted-foreground/40 hover:text-muted-foreground text-xs" onClick={() => setShowAuthDialog(true)}>
-                  <Icon name="Lock" size={12} className="mr-1" />
-                  Для администратора
-                </Button>
               )}
             </div>
           </div>
