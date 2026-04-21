@@ -575,6 +575,15 @@ const HouseDetail = () => {
                           8 (921) 998-94-37
                         </a>
                       )}
+                      {id === 'kudrovo-oblastnaya-7' && (
+                        <a
+                          href="tel:+79291578749"
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:underline font-semibold text-sm mb-3"
+                        >
+                          <Icon name="Phone" size={16} />
+                          8 (929) 157-87-49
+                        </a>
+                      )}
                       <p className="text-xs text-muted-foreground">
                         Круглосуточно для аварийных заявок
                       </p>
