@@ -72,6 +72,14 @@ const News = () => {
       const hasMaxNews = data.news?.some((n: NewsItem) => n.title.includes("СМИ о создании домовых чатов"));
       const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => n.title.includes("периоде охлаждения"));
 
+      const scamWarningNews: NewsItem = {
+        id: 1001,
+        title: "🚨 ВНИМАНИЕ, МОШЕННИКИ АКТИВИЗИРОВАЛИСЬ! 🚨",
+        date: "2026-04-21",
+        tag: "ВНИМАНИЕ",
+        content: `Уважаемые жители!\n\nМы получили сигналы о том, что злоумышленники используют не только имена наших сотрудников, но и наш официальный логотип. Они звонят, пишут в мессенджеры, создают поддельные чаты и рассылки. Цель — выманить ваши личные данные, доступ к аккаунтам или деньги.\n\nЧто нужно знать:\n✅ Мы никогда не рассылаем ссылки на оплату через мессенджеры.\n✅ Мы никогда не запрашиваем коды из СМС, пароли от личных кабинетов или данные банковских карт.\n✅ Все официальные сообщения от УК публикуются только здесь: на нашем сайте и в официальных соцсетях.\n\nЕсли вам поступил подозрительный звонок или сообщение — не переходите по ссылкам, не отвечайте. Прервите разговор.\n\nМы на связи:\n📞 Круглосуточная диспетчерская служба: 467-77-77`
+      };
+
       const tariffIncreaseNews: NewsItem = {
         id: 1000,
         title: "Увеличение размера платы за ЖКУ с 01.01.2026",
@@ -103,7 +111,10 @@ const News = () => {
         pdfUrl: n.pdf_url
       }));
 
+      const hasScamWarning = data.news?.some((n: NewsItem) => n.title.includes("МОШЕННИКИ АКТИВИЗИРОВАЛИСЬ"));
+
       const newsToAdd: NewsItem[] = [];
+      if (!hasScamWarning) newsToAdd.push(scamWarningNews);
       if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
       if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
       if (!hasMaxNews) newsToAdd.push(maxNews);
