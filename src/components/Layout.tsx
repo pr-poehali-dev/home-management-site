@@ -73,6 +73,8 @@ const FallingFlowers = () => {
               <img
                 src={LOGO_URL}
                 alt=""
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
                 style={{
                   width: item.size,
                   height: item.size,
@@ -80,6 +82,9 @@ const FallingFlowers = () => {
                   objectPosition: "50% 0%",
                   position: "absolute",
                   top: 0,
+                  pointerEvents: "none",
+                  userSelect: "none",
+                  WebkitUserSelect: "none",
                 }}
               />
             </div>
@@ -93,6 +98,8 @@ const FallingFlowers = () => {
               <img
                 src={LOGO_URL}
                 alt=""
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
                 style={{
                   width: item.size * 1.4,
                   height: item.size * 1.4,
@@ -101,6 +108,9 @@ const FallingFlowers = () => {
                   position: "absolute",
                   top: 0,
                   left: "-30%",
+                  pointerEvents: "none",
+                  userSelect: "none",
+                  WebkitUserSelect: "none",
                 }}
               />
             </div>
@@ -158,8 +168,10 @@ const AnimatedLogo = () => {
         alt="НАШ ДОМ"
         className={`w-28 h-28 object-cover rounded-full cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
         draggable={false}
+        onContextMenu={(e) => e.preventDefault()}
         onMouseEnter={trigger}
         onClick={trigger}
+        style={{ userSelect: "none", WebkitUserSelect: "none" }}
       />
     </>
   );
