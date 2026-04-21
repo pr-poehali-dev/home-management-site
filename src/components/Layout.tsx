@@ -304,11 +304,11 @@ const Layout = ({ children }: LayoutProps) => {
           }
           .marquee-text {
             display: inline-block;
-            animation: marquee 120s linear infinite;
+            animation: marquee 140s linear infinite;
           }
         `}</style>
         <div className="flex items-center h-full">
-          <span className="marquee-text text-base font-medium">
+          <span className="marquee-text text-lg font-medium">
             {warningText}{warningText}
           </span>
         </div>
