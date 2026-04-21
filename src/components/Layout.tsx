@@ -191,8 +191,27 @@ const Layout = ({ children }: LayoutProps) => {
     { path: "/for-residents", label: "Для жильцов" },
   ];
 
+  const warningText = "🚨 ВНИМАНИЕ, МОШЕННИКИ АКТИВИЗИРОВАЛИСЬ! 🚨  Уважаемые жители! Мы получили сигналы о том, что злоумышленники используют не только имена наших сотрудников, но и наш официальный логотип. Они звонят, пишут в мессенджеры, создают поддельные чаты и рассылки. Цель — выманить ваши личные данные, доступ к аккаунтам или деньги.  ✅ Мы никогда не рассылаем ссылки на оплату через мессенджеры.  ✅ Мы никогда не запрашиваем коды из СМС, пароли от личных кабинетов или данные банковских карт.  ✅ Все официальные сообщения публикуются только на нашем сайте и в официальных соцсетях.  Если вам поступил подозрительный звонок или сообщение — не переходите по ссылкам, не отвечайте. Прервите разговор.  📞 Круглосуточная диспетчерская: 467-77-77     ";
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <div className="bg-red-600 text-white overflow-hidden whitespace-nowrap" style={{ height: '36px' }}>
+        <style>{`
+          @keyframes marquee {
+            0%   { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+          }
+          .marquee-text {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+          }
+        `}</style>
+        <div className="flex items-center h-full">
+          <span className="marquee-text text-sm font-medium py-2">
+            {warningText}{warningText}
+          </span>
+        </div>
+      </div>
       <header className="border-b sticky top-0 bg-gradient-sapphire backdrop-blur z-50 shadow-sapphire relative overflow-hidden">
 
         <div className="container mx-auto px-4 py-4 relative z-10">
