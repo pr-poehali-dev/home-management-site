@@ -71,6 +71,15 @@ const News = () => {
       const hasTariffNews = data.news?.some((n: NewsItem) => n.title.includes("Увеличение размера платы за ЖКУ"));
       const hasMaxNews = data.news?.some((n: NewsItem) => n.title.includes("СМИ о создании домовых чатов"));
       const hasCoolingPeriodNews = data.news?.some((n: NewsItem) => n.title.includes("периоде охлаждения"));
+      const hasErkernews = data.news?.some((n: NewsItem) => n.title.includes("узла нижнего эркера витража"));
+
+      const erkerNews: NewsItem = {
+        id: 1002,
+        title: "Дополнительные работы по переделке узла нижнего эркера витража",
+        date: "2026-04-27",
+        tag: "ВНИМАНИЕ",
+        content: `Уважаемые собственники!\n\n📍квартиры: 1629, 1641, 1647, 1653, 1659, 1623, 1616\n\n❗️Будут проводиться дополнительные работы по переделке узла нижнего эркера витража и зоны эркера в районе межэтажного перекрытия.\n\nБлагодарим за внимание!`
+      };
 
       const scamWarningNews: NewsItem = {
         id: 1001,
@@ -115,6 +124,7 @@ const News = () => {
 
       const newsToAdd: NewsItem[] = [];
       if (!hasScamWarning) newsToAdd.push(scamWarningNews);
+      if (!hasErkernews) newsToAdd.push(erkerNews);
       if (!hasTariffNews) newsToAdd.push(tariffIncreaseNews);
       if (!hasCoolingPeriodNews) newsToAdd.push(coolingPeriodNews);
       if (!hasMaxNews) newsToAdd.push(maxNews);
