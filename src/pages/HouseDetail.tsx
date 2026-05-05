@@ -1035,7 +1035,7 @@ const HouseDetail = () => {
                       </div>
                     </div>
                   </div>
-                ) : house.address.includes("Фермское шоссе, д. 22, корп. 3 лит. А") && house.city === "Санкт-Петербург" ? (
+                ) : (house.address.includes("Фермское шоссе, д. 22, корп. 3 лит. А") || house.address.includes("Фермское шоссе, д. 20, корп. 2 лит. А")) && house.city === "Санкт-Петербург" ? (
                   <div className="space-y-4 text-muted-foreground">
                     <div className="flex items-start gap-3">
                       <Icon name="FileText" className="mt-1 flex-shrink-0" size={20} />
