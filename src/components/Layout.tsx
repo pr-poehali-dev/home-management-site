@@ -1,4 +1,4 @@
-import { ReactNode, useState, useCallback, useRef } from "react";
+import { ReactNode, useState, useCallback, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -11,6 +11,35 @@ interface LayoutProps {
 const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
 
 const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/29507a18-dd7f-40f4-a1ef-3bcfeef4cca4.png";
+
+const TransparentLogo = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < data.data.length; i += 4) {
+        const r = data.data[i], g = data.data[i + 1], b = data.data[i + 2];
+        if (r > 220 && g > 220 && b > 220) {
+          data.data[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(data, 0, 0);
+    };
+    img.src = LOGO_URL;
+  }, []);
+
+  return <canvas ref={canvasRef} className={className} style={style} />;
+};
 
 const FallingFlowers = () => {
   const items = Array.from({ length: 22 }, (_, i) => {
@@ -163,15 +192,9 @@ const AnimatedLogo = () => {
           transform-origin: center center;
         }
       `}</style>
-      <img
-        src={LOGO_URL}
-        alt="НАШ ДОМ"
-        className={`w-28 h-28 object-contain cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
-        draggable={false}
-        onContextMenu={(e) => e.preventDefault()}
-        onMouseEnter={trigger}
-        onClick={trigger}
-        style={{ userSelect: "none", WebkitUserSelect: "none", mixBlendMode: "screen" }}
+      <TransparentLogo
+        className={`w-28 h-28 cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
+        style={{ userSelect: "none", WebkitUserSelect: "none" }}
       />
     </>
   );
@@ -336,12 +359,7 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img 
-                  src={LOGO_URL}
-                  alt="НАШ ДОМ" 
-                  className="w-10 h-10 object-contain"
-                  style={{ mixBlendMode: "screen" }}
-                />
+                <TransparentLogo className="w-10 h-10" />
                 <div>
                   <h3 className="font-bold">НАШ ДОМ</h3>
                 </div>
