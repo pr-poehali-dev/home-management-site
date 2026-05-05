@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
 
-const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/logo-transparent-1b0d383e04f14bd08d613b43e0f827fd.png";
+const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/logo-transparent-de559383b8e74a1584b25e9d4191a056.png";
 
 const TransparentLogo = ({ className, style }: { className?: string; style?: React.CSSProperties }) => {
   return (

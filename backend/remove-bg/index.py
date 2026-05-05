@@ -23,7 +23,10 @@ def handler(event: dict, context) -> dict:
     for y in range(height):
         for x in range(width):
             r, g, b, a = pixels[x, y]
-            if r > 220 and g > 220 and b > 220:
+            # Удаляем только чисто белый/серый фон: все каналы высокие и почти равны
+            max_ch = max(r, g, b)
+            min_ch = min(r, g, b)
+            if max_ch > 240 and (max_ch - min_ch) < 20:
                 pixels[x, y] = (r, g, b, 0)
 
     out = io.BytesIO()
