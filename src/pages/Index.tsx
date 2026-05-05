@@ -36,43 +36,105 @@ const formatDate = (dateString: string): string => {
 };
 
 const RibbonAnimation = () => {
+  const W = 1440;
+  const H = 500;
+  const ribbonHeight = 162;
+
+  // Полосы: оранжевая-чёрная-оранжевая-чёрная-оранжевая
+  const stripes = [
+    { fill: 'url(#go1)', h: 38 },
+    { fill: 'url(#gb1)', h: 24 },
+    { fill: 'url(#go2)', h: 38 },
+    { fill: 'url(#gb2)', h: 24 },
+    { fill: 'url(#go3)', h: 38 },
+  ];
+
+  // Три ключевых кадра волны (верхняя линия ленты)
+  const wave = (phase: number) => {
+    const p = phase;
+    return [
+      `M-100,${200 + Math.sin(p) * 60}`,
+      `C200,${200 + Math.sin(p + 0.8) * 80} 400,${200 + Math.sin(p + 1.6) * 70} 600,${200 + Math.sin(p + 2.4) * 60}`,
+      `C800,${200 + Math.sin(p + 3.2) * 80} 1000,${200 + Math.sin(p + 4.0) * 70} 1200,${200 + Math.sin(p + 4.8) * 60}`,
+      `C1350,${200 + Math.sin(p + 5.6) * 80} 1480,${200 + Math.sin(p + 6.4) * 60} 1600,${200 + Math.sin(p + 7.0) * 70}`,
+    ].join(' ');
+  };
+
+  const buildBand = (topPath: string, offset: number) => {
+    // Нижняя линия = сдвиг по Y вниз на offset
+    const shift = (path: string, dy: number) =>
+      path.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) => `${x},${(parseFloat(y) + dy).toFixed(1)}`);
+    const bottom = shift(topPath, offset);
+    const topRev = topPath
+      .replace(/^M/, '')
+      .split(/(?=[MC])/)
+      .reverse()
+      .join(' ');
+    return `${topPath} ${bottom.replace(/^M/, 'L')} Z`;
+  };
+
+  const frames = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2].map(wave);
+
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-      <style>{`
-        @keyframes georg-ribbon-move {
-          0%   { transform: rotate(-35deg) translateY(-60px); }
-          50%  { transform: rotate(-35deg) translateY(30px); }
-          100% { transform: rotate(-35deg) translateY(-60px); }
-        }
-        @keyframes georg-ribbon-wave {
-          0%   { transform: rotate(-35deg) translateY(-60px) skewX(0deg); }
-          25%  { transform: rotate(-35deg) translateY(-20px) skewX(3deg); }
-          50%  { transform: rotate(-35deg) translateY(30px) skewX(-2deg); }
-          75%  { transform: rotate(-35deg) translateY(-10px) skewX(2deg); }
-          100% { transform: rotate(-35deg) translateY(-60px) skewX(0deg); }
-        }
-        .georg-ribbon {
-          position: absolute;
-          left: -30%;
-          top: -20%;
-          width: 160%;
-          display: flex;
-          flex-direction: column;
-          animation: georg-ribbon-wave 6s ease-in-out infinite;
-          transform-origin: center center;
-          filter: drop-shadow(0 8px 24px rgba(0,0,0,0.45));
-        }
-        .georg-ribbon-stripe-orange { background: linear-gradient(90deg, #c47a10, #F5A623 30%, #ffd080 50%, #F5A623 70%, #c47a10); }
-        .georg-ribbon-stripe-black  { background: linear-gradient(90deg, #111, #333 30%, #555 50%, #333 70%, #111); }
-      `}</style>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid slice"
+        style={{ filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.5))' }}
+      >
+        <defs>
+          {['go1','go2','go3'].map(id => (
+            <linearGradient key={id} id={id} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stopColor="#b86e0a" />
+              <stop offset="30%"  stopColor="#F5A623" />
+              <stop offset="50%"  stopColor="#ffd47a" />
+              <stop offset="70%"  stopColor="#F5A623" />
+              <stop offset="100%" stopColor="#b86e0a" />
+            </linearGradient>
+          ))}
+          {['gb1','gb2'].map(id => (
+            <linearGradient key={id} id={id} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stopColor="#0a0a0a" />
+              <stop offset="30%"  stopColor="#2a2a2a" />
+              <stop offset="50%"  stopColor="#444" />
+              <stop offset="70%"  stopColor="#2a2a2a" />
+              <stop offset="100%" stopColor="#0a0a0a" />
+            </linearGradient>
+          ))}
+        </defs>
 
-      <div className="georg-ribbon">
-        <div className="georg-ribbon-stripe-orange" style={{ height: 38 }} />
-        <div className="georg-ribbon-stripe-black"  style={{ height: 24 }} />
-        <div className="georg-ribbon-stripe-orange" style={{ height: 38 }} />
-        <div className="georg-ribbon-stripe-black"  style={{ height: 24 }} />
-        <div className="georg-ribbon-stripe-orange" style={{ height: 38 }} />
-      </div>
+        {stripes.map((stripe, si) => {
+          const offsetBefore = stripes.slice(0, si).reduce((s, x) => s + x.h, 0);
+          return (
+            <path key={si} fill={stripe.fill}>
+              <animate
+                attributeName="d"
+                dur="5s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keySplines="0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"
+                values={frames.map(f => {
+                  const topPath = f.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) =>
+                    `${x},${(parseFloat(y) + offsetBefore).toFixed(1)}`
+                  );
+                  const bottomPath = topPath.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) =>
+                    `${x},${(parseFloat(y) + stripe.h).toFixed(1)}`
+                  );
+                  // Собираем замкнутый path: верх слева→направо, низ направо→налево
+                  const topParts = topPath.match(/M[^MCZ]+ |[MC][^MCZ]+/g) || [];
+                  const bottomParts = bottomPath.match(/M[^MCZ]+ |[MC][^MCZ]+/g) || [];
+                  const bottomRev = bottomParts.slice(1).reverse().map((p, i) =>
+                    i === 0 ? 'L' + p.slice(1) : 'C' + p.slice(1)
+                  ).join(' ');
+                  return topPath + ' ' + bottomRev + ' Z';
+                }).join(';')}
+              />
+            </path>
+          );
+        })}
+      </svg>
     </div>
   );
 };
