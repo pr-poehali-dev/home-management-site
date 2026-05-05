@@ -36,104 +36,94 @@ const formatDate = (dateString: string): string => {
 };
 
 const RibbonAnimation = () => {
-  const W = 1440;
-  const H = 500;
-  const ribbonHeight = 162;
-
-  // Полосы: оранжевая-чёрная-оранжевая-чёрная-оранжевая
+  // Высоты полос ленты
   const stripes = [
-    { fill: 'url(#go1)', h: 38 },
-    { fill: 'url(#gb1)', h: 24 },
-    { fill: 'url(#go2)', h: 38 },
-    { fill: 'url(#gb2)', h: 24 },
-    { fill: 'url(#go3)', h: 38 },
+    { color: '#E8A020', sh: 0,   h: 30 },
+    { color: '#1a1a1a', sh: 30,  h: 20 },
+    { color: '#E8A020', sh: 50,  h: 30 },
+    { color: '#1a1a1a', sh: 80,  h: 20 },
+    { color: '#E8A020', sh: 100, h: 30 },
   ];
 
-  // Три ключевых кадра волны (верхняя линия ленты)
-  const wave = (phase: number) => {
+  // Генерируем path для полосы при заданной фазе
+  const makePath = (phase: number, yTop: number, yBot: number) => {
     const p = phase;
-    return [
-      `M-100,${200 + Math.sin(p) * 60}`,
-      `C200,${200 + Math.sin(p + 0.8) * 80} 400,${200 + Math.sin(p + 1.6) * 70} 600,${200 + Math.sin(p + 2.4) * 60}`,
-      `C800,${200 + Math.sin(p + 3.2) * 80} 1000,${200 + Math.sin(p + 4.0) * 70} 1200,${200 + Math.sin(p + 4.8) * 60}`,
-      `C1350,${200 + Math.sin(p + 5.6) * 80} 1480,${200 + Math.sin(p + 6.4) * 60} 1600,${200 + Math.sin(p + 7.0) * 70}`,
+    const sin = (x: number) => Math.sin(x + p);
+    const top = [
+      `M -50 ${180 + sin(0) * 40}`,
+      `C 200 ${180 + sin(1.2) * 55}`,
+      `  500 ${180 + sin(2.4) * 45}`,
+      `  800 ${180 + sin(3.6) * 55}`,
+      `C 1100 ${180 + sin(4.8) * 45}`,
+      `  1300 ${180 + sin(5.6) * 55}`,
+      `  1550 ${180 + sin(6.4) * 40}`,
     ].join(' ');
+    const bot = [
+      `L 1550 ${180 + sin(6.4) * 40 + 130}`,
+      `C 1300 ${180 + sin(5.6) * 55 + 130}`,
+      `  1100 ${180 + sin(4.8) * 45 + 130}`,
+      `  800  ${180 + sin(3.6) * 55 + 130}`,
+      `C 500  ${180 + sin(2.4) * 45 + 130}`,
+      `  200  ${180 + sin(1.2) * 55 + 130}`,
+      `  -50  ${180 + sin(0) * 40 + 130}`,
+      `Z`,
+    ].join(' ');
+    return top + ' ' + bot;
   };
 
-  const buildBand = (topPath: string, offset: number) => {
-    // Нижняя линия = сдвиг по Y вниз на offset
-    const shift = (path: string, dy: number) =>
-      path.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) => `${x},${(parseFloat(y) + dy).toFixed(1)}`);
-    const bottom = shift(topPath, offset);
-    const topRev = topPath
-      .replace(/^M/, '')
-      .split(/(?=[MC])/)
-      .reverse()
-      .join(' ');
-    return `${topPath} ${bottom.replace(/^M/, 'L')} Z`;
-  };
+  // Ключевые кадры (5 фаз)
+  const phases = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2];
 
-  const frames = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2].map(wave);
+  // Для каждой полосы свои кадры с учётом смещения по Y
+  const getValues = (sh: number, h: number) =>
+    phases.map(p => {
+      const sin = (x: number) => Math.sin(x + p);
+      const topY = (x: number) => 180 + sin(x) * 50 + sh;
+      const botY = (x: number) => topY(x) + h;
+      return [
+        `M -50 ${topY(0)}`,
+        `C 200 ${topY(1.2)} 500 ${topY(2.4)} 800 ${topY(3.6)}`,
+        `C 1100 ${topY(4.8)} 1300 ${topY(5.6)} 1550 ${topY(6.4)}`,
+        `L 1550 ${botY(6.4)}`,
+        `C 1300 ${botY(5.6)} 1100 ${botY(4.8)} 800 ${botY(3.6)}`,
+        `C 500 ${botY(2.4)} 200 ${botY(1.2)} -50 ${botY(0)}`,
+        `Z`,
+      ].join(' ');
+    }).join(';');
 
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
       <svg
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="xMidYMid slice"
-        style={{ filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.5))' }}
+        width="100%" height="100%"
+        viewBox="0 0 1500 600"
+        preserveAspectRatio="xMidYMid meet"
+        style={{ filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.6))' }}
       >
         <defs>
-          {['go1','go2','go3'].map(id => (
-            <linearGradient key={id} id={id} x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stopColor="#b86e0a" />
-              <stop offset="30%"  stopColor="#F5A623" />
-              <stop offset="50%"  stopColor="#ffd47a" />
-              <stop offset="70%"  stopColor="#F5A623" />
-              <stop offset="100%" stopColor="#b86e0a" />
-            </linearGradient>
-          ))}
-          {['gb1','gb2'].map(id => (
-            <linearGradient key={id} id={id} x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stopColor="#0a0a0a" />
-              <stop offset="30%"  stopColor="#2a2a2a" />
-              <stop offset="50%"  stopColor="#444" />
-              <stop offset="70%"  stopColor="#2a2a2a" />
-              <stop offset="100%" stopColor="#0a0a0a" />
-            </linearGradient>
-          ))}
+          <linearGradient id="og" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stopColor="#ffd47a" />
+            <stop offset="40%"  stopColor="#F5A623" />
+            <stop offset="100%" stopColor="#a05810" />
+          </linearGradient>
+          <linearGradient id="bk" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stopColor="#444" />
+            <stop offset="50%"  stopColor="#1a1a1a" />
+            <stop offset="100%" stopColor="#000" />
+          </linearGradient>
         </defs>
 
-        {stripes.map((stripe, si) => {
-          const offsetBefore = stripes.slice(0, si).reduce((s, x) => s + x.h, 0);
-          return (
-            <path key={si} fill={stripe.fill}>
-              <animate
-                attributeName="d"
-                dur="5s"
-                repeatCount="indefinite"
-                calcMode="spline"
-                keySplines="0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"
-                values={frames.map(f => {
-                  const topPath = f.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) =>
-                    `${x},${(parseFloat(y) + offsetBefore).toFixed(1)}`
-                  );
-                  const bottomPath = topPath.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, (_, x, y) =>
-                    `${x},${(parseFloat(y) + stripe.h).toFixed(1)}`
-                  );
-                  // Собираем замкнутый path: верх слева→направо, низ направо→налево
-                  const topParts = topPath.match(/M[^MCZ]+ |[MC][^MCZ]+/g) || [];
-                  const bottomParts = bottomPath.match(/M[^MCZ]+ |[MC][^MCZ]+/g) || [];
-                  const bottomRev = bottomParts.slice(1).reverse().map((p, i) =>
-                    i === 0 ? 'L' + p.slice(1) : 'C' + p.slice(1)
-                  ).join(' ');
-                  return topPath + ' ' + bottomRev + ' Z';
-                }).join(';')}
-              />
-            </path>
-          );
-        })}
+        {stripes.map((s, i) => (
+          <path key={i} fill={i % 2 === 0 ? 'url(#og)' : 'url(#bk)'}>
+            <animate
+              attributeName="d"
+              dur="4s"
+              repeatCount="indefinite"
+              calcMode="spline"
+              keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1"
+              values={getValues(s.sh, s.h)}
+            />
+          </path>
+        ))}
       </svg>
     </div>
   );
