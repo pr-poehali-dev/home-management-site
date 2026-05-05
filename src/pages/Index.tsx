@@ -276,7 +276,6 @@ const Index = () => {
 
   return (
     <Layout>
-      <RibbonAnimation />
       {getContent('running_line_text', '') && <RunningLine text={getContent('running_line_text', '')} />}
       <div 
         className="fixed inset-0 z-0"
