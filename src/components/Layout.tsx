@@ -171,7 +171,7 @@ const AnimatedLogo = () => {
         onContextMenu={(e) => e.preventDefault()}
         onMouseEnter={trigger}
         onClick={trigger}
-        style={{ userSelect: "none", WebkitUserSelect: "none" }}
+        style={{ userSelect: "none", WebkitUserSelect: "none", mixBlendMode: "screen" }}
       />
     </>
   );
@@ -340,6 +340,7 @@ const Layout = ({ children }: LayoutProps) => {
                   src={LOGO_URL}
                   alt="НАШ ДОМ" 
                   className="w-10 h-10 object-contain"
+                  style={{ mixBlendMode: "screen" }}
                 />
                 <div>
                   <h3 className="font-bold">НАШ ДОМ</h3>
