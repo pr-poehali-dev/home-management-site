@@ -36,93 +36,95 @@ const formatDate = (dateString: string): string => {
 };
 
 const RibbonAnimation = () => {
-  // Высоты полос ленты
   const stripes = [
-    { color: '#E8A020', sh: 0,   h: 30 },
-    { color: '#1a1a1a', sh: 30,  h: 20 },
-    { color: '#E8A020', sh: 50,  h: 30 },
-    { color: '#1a1a1a', sh: 80,  h: 20 },
-    { color: '#E8A020', sh: 100, h: 30 },
+    { sh: 0,   h: 32 },
+    { sh: 32,  h: 20 },
+    { sh: 52,  h: 32 },
+    { sh: 84,  h: 20 },
+    { sh: 104, h: 32 },
   ];
-
-  // Генерируем path для полосы при заданной фазе
-  const makePath = (phase: number, yTop: number, yBot: number) => {
-    const p = phase;
-    const sin = (x: number) => Math.sin(x + p);
-    const top = [
-      `M -50 ${180 + sin(0) * 40}`,
-      `C 200 ${180 + sin(1.2) * 55}`,
-      `  500 ${180 + sin(2.4) * 45}`,
-      `  800 ${180 + sin(3.6) * 55}`,
-      `C 1100 ${180 + sin(4.8) * 45}`,
-      `  1300 ${180 + sin(5.6) * 55}`,
-      `  1550 ${180 + sin(6.4) * 40}`,
-    ].join(' ');
-    const bot = [
-      `L 1550 ${180 + sin(6.4) * 40 + 130}`,
-      `C 1300 ${180 + sin(5.6) * 55 + 130}`,
-      `  1100 ${180 + sin(4.8) * 45 + 130}`,
-      `  800  ${180 + sin(3.6) * 55 + 130}`,
-      `C 500  ${180 + sin(2.4) * 45 + 130}`,
-      `  200  ${180 + sin(1.2) * 55 + 130}`,
-      `  -50  ${180 + sin(0) * 40 + 130}`,
-      `Z`,
-    ].join(' ');
-    return top + ' ' + bot;
-  };
-
-  // Ключевые кадры (5 фаз)
-  const phases = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2];
-
-  // Для каждой полосы свои кадры с учётом смещения по Y
-  const getValues = (sh: number, h: number) =>
-    phases.map(p => {
-      const sin = (x: number) => Math.sin(x + p);
-      const topY = (x: number) => 180 + sin(x) * 50 + sh;
-      const botY = (x: number) => topY(x) + h;
-      return [
-        `M -50 ${topY(0)}`,
-        `C 200 ${topY(1.2)} 500 ${topY(2.4)} 800 ${topY(3.6)}`,
-        `C 1100 ${topY(4.8)} 1300 ${topY(5.6)} 1550 ${topY(6.4)}`,
-        `L 1550 ${botY(6.4)}`,
-        `C 1300 ${botY(5.6)} 1100 ${botY(4.8)} 800 ${botY(3.6)}`,
-        `C 500 ${botY(2.4)} 200 ${botY(1.2)} -50 ${botY(0)}`,
-        `Z`,
-      ].join(' ');
-    }).join(';');
 
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+      <style>{`
+        @keyframes wave-move {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .ribbon-wave-track {
+          animation: wave-move 2s linear infinite;
+          will-change: transform;
+        }
+      `}</style>
       <svg
         width="100%" height="100%"
         viewBox="0 0 1500 600"
         preserveAspectRatio="xMidYMid meet"
-        style={{ filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.6))' }}
+        style={{ filter: 'drop-shadow(0 4px 22px rgba(0,0,0,0.55))' }}
       >
         <defs>
-          <linearGradient id="og" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stopColor="#ffd47a" />
+          <linearGradient id="og2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stopColor="#ffe08a" />
             <stop offset="40%"  stopColor="#F5A623" />
-            <stop offset="100%" stopColor="#a05810" />
+            <stop offset="100%" stopColor="#9a5208" />
           </linearGradient>
-          <linearGradient id="bk" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stopColor="#444" />
+          <linearGradient id="bk2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stopColor="#555" />
             <stop offset="50%"  stopColor="#1a1a1a" />
             <stop offset="100%" stopColor="#000" />
           </linearGradient>
+
+          {stripes.map((s, i) => (
+            <clipPath key={i} id={`clip-s${i}`}>
+              {/* Горизонтальная полоса-маска по Y */}
+              <rect x="-3000" y={270 + s.sh} width="6000" height={s.h} />
+            </clipPath>
+          ))}
         </defs>
 
+        {/* Волнистый путь — дублируем для бесшовного повтора */}
         {stripes.map((s, i) => (
-          <path key={i} fill={i % 2 === 0 ? 'url(#og)' : 'url(#bk)'}>
-            <animate
-              attributeName="d"
-              dur="1.2s"
-              repeatCount="indefinite"
-              calcMode="spline"
-              keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1"
-              values={getValues(s.sh, s.h)}
-            />
-          </path>
+          <g key={i} clipPath={`url(#clip-s${i})`}>
+            <g className="ribbon-wave-track">
+              {[0, 1].map(rep => (
+                <path
+                  key={rep}
+                  transform={`translate(${rep * 3000}, 0)`}
+                  fill={i % 2 === 0 ? 'url(#og2)' : 'url(#bk2)'}
+                  d={`
+                    M 0 ${270 + s.sh}
+                    C 187 ${270 + s.sh - 55}
+                      375 ${270 + s.sh + 55}
+                      750 ${270 + s.sh}
+                    C 1125 ${270 + s.sh - 55}
+                      1312 ${270 + s.sh + 55}
+                      1500 ${270 + s.sh}
+                    C 1687 ${270 + s.sh - 55}
+                      1875 ${270 + s.sh + 55}
+                      2250 ${270 + s.sh}
+                    C 2437 ${270 + s.sh - 55}
+                      2625 ${270 + s.sh + 55}
+                      3000 ${270 + s.sh}
+
+                    L 3000 ${270 + s.sh + s.h}
+                    C 2625 ${270 + s.sh + s.h + 55}
+                      2437 ${270 + s.sh + s.h - 55}
+                      2250 ${270 + s.sh + s.h}
+                    C 1875 ${270 + s.sh + s.h + 55}
+                      1687 ${270 + s.sh + s.h - 55}
+                      1500 ${270 + s.sh + s.h}
+                    C 1312 ${270 + s.sh + s.h + 55}
+                      1125 ${270 + s.sh + s.h - 55}
+                      750  ${270 + s.sh + s.h}
+                    C 375  ${270 + s.sh + s.h + 55}
+                      187  ${270 + s.sh + s.h - 55}
+                      0    ${270 + s.sh + s.h}
+                    Z
+                  `}
+                />
+              ))}
+            </g>
+          </g>
         ))}
       </svg>
     </div>
