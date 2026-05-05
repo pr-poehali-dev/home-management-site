@@ -36,53 +36,106 @@ const formatDate = (dateString: string): string => {
 };
 
 const RibbonAnimation = () => {
-  const ribbons = Array.from({ length: 18 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 6}s`,
-    duration: `${5 + Math.random() * 5}s`,
-    size: `${18 + Math.random() * 20}px`,
-    rotate: `${Math.random() * 60 - 30}deg`,
-    swayAmp: 20 + Math.random() * 30,
-  }));
+  const stripes = [
+    { color: '#E8A020', width: 22 },
+    { color: '#1a1a1a', width: 14 },
+    { color: '#E8A020', width: 22 },
+    { color: '#1a1a1a', width: 14 },
+    { color: '#E8A020', width: 22 },
+  ];
+  const totalWidth = stripes.reduce((s, x) => s + x.width, 0);
+
+  const ribbonConfigs = [
+    { top: '18%', duration: 9, delay: 0,   amplitude: 38, opacity: 0.82 },
+    { top: '42%', duration: 11, delay: 2.5, amplitude: 28, opacity: 0.70 },
+    { top: '68%', duration: 8,  delay: 1.2, amplitude: 44, opacity: 0.60 },
+  ];
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
       <style>{`
-        @keyframes ribbon-fall {
-          0% { transform: translateY(-80px) rotate(var(--rot)); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(110vh) rotate(calc(var(--rot) + 40deg)); opacity: 0; }
+        @keyframes ribbon-wave-1 {
+          0%   { d: path("M-200,0 C100,A 400,B 700,0 C1000,C 1300,A 1600,0 C1900,B 2200,C 2500,0"); }
+          50%  { d: path("M-200,0 C100,B 400,A 700,0 C1000,B 1300,C 1600,0 C1900,A 2200,B 2500,0"); }
+          100% { d: path("M-200,0 C100,A 400,B 700,0 C1000,C 1300,A 1600,0 C1900,B 2200,C 2500,0"); }
         }
-        @keyframes ribbon-sway {
-          0%, 100% { margin-left: 0px; }
-          50% { margin-left: var(--sway); }
+        @keyframes ribbon-slide-1 {
+          0%   { transform: translateX(-320px); }
+          100% { transform: translateX(0px); }
         }
-        .ribbon-item {
-          animation: ribbon-fall var(--dur) var(--delay) infinite linear,
-                     ribbon-sway calc(var(--dur) * 0.6) var(--delay) infinite ease-in-out;
+        @keyframes ribbon-slide-2 {
+          0%   { transform: translateX(0px); }
+          100% { transform: translateX(-320px); }
+        }
+        @keyframes ribbon-slide-3 {
+          0%   { transform: translateX(-160px); }
+          100% { transform: translateX(160px); }
         }
       `}</style>
-      {ribbons.map((r) => (
-        <div
-          key={r.id}
-          className="ribbon-item absolute top-0"
-          style={{
-            left: r.left,
-            '--rot': r.rotate,
-            '--dur': r.duration,
-            '--delay': r.delay,
-            '--sway': `${r.swayAmp}px`,
-          } as React.CSSProperties}
-        >
-          <svg width={r.size} height={parseInt(r.size) * 3} viewBox="0 0 20 60">
-            <rect x="0" y="0" width="20" height="20" fill="#F5A623" />
-            <rect x="0" y="20" width="20" height="20" fill="#1a1a1a" />
-            <rect x="0" y="40" width="20" height="20" fill="#F5A623" />
-          </svg>
-        </div>
-      ))}
+
+      {ribbonConfigs.map((cfg, idx) => {
+        const A = cfg.amplitude;
+        const B = -cfg.amplitude * 0.6;
+        const C = cfg.amplitude * 0.3;
+        const slideAnim = ['ribbon-slide-1', 'ribbon-slide-2', 'ribbon-slide-3'][idx];
+
+        return (
+          <div
+            key={idx}
+            className="absolute left-0 right-0"
+            style={{
+              top: cfg.top,
+              height: `${totalWidth}px`,
+              opacity: cfg.opacity,
+              animation: `${slideAnim} ${cfg.duration}s ${cfg.delay}s infinite alternate ease-in-out`,
+            }}
+          >
+            <svg
+              width="120%"
+              height={totalWidth + A * 2 + 20}
+              viewBox={`0 ${-A - 10} 2500 ${totalWidth + A * 2 + 20}`}
+              preserveAspectRatio="none"
+              style={{ position: 'absolute', top: `-${A + 10}px`, left: '-10%' }}
+            >
+              <defs>
+                <clipPath id={`wave-clip-${idx}`}>
+                  <path>
+                    <animate
+                      attributeName="d"
+                      dur={`${cfg.duration * 0.7}s`}
+                      repeatCount="indefinite"
+                      values={[
+                        `M-200,${A} C300,${B} 700,${C} 1100,${A} C1500,${B} 1900,${C} 2500,${A} L2500,${A + totalWidth} C1900,${C + totalWidth} 1500,${B + totalWidth} 1100,${A + totalWidth} C700,${C + totalWidth} 300,${B + totalWidth} -200,${A + totalWidth} Z`,
+                        `M-200,${B} C300,${A} 700,${C} 1100,${B} C1500,${A} 1900,${C} 2500,${B} L2500,${B + totalWidth} C1900,${C + totalWidth} 1500,${A + totalWidth} 1100,${B + totalWidth} C700,${C + totalWidth} 300,${A + totalWidth} -200,${B + totalWidth} Z`,
+                        `M-200,${A} C300,${B} 700,${C} 1100,${A} C1500,${B} 1900,${C} 2500,${A} L2500,${A + totalWidth} C1900,${C + totalWidth} 1500,${B + totalWidth} 1100,${A + totalWidth} C700,${C + totalWidth} 300,${B + totalWidth} -200,${A + totalWidth} Z`,
+                      ].join(';')}
+                    />
+                  </path>
+                </clipPath>
+              </defs>
+
+              {(() => {
+                let x = 0;
+                return stripes.map((stripe, si) => {
+                  const rect = (
+                    <rect
+                      key={si}
+                      x={x}
+                      y={-A - 10}
+                      width={stripe.width}
+                      height={totalWidth + A * 2 + 20 + 200}
+                      fill={stripe.color}
+                      clipPath={`url(#wave-clip-${idx})`}
+                    />
+                  );
+                  x += stripe.width;
+                  return rect;
+                });
+              })()}
+            </svg>
+          </div>
+        );
+      })}
     </div>
   );
 };
