@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const ITEMS = ["🎀", "🎀", "🌸", "🎀", "🌷", "🎀", "🪷", "🎀", "🌸", "🎀", "🌺", "🎀", "🌷", "🎀", "🪷", "🌸", "🎀", "🌹"];
 
-const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/2dedb245-1786-4c60-b2e8-26159344cc2e.jpg";
+const LOGO_URL = "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/29507a18-dd7f-40f4-a1ef-3bcfeef4cca4.png";
 
 const FallingFlowers = () => {
   const items = Array.from({ length: 22 }, (_, i) => {
@@ -166,7 +166,7 @@ const AnimatedLogo = () => {
       <img
         src={LOGO_URL}
         alt="НАШ ДОМ"
-        className={`w-28 h-28 object-cover rounded-full cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
+        className={`w-28 h-28 object-contain cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
         draggable={false}
         onContextMenu={(e) => e.preventDefault()}
         onMouseEnter={trigger}
@@ -339,7 +339,7 @@ const Layout = ({ children }: LayoutProps) => {
                 <img 
                   src={LOGO_URL}
                   alt="НАШ ДОМ" 
-                  className="w-10 h-10 object-cover rounded-full"
+                  className="w-10 h-10 object-contain"
                 />
                 <div>
                   <h3 className="font-bold">НАШ ДОМ</h3>
