@@ -617,27 +617,6 @@ const HouseDetail = () => {
                           Протокол ОСС не загружен
                         </p>
                       )}
-                      {id === 'spb-fermskoe-20k2' && (
-                        <div className="mt-3">
-                          <label className="cursor-pointer">
-                            <input
-                              type="file"
-                              accept=".pdf,application/pdf"
-                              className="hidden"
-                              multiple
-                              onChange={(e) => {
-                                if (e.target.files && e.target.files.length > 0) {
-                                  handleDocumentUpload(e.target.files, 'protocol');
-                                }
-                              }}
-                            />
-                            <span className="inline-flex items-center gap-2 text-sm text-primary border border-primary/30 rounded-md px-3 py-1.5 hover:bg-primary/5 transition-colors">
-                              <Icon name="Upload" size={14} />
-                              {uploadingDocument ? 'Загрузка...' : 'Загрузить PDF'}
-                            </span>
-                          </label>
-                        </div>
-                      )}
                     </CardContent>
                   </Card>
 
@@ -665,27 +644,6 @@ const HouseDetail = () => {
                         <p className="text-sm text-muted-foreground">
                           Договор управления не загружен
                         </p>
-                      )}
-                      {id === 'spb-fermskoe-20k2' && (
-                        <div className="mt-3">
-                          <label className="cursor-pointer">
-                            <input
-                              type="file"
-                              accept=".pdf,application/pdf"
-                              className="hidden"
-                              multiple
-                              onChange={(e) => {
-                                if (e.target.files && e.target.files.length > 0) {
-                                  handleDocumentUpload(e.target.files, 'agreement');
-                                }
-                              }}
-                            />
-                            <span className="inline-flex items-center gap-2 text-sm text-primary border border-primary/30 rounded-md px-3 py-1.5 hover:bg-primary/5 transition-colors">
-                              <Icon name="Upload" size={14} />
-                              {uploadingDocument ? 'Загрузка...' : 'Загрузить PDF'}
-                            </span>
-                          </label>
-                        </div>
                       )}
                     </CardContent>
                   </Card>
