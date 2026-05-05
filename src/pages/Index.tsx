@@ -35,6 +35,58 @@ const formatDate = (dateString: string): string => {
   }
 };
 
+const RibbonAnimation = () => {
+  const ribbons = Array.from({ length: 18 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 6}s`,
+    duration: `${5 + Math.random() * 5}s`,
+    size: `${18 + Math.random() * 20}px`,
+    rotate: `${Math.random() * 60 - 30}deg`,
+    swayAmp: 20 + Math.random() * 30,
+  }));
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+      <style>{`
+        @keyframes ribbon-fall {
+          0% { transform: translateY(-80px) rotate(var(--rot)); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(110vh) rotate(calc(var(--rot) + 40deg)); opacity: 0; }
+        }
+        @keyframes ribbon-sway {
+          0%, 100% { margin-left: 0px; }
+          50% { margin-left: var(--sway); }
+        }
+        .ribbon-item {
+          animation: ribbon-fall var(--dur) var(--delay) infinite linear,
+                     ribbon-sway calc(var(--dur) * 0.6) var(--delay) infinite ease-in-out;
+        }
+      `}</style>
+      {ribbons.map((r) => (
+        <div
+          key={r.id}
+          className="ribbon-item absolute top-0"
+          style={{
+            left: r.left,
+            '--rot': r.rotate,
+            '--dur': r.duration,
+            '--delay': r.delay,
+            '--sway': `${r.swayAmp}px`,
+          } as React.CSSProperties}
+        >
+          <svg width={r.size} height={parseInt(r.size) * 3} viewBox="0 0 20 60">
+            <rect x="0" y="0" width="20" height="20" fill="#F5A623" />
+            <rect x="0" y="20" width="20" height="20" fill="#1a1a1a" />
+            <rect x="0" y="40" width="20" height="20" fill="#F5A623" />
+          </svg>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Index = () => {
   const { getContent } = useSiteContent();
   const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
@@ -180,6 +232,7 @@ const Index = () => {
 
   return (
     <Layout>
+      <RibbonAnimation />
       {getContent('running_line_text', '') && <RunningLine text={getContent('running_line_text', '')} />}
       <div 
         className="fixed inset-0 z-0"
