@@ -169,12 +169,12 @@ const HouseDetail = () => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
-        // Проверка размера файла (максимум 2 МБ из-за ограничений Cloud Functions)
-        const maxSize = 2 * 1024 * 1024; // 2 MB
+        // Проверка размера файла (максимум 3 МБ из-за ограничений Cloud Functions)
+        const maxSize = 3 * 1024 * 1024; // 3 MB
         if (file.size > maxSize) {
           toast({
             title: "Файл слишком большой",
-            description: `Файл "${file.name}" весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com или smallpdf.com`,
+            description: `Файл "${file.name}" весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 3 МБ. Сожмите PDF на ilovepdf.com или smallpdf.com`,
             variant: "destructive",
             duration: 10000
           });
