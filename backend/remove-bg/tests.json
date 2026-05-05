@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "Remove white background from logo",
+      "method": "POST",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {"url": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
