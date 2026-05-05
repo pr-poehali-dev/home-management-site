@@ -116,7 +116,7 @@ const RibbonAnimation = () => {
           <path key={i} fill={i % 2 === 0 ? 'url(#og)' : 'url(#bk)'}>
             <animate
               attributeName="d"
-              dur="2.2s"
+              dur="1.2s"
               repeatCount="indefinite"
               calcMode="spline"
               keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1"
