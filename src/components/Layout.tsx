@@ -136,7 +136,7 @@ const FallingFlowers = () => {
   );
 };
 
-const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f";
+const UPLOAD_LARGE_FILE_URL = "https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e";
 const LOGO_VIDEO_KEY = "header_video_url";
 
 const AnimatedLogo = () => {
@@ -165,25 +165,19 @@ const AnimatedLogo = () => {
     if (!file) return;
     setUploading(true);
     try {
-      const base64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = reader.result as string;
-          resolve(result.split(",")[1]);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-      const res = await fetch(UPLOAD_VIDEO_URL, {
+      const res = await fetch(UPLOAD_LARGE_FILE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ video: base64, contentType: file.type }),
+        body: JSON.stringify({ type: "header-video", contentType: file.type }),
       });
-      const data = await res.json();
-      if (data.url) {
-        localStorage.setItem(LOGO_VIDEO_KEY, data.url);
-        setVideoUrl(data.url);
-      }
+      const { uploadUrl, cdnUrl } = await res.json();
+      await fetch(uploadUrl, {
+        method: "PUT",
+        body: file,
+        headers: { "Content-Type": file.type },
+      });
+      localStorage.setItem(LOGO_VIDEO_KEY, cdnUrl);
+      setVideoUrl(cdnUrl);
     } finally {
       setUploading(false);
       e.target.value = "";
