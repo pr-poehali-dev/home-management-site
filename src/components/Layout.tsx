@@ -136,7 +136,7 @@ const FallingFlowers = () => {
   );
 };
 
-const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f";
+const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/db7d347d-47a6-4908-acf7-33711d80961f";
 const LOGO_VIDEO_KEY = "header_video_url";
 
 const AnimatedLogo = () => {
@@ -167,40 +167,33 @@ const AnimatedLogo = () => {
     setUploading(true);
     setProgress(0);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(",")[1];
-      const body = JSON.stringify({ video: base64, contentType: file.type });
-
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", UPLOAD_VIDEO_URL);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.upload.onprogress = (ev) => {
-        if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100));
-      };
-      xhr.onload = () => {
-        try {
-          const data = JSON.parse(xhr.responseText);
-          if (data.url) {
-            localStorage.setItem(LOGO_VIDEO_KEY, data.url);
-            setVideoUrl(data.url);
-          }
-        } catch (err) {
-          console.error("Ошибка парсинга ответа", err);
-        }
-        setUploading(false);
-        setProgress(0);
-        e.target.value = "";
-      };
-      xhr.onerror = () => {
-        console.error("Ошибка загрузки видео");
-        setUploading(false);
-        setProgress(0);
-        e.target.value = "";
-      };
-      xhr.send(body);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", UPLOAD_VIDEO_URL);
+    xhr.setRequestHeader("Content-Type", file.type);
+    xhr.upload.onprogress = (ev) => {
+      if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100));
     };
-    reader.readAsDataURL(file);
+    xhr.onload = () => {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (data.url) {
+          localStorage.setItem(LOGO_VIDEO_KEY, data.url);
+          setVideoUrl(data.url);
+        }
+      } catch (err) {
+        console.error("Ошибка парсинга ответа", err);
+      }
+      setUploading(false);
+      setProgress(0);
+      e.target.value = "";
+    };
+    xhr.onerror = () => {
+      console.error("Ошибка загрузки видео");
+      setUploading(false);
+      setProgress(0);
+      e.target.value = "";
+    };
+    xhr.send(file);
   };
 
   return (
