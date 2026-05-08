@@ -1,4 +1,4 @@
-import { ReactNode, useState, useCallback, useRef } from "react";
+import { ReactNode, useState, useCallback, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -136,17 +136,59 @@ const FallingFlowers = () => {
   );
 };
 
+const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f";
+const LOGO_VIDEO_KEY = "header_video_url";
+
 const AnimatedLogo = () => {
   const [anim, setAnim] = useState<"sway" | "spin" | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const countRef = useRef(0);
 
+  useEffect(() => {
+    const saved = localStorage.getItem(LOGO_VIDEO_KEY);
+    if (saved) setVideoUrl(saved);
+  }, []);
+
   const trigger = useCallback(() => {
-    if (anim) return;
+    if (anim || videoUrl) return;
     countRef.current = (countRef.current + 1) % 2;
     const next = countRef.current === 0 ? "sway" : "spin";
     setAnim(next);
     setTimeout(() => setAnim(null), next === "spin" ? 1400 : 1600);
-  }, [anim]);
+  }, [anim, videoUrl]);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const res = await fetch(UPLOAD_VIDEO_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ video: base64, contentType: file.type }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        localStorage.setItem(LOGO_VIDEO_KEY, data.url);
+        setVideoUrl(data.url);
+      }
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  };
 
   return (
     <>
@@ -176,10 +218,50 @@ const AnimatedLogo = () => {
           transform-origin: center center;
         }
       `}</style>
-      <TransparentLogo
-        className={`w-28 h-28 cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
-        style={{ userSelect: "none", WebkitUserSelect: "none" }}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="video/*"
+        className="hidden"
+        onChange={handleFileChange}
       />
+      <div
+        className="relative"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {videoUrl ? (
+          <video
+            src={videoUrl}
+            className="w-28 h-28 object-contain cursor-pointer select-none"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <TransparentLogo
+            className={`w-28 h-28 cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
+            style={{ userSelect: "none", WebkitUserSelect: "none" }}
+          />
+        )}
+        {hovered && (
+          <button
+            onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+            className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 rounded text-white text-xs gap-1 cursor-pointer"
+            title="Загрузить видео"
+          >
+            {uploading ? (
+              <Icon name="Loader2" size={18} className="animate-spin" />
+            ) : (
+              <>
+                <Icon name="Upload" size={18} />
+                <span>{videoUrl ? "Заменить" : "Видео"}</span>
+              </>
+            )}
+          </button>
+        )}
+      </div>
     </>
   );
 };
