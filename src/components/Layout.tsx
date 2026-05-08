@@ -136,13 +136,14 @@ const FallingFlowers = () => {
   );
 };
 
-const UPLOAD_LARGE_FILE_URL = "https://functions.poehali.dev/4b4bbe31-4eea-4ac0-9b2b-8e4c78567b4e";
+const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/5258f949-c338-449a-88cd-ceff081af16f";
 const LOGO_VIDEO_KEY = "header_video_url";
 
 const AnimatedLogo = () => {
   const [anim, setAnim] = useState<"sway" | "spin" | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [hovered, setHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const countRef = useRef(0);
@@ -160,28 +161,46 @@ const AnimatedLogo = () => {
     setTimeout(() => setAnim(null), next === "spin" ? 1400 : 1600);
   }, [anim, videoUrl]);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    try {
-      const res = await fetch(UPLOAD_LARGE_FILE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "header-video", contentType: file.type }),
-      });
-      const { uploadUrl, cdnUrl } = await res.json();
-      await fetch(uploadUrl, {
-        method: "PUT",
-        body: file,
-        headers: { "Content-Type": file.type },
-      });
-      localStorage.setItem(LOGO_VIDEO_KEY, cdnUrl);
-      setVideoUrl(cdnUrl);
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
+    setProgress(0);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(",")[1];
+      const body = JSON.stringify({ video: base64, contentType: file.type });
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", UPLOAD_VIDEO_URL);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.upload.onprogress = (ev) => {
+        if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100));
+      };
+      xhr.onload = () => {
+        try {
+          const data = JSON.parse(xhr.responseText);
+          if (data.url) {
+            localStorage.setItem(LOGO_VIDEO_KEY, data.url);
+            setVideoUrl(data.url);
+          }
+        } catch (err) {
+          console.error("Ошибка парсинга ответа", err);
+        }
+        setUploading(false);
+        setProgress(0);
+        e.target.value = "";
+      };
+      xhr.onerror = () => {
+        console.error("Ошибка загрузки видео");
+        setUploading(false);
+        setProgress(0);
+        e.target.value = "";
+      };
+      xhr.send(body);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -246,7 +265,10 @@ const AnimatedLogo = () => {
             title="Загрузить видео"
           >
             {uploading ? (
-              <Icon name="Loader2" size={18} className="animate-spin" />
+              <>
+                <Icon name="Loader2" size={18} className="animate-spin" />
+                <span>{progress > 0 ? `${progress}%` : "..."}</span>
+              </>
             ) : (
               <>
                 <Icon name="Upload" size={18} />
