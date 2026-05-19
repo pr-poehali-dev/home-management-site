@@ -727,38 +727,11 @@ const HouseDetail = () => {
                                 Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
                               </a>
                             ))}
-                            {id === 'spb-krasnoselskoe-16' && (
-                              <button
-                                onClick={handleOzpPlanDelete}
-                                className="flex items-center gap-1 text-xs text-destructive hover:underline mt-2"
-                              >
-                                <Icon name="Trash2" size={13} />
-                                Удалить
-                              </button>
-                            )}
                           </>
                         ) : (
-                          <>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              План подготовки к ОЗП не загружен
-                            </p>
-                            {id === 'spb-krasnoselskoe-16' && (
-                              <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
-                                <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
-                                {uploadingOzpPlan ? 'Загрузка...' : 'Загрузить PDF'}
-                                <input
-                                  type="file"
-                                  accept=".pdf,application/pdf"
-                                  className="hidden"
-                                  disabled={uploadingOzpPlan}
-                                  onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) handleOzpPlanUpload(file);
-                                  }}
-                                />
-                              </label>
-                            )}
-                          </>
+                          <p className="text-sm text-muted-foreground">
+                            План подготовки к ОЗП не загружен
+                          </p>
                         )}
                       </CardContent>
                     </Card>
