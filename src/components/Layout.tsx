@@ -252,23 +252,39 @@ const AnimatedLogo = () => {
           />
         )}
         {hovered && (
-          <button
-            onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-            className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 rounded text-white text-xs gap-1 cursor-pointer"
-            title="Загрузить видео"
-          >
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 rounded text-white text-xs gap-1">
             {uploading ? (
               <>
                 <Icon name="Loader2" size={18} className="animate-spin" />
                 <span>{progress > 0 ? `${progress}%` : "..."}</span>
               </>
-            ) : (
+            ) : videoUrl ? (
               <>
-                <Icon name="Upload" size={18} />
-                <span>{videoUrl ? "Заменить" : "Видео"}</span>
+                <button
+                  onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                  className="flex flex-col items-center gap-0.5 hover:text-yellow-300 cursor-pointer"
+                >
+                  <Icon name="Upload" size={16} />
+                  <span>Заменить</span>
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); localStorage.removeItem(LOGO_VIDEO_KEY); setVideoUrl(null); }}
+                  className="flex flex-col items-center gap-0.5 hover:text-red-400 cursor-pointer"
+                >
+                  <Icon name="Trash2" size={16} />
+                  <span>Удалить</span>
+                </button>
               </>
+            ) : (
+              <button
+                onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                className="flex flex-col items-center gap-0.5 cursor-pointer"
+              >
+                <Icon name="Upload" size={18} />
+                <span>Видео</span>
+              </button>
             )}
-          </button>
+          </div>
         )}
       </div>
     </>
