@@ -81,6 +81,7 @@ const HouseDetail = () => {
   const [currentProtocolOss, setCurrentProtocolOss] = useState<string | string[] | undefined>();
   const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
   const [currentOzpPlan, setCurrentOzpPlan] = useState<string | string[] | undefined>();
+  const [uploadingOzpPlan, setUploadingOzpPlan] = useState(false);
   const [currentBulletinOss, setCurrentBulletinOss] = useState<string | undefined>();
   const [uploadingBulletin, setUploadingBulletin] = useState(false);
   const [currentDocuments, setCurrentDocuments] = useState<string | string[] | undefined>();
@@ -346,6 +347,61 @@ const HouseDetail = () => {
       toast({ title: 'Успешно!', description: 'Бюллетень удалён' });
     } catch {
       toast({ title: 'Ошибка', description: 'Не удалось удалить бюллетень', variant: 'destructive' });
+    }
+  };
+
+  const handleOzpPlanUpload = async (file: File) => {
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      toast({
+        title: 'Файл слишком большой',
+        description: `Файл весит ${(file.size / 1024 / 1024).toFixed(2)} МБ. Максимум: 2 МБ. Сожмите PDF на ilovepdf.com`,
+        variant: 'destructive',
+        duration: 10000
+      });
+      return;
+    }
+    setUploadingOzpPlan(true);
+    try {
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const uploadResponse = await fetch(funcUrls['upload-image'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: base64, type: 'ozp-plan', fileType: 'pdf' }),
+      });
+      if (!uploadResponse.ok) throw new Error('Upload failed');
+      const { url } = await uploadResponse.json();
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, ozpPlan: url }),
+      });
+      setCurrentOzpPlan(url);
+      toast({ title: 'Успешно!', description: 'План подготовки к ОЗП загружен' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось загрузить файл', variant: 'destructive' });
+    } finally {
+      setUploadingOzpPlan(false);
+    }
+  };
+
+  const handleOzpPlanDelete = async () => {
+    if (!confirm('Вы уверены, что хотите удалить план подготовки к ОЗП?')) return;
+    try {
+      await fetch(funcUrls['update-house'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ house_id: id, ozpPlan: null }),
+      });
+      setCurrentOzpPlan(undefined);
+      toast({ title: 'Успешно!', description: 'План подготовки к ОЗП удалён' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось удалить файл', variant: 'destructive' });
     }
   };
 
@@ -673,18 +729,41 @@ const HouseDetail = () => {
                                 <a
                                   href={url}
                                   download
-                                  className="flex items-center gap-2 text-muted-foreground hover:text-primary hover:underline text-sm"
+                                  className="flex items-center gap-2 text-muted-foreground hover:text-primary hover:underline text-sm mb-1"
                                 >
                                   <Icon name="Download" size={16} />
                                   Скачать PDF
                                 </a>
                               </div>
                             ))}
+                            <button
+                              onClick={handleOzpPlanDelete}
+                              className="flex items-center gap-1 text-xs text-destructive hover:underline mt-2"
+                            >
+                              <Icon name="Trash2" size={13} />
+                              Удалить
+                            </button>
                           </>
                         ) : (
-                          <p className="text-sm text-muted-foreground">
-                            План подготовки к ОЗП не загружен
-                          </p>
+                          <>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              План подготовки к ОЗП не загружен
+                            </p>
+                            <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
+                              <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
+                              {uploadingOzpPlan ? 'Загрузка...' : 'Загрузить PDF'}
+                              <input
+                                type="file"
+                                accept=".pdf,application/pdf"
+                                className="hidden"
+                                disabled={uploadingOzpPlan}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) handleOzpPlanUpload(file);
+                                }}
+                              />
+                            </label>
+                          </>
                         )}
                       </CardContent>
                     </Card>
