@@ -1,4 +1,4 @@
-import { ReactNode, useState, useCallback, useRef, useEffect } from "react";
+import { ReactNode, useState, useCallback, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -136,65 +136,17 @@ const FallingFlowers = () => {
   );
 };
 
-const UPLOAD_VIDEO_URL = "https://functions.poehali.dev/db7d347d-47a6-4908-acf7-33711d80961f";
-const LOGO_VIDEO_KEY = "header_video_url";
-
 const AnimatedLogo = () => {
   const [anim, setAnim] = useState<"sway" | "spin" | null>(null);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [hovered, setHovered] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const countRef = useRef(0);
 
-  useEffect(() => {
-    const saved = localStorage.getItem(LOGO_VIDEO_KEY);
-    if (saved) setVideoUrl(saved);
-  }, []);
-
   const trigger = useCallback(() => {
-    if (anim || videoUrl) return;
+    if (anim) return;
     countRef.current = (countRef.current + 1) % 2;
     const next = countRef.current === 0 ? "sway" : "spin";
     setAnim(next);
     setTimeout(() => setAnim(null), next === "spin" ? 1400 : 1600);
-  }, [anim, videoUrl]);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
-    setProgress(0);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", UPLOAD_VIDEO_URL);
-    xhr.setRequestHeader("Content-Type", file.type);
-    xhr.upload.onprogress = (ev) => {
-      if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100));
-    };
-    xhr.onload = () => {
-      try {
-        const data = JSON.parse(xhr.responseText);
-        if (data.url) {
-          localStorage.setItem(LOGO_VIDEO_KEY, data.url);
-          setVideoUrl(data.url);
-        }
-      } catch (err) {
-        console.error("Ошибка парсинга ответа", err);
-      }
-      setUploading(false);
-      setProgress(0);
-      e.target.value = "";
-    };
-    xhr.onerror = () => {
-      console.error("Ошибка загрузки видео");
-      setUploading(false);
-      setProgress(0);
-      e.target.value = "";
-    };
-    xhr.send(file);
-  };
+  }, [anim]);
 
   return (
     <>
@@ -224,69 +176,10 @@ const AnimatedLogo = () => {
           transform-origin: center center;
         }
       `}</style>
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="video/*"
-        className="hidden"
-        onChange={handleFileChange}
+      <TransparentLogo
+        className={`w-28 h-28 cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
+        style={{ userSelect: "none", WebkitUserSelect: "none" }}
       />
-      <div
-        className="relative"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        {videoUrl ? (
-          <video
-            src={videoUrl}
-            className="w-28 h-28 object-contain cursor-pointer select-none"
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        ) : (
-          <TransparentLogo
-            className={`w-28 h-28 cursor-pointer select-none ${anim === "sway" ? "logo-sway-anim" : anim === "spin" ? "logo-spin-anim" : ""}`}
-            style={{ userSelect: "none", WebkitUserSelect: "none" }}
-          />
-        )}
-        {hovered && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 rounded text-white text-xs gap-1">
-            {uploading ? (
-              <>
-                <Icon name="Loader2" size={18} className="animate-spin" />
-                <span>{progress > 0 ? `${progress}%` : "..."}</span>
-              </>
-            ) : videoUrl ? (
-              <>
-                <button
-                  onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                  className="flex flex-col items-center gap-0.5 hover:text-yellow-300 cursor-pointer"
-                >
-                  <Icon name="Upload" size={16} />
-                  <span>Заменить</span>
-                </button>
-                <button
-                  onClick={(e) => { e.stopPropagation(); localStorage.removeItem(LOGO_VIDEO_KEY); setVideoUrl(null); }}
-                  className="flex flex-col items-center gap-0.5 hover:text-red-400 cursor-pointer"
-                >
-                  <Icon name="Trash2" size={16} />
-                  <span>Удалить</span>
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                className="flex flex-col items-center gap-0.5 cursor-pointer"
-              >
-                <Icon name="Upload" size={18} />
-                <span>Видео</span>
-              </button>
-            )}
-          </div>
-        )}
-      </div>
     </>
   );
 };
