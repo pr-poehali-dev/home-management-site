@@ -716,54 +716,22 @@ const HouseDetail = () => {
                         {currentOzpPlan ? (
                           <>
                             {(Array.isArray(currentOzpPlan) ? currentOzpPlan : [currentOzpPlan]).map((url, i) => (
-                              <div key={i} className="mb-2">
-                                <a
-                                  href={url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-2 text-primary hover:underline text-sm font-medium mb-1"
-                                >
-                                  <Icon name="Eye" size={16} />
-                                  Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
-                                </a>
-                                <a
-                                  href={url}
-                                  download
-                                  className="flex items-center gap-2 text-muted-foreground hover:text-primary hover:underline text-sm mb-1"
-                                >
-                                  <Icon name="Download" size={16} />
-                                  Скачать PDF
-                                </a>
-                              </div>
+                              <a
+                                key={i}
+                                href={url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-primary hover:underline text-sm font-medium mb-2"
+                              >
+                                <Icon name="Eye" size={16} />
+                                Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
+                              </a>
                             ))}
-                            <button
-                              onClick={handleOzpPlanDelete}
-                              className="flex items-center gap-1 text-xs text-destructive hover:underline mt-2"
-                            >
-                              <Icon name="Trash2" size={13} />
-                              Удалить
-                            </button>
                           </>
                         ) : (
-                          <>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              План подготовки к ОЗП не загружен
-                            </p>
-                            <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
-                              <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
-                              {uploadingOzpPlan ? 'Загрузка...' : 'Загрузить PDF'}
-                              <input
-                                type="file"
-                                accept=".pdf,application/pdf"
-                                className="hidden"
-                                disabled={uploadingOzpPlan}
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) handleOzpPlanUpload(file);
-                                }}
-                              />
-                            </label>
-                          </>
+                          <p className="text-sm text-muted-foreground">
+                            План подготовки к ОЗП не загружен
+                          </p>
                         )}
                       </CardContent>
                     </Card>
