@@ -44,6 +44,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     management_agreement = body_data.get('managementAgreement')
     bulletin_oss = body_data.get('bulletinOss')
     documents = body_data.get('documents')
+    ozp_plan = body_data.get('ozpPlan')
     
     if not house_id:
         return {
@@ -102,18 +103,23 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 update_fields.append("documents = %s")
                 update_values.append(json.dumps(documents) if isinstance(documents, list) else documents)
             
+            if ozp_plan is not None:
+                update_fields.append("ozp_plan = %s")
+                update_values.append(json.dumps(ozp_plan) if isinstance(ozp_plan, list) else ozp_plan)
+            
             if update_fields:
                 update_values.append(house_id)
                 query = f"UPDATE houses SET {', '.join(update_fields)} WHERE id = %s"
                 cur.execute(query, update_values)
         else:
             cur.execute(
-                "INSERT INTO houses (id, image, manager_photo, protocol_oss, management_agreement, bulletin_oss, documents) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                "INSERT INTO houses (id, image, manager_photo, protocol_oss, management_agreement, bulletin_oss, documents, ozp_plan) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                 (house_id, image_url, manager_photo_url, 
                  json.dumps(protocol_oss) if isinstance(protocol_oss, list) else protocol_oss,
                  json.dumps(management_agreement) if isinstance(management_agreement, list) else management_agreement,
                  bulletin_oss,
-                 json.dumps(documents) if isinstance(documents, list) else documents)
+                 json.dumps(documents) if isinstance(documents, list) else documents,
+                 json.dumps(ozp_plan) if isinstance(ozp_plan, list) else ozp_plan)
             )
         
         conn.commit()

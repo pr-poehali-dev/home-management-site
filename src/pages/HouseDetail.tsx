@@ -80,6 +80,7 @@ const HouseDetail = () => {
 
   const [currentProtocolOss, setCurrentProtocolOss] = useState<string | string[] | undefined>();
   const [currentManagementAgreement, setCurrentManagementAgreement] = useState<string | string[] | undefined>();
+  const [currentOzpPlan, setCurrentOzpPlan] = useState<string | string[] | undefined>();
   const [currentBulletinOss, setCurrentBulletinOss] = useState<string | undefined>();
   const [uploadingBulletin, setUploadingBulletin] = useState(false);
   const [currentDocuments, setCurrentDocuments] = useState<string | string[] | undefined>();
@@ -99,6 +100,7 @@ const HouseDetail = () => {
           if (data.managerPhoto) setCurrentManagerPhoto(data.managerPhoto);
           if (data.protocolOss) setCurrentProtocolOss(data.protocolOss);
           if (data.managementAgreement) setCurrentManagementAgreement(data.managementAgreement);
+          if (data.ozpPlan) setCurrentOzpPlan(data.ozpPlan);
           if (data.bulletinOss) setCurrentBulletinOss(data.bulletinOss);
           if (data.documents) setCurrentDocuments(data.documents);
         }
@@ -591,7 +593,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className={`grid gap-6 pt-6 border-t ${(id === 'spb-konstantinova-1k1str1' || id === 'spb-petrovskiy-5str1') ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+                <div className={`grid gap-6 pt-6 border-t ${(id === 'spb-konstantinova-1k1str1' || id === 'spb-petrovskiy-5str1' || id === 'spb-piterskiy-1') ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -647,6 +649,46 @@ const HouseDetail = () => {
                       )}
                     </CardContent>
                   </Card>
+
+                  {id === 'spb-piterskiy-1' && (
+                    <Card className="bg-secondary/5">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold mb-4 flex items-center gap-2">
+                          <Icon name="CalendarCheck" size={20} className="text-primary" />
+                          План подготовки к ОЗП
+                        </h3>
+                        {currentOzpPlan ? (
+                          <>
+                            {(Array.isArray(currentOzpPlan) ? currentOzpPlan : [currentOzpPlan]).map((url, i) => (
+                              <div key={i} className="mb-2">
+                                <a
+                                  href={url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 text-primary hover:underline text-sm font-medium mb-1"
+                                >
+                                  <Icon name="Eye" size={16} />
+                                  Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
+                                </a>
+                                <a
+                                  href={url}
+                                  download
+                                  className="flex items-center gap-2 text-muted-foreground hover:text-primary hover:underline text-sm"
+                                >
+                                  <Icon name="Download" size={16} />
+                                  Скачать PDF
+                                </a>
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">
+                            План подготовки к ОЗП не загружен
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  )}
 
                   {id === 'spb-petrovskiy-5str1' && (
                     <Card className="bg-secondary/5">

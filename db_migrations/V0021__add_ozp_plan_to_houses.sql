@@ -1,0 +1,1 @@
+ALTER TABLE houses ADD COLUMN IF NOT EXISTS ozp_plan TEXT;
