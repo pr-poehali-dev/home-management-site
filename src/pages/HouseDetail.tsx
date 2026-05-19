@@ -649,7 +649,7 @@ const HouseDetail = () => {
                   </Card>
                 </div>
 
-                <div className={`grid gap-6 pt-6 border-t ${(id === 'spb-konstantinova-1k1str1' || id === 'spb-petrovskiy-5str1' || id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7') ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+                <div className={`grid gap-6 pt-6 border-t ${(id === 'spb-konstantinova-1k1str1' || id === 'spb-petrovskiy-5str1' || id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7' || id === 'spb-krasnoselskoe-6') ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
                   <Card className="bg-secondary/5">
                     <CardContent className="p-6">
                       <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -706,7 +706,7 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  {(id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7') && (
+                  {(id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7' || id === 'spb-krasnoselskoe-6') && (
                     <Card className="bg-secondary/5">
                       <CardContent className="p-6">
                         <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -727,11 +727,38 @@ const HouseDetail = () => {
                                 Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
                               </a>
                             ))}
+                            {id === 'spb-krasnoselskoe-6' && (
+                              <button
+                                onClick={handleOzpPlanDelete}
+                                className="flex items-center gap-1 text-xs text-destructive hover:underline mt-2"
+                              >
+                                <Icon name="Trash2" size={13} />
+                                Удалить
+                              </button>
+                            )}
                           </>
                         ) : (
-                          <p className="text-sm text-muted-foreground">
-                            План подготовки к ОЗП не загружен
-                          </p>
+                          <>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              План подготовки к ОЗП не загружен
+                            </p>
+                            {id === 'spb-krasnoselskoe-6' && (
+                              <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
+                                <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
+                                {uploadingOzpPlan ? 'Загрузка...' : 'Загрузить PDF'}
+                                <input
+                                  type="file"
+                                  accept=".pdf,application/pdf"
+                                  className="hidden"
+                                  disabled={uploadingOzpPlan}
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) handleOzpPlanUpload(file);
+                                  }}
+                                />
+                              </label>
+                            )}
+                          </>
                         )}
                       </CardContent>
                     </Card>
