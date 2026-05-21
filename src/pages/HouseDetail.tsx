@@ -1289,7 +1289,7 @@ const HouseDetail = () => {
           open={protocolOpen}
           onOpenChange={setProtocolOpen}
           images={Array.isArray(currentProtocolOss || house.protocolOss) ? (currentProtocolOss || house.protocolOss) as string[] : [currentProtocolOss || house.protocolOss] as string[]}
-          title="Протокол ОСС от 07.01.2014"
+          title="Протокол ОСС"
         />
       )}
 
