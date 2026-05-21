@@ -671,9 +671,26 @@ const HouseDetail = () => {
                           </p>
                         </>
                       ) : (
-                        <p className="text-sm text-muted-foreground">
-                          Протокол ОСС не загружен
-                        </p>
+                        <>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            Протокол ОСС не загружен
+                          </p>
+                          {id === 'spb-remeslennaya-21str1' && (
+                            <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
+                              <Icon name={uploadingDocument ? 'Loader2' : 'Upload'} size={16} className={uploadingDocument ? 'animate-spin' : ''} />
+                              {uploadingDocument ? 'Загрузка...' : 'Загрузить PDF'}
+                              <input
+                                type="file"
+                                accept=".pdf,application/pdf"
+                                className="hidden"
+                                disabled={uploadingDocument}
+                                onChange={(e) => {
+                                  if (e.target.files?.length) handleDocumentUpload(e.target.files, 'protocol');
+                                }}
+                              />
+                            </label>
+                          )}
+                        </>
                       )}
                     </CardContent>
                   </Card>
