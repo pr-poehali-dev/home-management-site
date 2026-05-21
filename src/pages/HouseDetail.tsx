@@ -669,21 +669,7 @@ const HouseDetail = () => {
                           <p className="text-xs text-muted-foreground">
                             Протокол общего собрания собственников
                           </p>
-                          {id === 'spb-odoevskogo-21k1str1' && (
-                            <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium mt-2">
-                              <Icon name={uploadingDocument ? 'Loader2' : 'Upload'} size={16} className={uploadingDocument ? 'animate-spin' : ''} />
-                              {uploadingDocument ? 'Загрузка...' : 'Заменить PDF'}
-                              <input
-                                type="file"
-                                accept=".pdf,application/pdf"
-                                className="hidden"
-                                disabled={uploadingDocument}
-                                onChange={(e) => {
-                                  if (e.target.files?.length) handleDocumentUpload(e.target.files, 'protocol');
-                                }}
-                              />
-                            </label>
-                          )}
+
                         </>
                       ) : (
                         <>
