@@ -724,7 +724,7 @@ const HouseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  {(id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7' || id === 'spb-krasnoselskoe-6' || id === 'spb-krasnoselskoe-16' || id === 'spb-belyhNochey-3') && (
+                  {(id === 'spb-piterskiy-1' || id === 'spb-piterskiy-5' || id === 'spb-piterskiy-7' || id === 'spb-krasnoselskoe-6' || id === 'spb-krasnoselskoe-16' || id === 'spb-belyhNochey-3' || id === 'spb-odoevskogo-21k1str1') && (
                     <Card className="bg-secondary/5">
                       <CardContent className="p-6">
                         <h3 className="font-semibold mb-4 flex items-center gap-2">
@@ -745,11 +745,39 @@ const HouseDetail = () => {
                                 Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
                               </a>
                             ))}
+                            {id === 'spb-odoevskogo-21k1str1' && (
+                              <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium mt-2">
+                                <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
+                                {uploadingOzpPlan ? 'Загрузка...' : 'Заменить PDF'}
+                                <input
+                                  type="file"
+                                  accept=".pdf,application/pdf"
+                                  className="hidden"
+                                  disabled={uploadingOzpPlan}
+                                  onChange={(e) => { if (e.target.files?.[0]) handleOzpPlanUpload(e.target.files[0]); }}
+                                />
+                              </label>
+                            )}
                           </>
                         ) : (
-                          <p className="text-sm text-muted-foreground">
-                            План подготовки к ОЗП не загружен
-                          </p>
+                          <>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              План подготовки к ОЗП не загружен
+                            </p>
+                            {id === 'spb-odoevskogo-21k1str1' && (
+                              <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium">
+                                <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
+                                {uploadingOzpPlan ? 'Загрузка...' : 'Загрузить PDF'}
+                                <input
+                                  type="file"
+                                  accept=".pdf,application/pdf"
+                                  className="hidden"
+                                  disabled={uploadingOzpPlan}
+                                  onChange={(e) => { if (e.target.files?.[0]) handleOzpPlanUpload(e.target.files[0]); }}
+                                />
+                              </label>
+                            )}
+                          </>
                         )}
                       </CardContent>
                     </Card>
