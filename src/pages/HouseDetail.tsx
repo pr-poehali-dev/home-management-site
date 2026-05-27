@@ -745,19 +745,7 @@ const HouseDetail = () => {
                                 Просмотреть план{Array.isArray(currentOzpPlan) && currentOzpPlan.length > 1 ? ` (${i + 1})` : ''}
                               </a>
                             ))}
-                            {id === 'spb-odoevskogo-21k1str1' && (
-                              <label className="flex items-center gap-2 cursor-pointer text-sm text-primary hover:underline font-medium mt-2">
-                                <Icon name={uploadingOzpPlan ? 'Loader2' : 'Upload'} size={16} className={uploadingOzpPlan ? 'animate-spin' : ''} />
-                                {uploadingOzpPlan ? 'Загрузка...' : 'Заменить PDF'}
-                                <input
-                                  type="file"
-                                  accept=".pdf,application/pdf"
-                                  className="hidden"
-                                  disabled={uploadingOzpPlan}
-                                  onChange={(e) => { if (e.target.files?.[0]) handleOzpPlanUpload(e.target.files[0]); }}
-                                />
-                              </label>
-                            )}
+
                           </>
                         ) : (
                           <>
