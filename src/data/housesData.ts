@@ -405,7 +405,7 @@ export const houses: HouseData[] = [
   },
   {
     id: "bugry-petrovskiy-28",
-    address: "г. Бугры, пр. Петровский, д. 28",
+    address: "г. Бугры, бул. Петровский, д. 28",
     city: "Бугры",
     manager: "Павлюк Александр Васильевич",
     managerPhone: "+7 (921) 364-41-74",
@@ -416,7 +416,7 @@ export const houses: HouseData[] = [
   },
   {
     id: "spb-petrovskiy-5str1",
-    address: "пр. Петровский, д. 5 стр. 1 (+паркинг)",
+    address: "бул. Петровский, д. 5 стр. 1 (+паркинг)",
     city: "Санкт-Петербург",
     manager: "Евдокимов Сергей Борисович",
     managerPhone: "+7 (921) 632-48-39",
