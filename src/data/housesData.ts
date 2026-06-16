@@ -485,6 +485,13 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО УК «СИТИХОУМ»",
     managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
+    images: [
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/90972ab4-66da-4d35-a548-840337671c5e.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/7f34764c-2d7f-4fad-b646-2dc7c532ad0f.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/80877c8a-601f-4c41-ad35-bb4ec9efecb2.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/bfeb399f-a6b8-4d20-b124-b0e93b6ac641.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/9a524154-1155-49fb-8356-79425f251842.png",
+    ],
   },
   {
     id: "kudrovo-stroiteley-2",
