@@ -66,6 +66,57 @@ const ManagerPhotoZoom = ({ src, alt }: { src: string; alt: string }) => {
   );
 };
 
+const HouseImageCarousel = ({ images, singleImage, alt }: { images?: string[]; singleImage?: string; alt: string }) => {
+  const allImages = images && images.length > 0 ? images : (singleImage ? [singleImage] : []);
+  const [idx, setIdx] = useState(0);
+
+  if (allImages.length === 0) {
+    return (
+      <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-muted w-full h-64 flex items-center justify-center">
+        <div className="text-center text-muted-foreground">
+          <Icon name="Image" size={48} className="mx-auto mb-2" />
+          <p className="text-sm">Фото дома не загружено</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white relative">
+      <img
+        src={allImages[idx]}
+        alt={`${alt} — фото ${idx + 1}`}
+        className="w-full h-auto object-cover mix-blend-darken"
+      />
+      {allImages.length > 1 && (
+        <>
+          <button
+            onClick={() => setIdx((prev) => (prev - 1 + allImages.length) % allImages.length)}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+          >
+            <Icon name="ChevronLeft" size={20} />
+          </button>
+          <button
+            onClick={() => setIdx((prev) => (prev + 1) % allImages.length)}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+          >
+            <Icon name="ChevronRight" size={20} />
+          </button>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+            {allImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIdx(i)}
+                className={`w-2 h-2 rounded-full transition-colors ${i === idx ? "bg-white" : "bg-white/50"}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 const HouseDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -532,22 +583,11 @@ const HouseDetail = () => {
             Назад к списку домов
           </Button>
 
-          <div className="mb-8 max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-gray-50 to-white relative">
-            {(currentHouseImage || house.image) ? (
-              <img 
-                src={currentHouseImage || house.image} 
-                alt={house.address}
-                className="w-full h-auto mix-blend-darken"
-              />
-            ) : (
-              <div className="w-full h-64 flex items-center justify-center bg-muted">
-                <div className="text-center text-muted-foreground">
-                  <Icon name="Image" size={48} className="mx-auto mb-2" />
-                  <p className="text-sm">Фото дома не загружено</p>
-                </div>
-              </div>
-            )}
-          </div>
+          <HouseImageCarousel
+            images={house.images}
+            singleImage={currentHouseImage || house.image}
+            alt={house.address}
+          />
 
           <div className="max-w-5xl mx-auto">
             <Card className="mb-8">

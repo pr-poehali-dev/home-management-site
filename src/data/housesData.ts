@@ -9,6 +9,7 @@ export interface HouseData {
   type: string;
   company: string;
   image?: string;
+  images?: string[];
   managerPhoto?: string;
   protocolOss?: string | string[];
   managementAgreement?: string | string[];
@@ -919,5 +920,9 @@ export const houses: HouseData[] = [
     type: "Жилой дом",
     company: "ООО «УК «Остров-град»",
     managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
+    images: [
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/5ee0351a-0418-436c-908c-7899cd1c5b1a.JPG",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/5ba96e03-274a-4af6-b52d-a6bfc1743e3d.JPG",
+    ],
   },
 ];
