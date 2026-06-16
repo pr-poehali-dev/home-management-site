@@ -417,7 +417,7 @@ export const houses: HouseData[] = [
   },
   {
     id: "spb-petrovskiy-5str1",
-    address: "бул. Петровский, д. 5 стр. 1 (+паркинг)",
+    address: "пр. Петровский, д. 5 стр. 1 (+паркинг)",
     city: "Санкт-Петербург",
     manager: "Евдокимов Сергей Борисович",
     managerPhone: "+7 (921) 632-48-39",
