@@ -427,8 +427,8 @@ export const houses: HouseData[] = [
     company: "ООО «УК «Остров-град»",
     managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/d60249c0-1729-4544-b851-232dcf06ce3c.JPG",
     images: [
-      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/73fec989-3d95-4da3-973f-15f275087a6e.png",
       "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/8a1b6209-afb5-4a19-a533-7e0085d84df5.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/73fec989-3d95-4da3-973f-15f275087a6e.png",
       "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/1e52eea9-bb87-4079-a617-8e2725eded1d.png",
       "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/6004e66d-c9f3-4390-a70f-6ed11564e56d.png",
     ],
