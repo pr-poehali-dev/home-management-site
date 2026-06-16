@@ -466,6 +466,12 @@ export const houses: HouseData[] = [
     type: "БЦ",
     company: "ООО «УК «Остров-град»",
     managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
+    images: [
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/aee3b985-dccb-434c-96e0-9357e22bf734.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/2962778a-7fa8-441e-bdfc-abc2cee20941.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/cdb480b6-e5e4-4cbe-9b41-26df6cbadbb6.png",
+      "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/39305107-caaa-4c58-a60a-63d47a32108b.png",
+    ],
   },
   {
     id: "spb-odoevskogo-21k1str1",
