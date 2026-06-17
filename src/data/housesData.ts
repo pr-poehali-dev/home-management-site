@@ -414,6 +414,7 @@ export const houses: HouseData[] = [
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
     type: "Жилой дом",
     company: "ООО «УК «Наш дом – Регион»",
+    managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/84e32618-1543-416c-8a70-99fd68bfc97d.JPG",
   },
   {
     id: "spb-petrovskiy-5str1",
