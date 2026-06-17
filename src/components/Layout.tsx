@@ -311,7 +311,7 @@ const Layout = ({ children }: LayoutProps) => {
           }
           .marquee-text {
             display: inline-block;
-            animation: marquee 98s linear infinite;
+            animation: marquee 83s linear infinite;
           }
         `}</style>
         <div className="flex items-center h-full">
