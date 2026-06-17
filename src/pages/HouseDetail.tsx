@@ -1120,7 +1120,7 @@ const HouseDetail = () => {
                   </div>
                 ) : (
                   house.address.includes("б-р Воронцовский, д. 23/11") || 
-                  (house.address.includes("пр. Петровский, д. 28") && house.city === "Бугры") ||
+                  (house.address.includes("Петровский, д. 28") && house.city === "Бугры") ||
                   house.address.includes("пр. Ручьевский, д. 13") ||
                   house.address.includes("пр. Ручьевский, д. 15") ||
                   house.address.includes("пр. Ручьевский, д. 17 корп. 1") ||
