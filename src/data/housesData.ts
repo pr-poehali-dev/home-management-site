@@ -937,7 +937,7 @@ export const houses: HouseData[] = [
     managerPhone: "+7 (993) 641-35-95",
     managerEmail: "rgalina3595@mail.ru",
     receptionSchedule: "вт. 17:00-19:00, чт. 10:00-12:00",
-    type: "Жилой дом",
+    type: "БЦ",
     company: "ООО «УК «Остров-град»",
     managerPhoto: "https://cdn.poehali.dev/projects/fe9589b6-f411-4b39-b21e-3be97169a177/bucket/45c0d7b5-2625-467a-a730-43b756d7dc3b.JPG",
     images: [
